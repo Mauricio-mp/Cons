@@ -1,0 +1,131 @@
+.logo{
+  width:50%;
+    height:50%;
+}
+.centrar{
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 100%;
+  border: 3px solid #FFAA7FFF;
+  padding: 10px;
+  margin-top: 10%;
+  background-color: #FFFFFFFF;
+
+}
+hr {
+  height: 1px;
+  background-color: black;
+    margin-left: 8em;
+  margin-right: 8em;
+}
+.footer{
+  text-align: center;
+  font-size: 10px;
+  font-family: Arial;
+  font-weight: bold;
+}
+.alinearCombobox{
+  margin-left: 6em;
+  margin-right: 6em;
+}
+.parrafo{
+  text-align: justify;
+  font-size: 17px;
+  font-family: Arial;
+  margin-left: 5em;
+  margin-right: 5em;
+  text-transform: uppercase;
+}
+.centrartitulo{
+  text-align: center;
+  font-weight: bold;
+}
+
+.contorno {
+  margin-top:10%;
+  overflow: hidden;
+  position: relative;
+
+ text-align: center;
+}
+.contorno::before, .contorno::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  border: 2px solid transparent;
+  width: 0;
+  height: 0;
+}
+.contorno::before {
+  top: 0;
+  left: 0;
+  border-top-color: #60daaa;
+  border-right-color: #60daaa;
+  animation: border 2s infinite;
+}
+.contorno::after {
+  bottom: 0;
+  right: 0;
+  animation: border 2s 1s infinite, borderColor 2s 1s infinite;
+}
+.letra{
+  color: #FFF3FEFF;
+  font-size: medium;
+
+  
+}
+
+.negrita{
+  font-weight: bold;
+}
+.center{
+  margin: auto;
+  width: 60%;
+  border: 3px solid #FFAA7FFF;
+  padding: 10px;
+  margin-top: 10%;
+  background-color: #FFFFFFFF;
+  
+
+}
+.Fondo{
+  background-color: #FFFFFF;
+}
+.full-screen{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  overflow: auto;
+  background: 10;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+input:invalid + span {
+  position: relative;
+}
+
+input:invalid + span:after {
+  content: '✖';
+  position: absolute;
+  right: -18px;
+}
+
+input:valid + span {
+  position: relative;
+}
+
+input:valid + span:after {
+  content: '✓';
+  position: absolute;
+  right: -18px;
+}
+
+
+
