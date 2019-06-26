@@ -1,0 +1,5 @@
+[2019-06-25 14:34:44.462] [renderer1] [error] Error: Error: ENOENT: no such file or directory, stat '/var/www/html/ConstanciaMP/.vscode'
+[2019-06-25 14:36:18.218] [renderer1] [warning] UNRESPONSIVE extension host, 'vscode.git' took 89% of 80848.882ms, saved PROFILE here: '/tmp/exthost-c55295.cpuprofile' [{"id":"bmewburn.vscode-intelephense-client","total":9045,"percentage":0},{"id":"gc","total":208337,"percentage":0},{"id":"program","total":8489331,"percentage":11},{"id":"self","total":45593,"percentage":0},{"id":"vscode.git","total":72019591,"percentage":89}]
+[2019-06-25 15:25:25.699] [renderer1] [warning] Aborted onWillSaveTextDocument-event after 1750ms
+[2019-06-25 16:16:35.987] [renderer1] [warning] Aborted onWillSaveTextDocument-event after 1750ms
+[2019-06-26 07:04:26.212] [renderer1] [warning] UNRESPONSIVE extension host, 'vscode.php-language-features' took 100% of 38928.572ms, saved PROFILE here: '/tmp/exthost-b8196a.cpuprofile' [{"id":"vscode.php-language-features","total":38882058,"percentage":100}]

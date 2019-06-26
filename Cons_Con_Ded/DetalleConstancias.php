@@ -162,7 +162,9 @@ include('ConversionFecha.php');
 </section>
 
 <?php $numero=$_GET['x'];
-//echo $numero;
+
+$nn=$_GET['opcion'];
+echo $nn;
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");

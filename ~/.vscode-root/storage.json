@@ -2,6 +2,7 @@
     "telemetry.machineId": "de852a22cf725472cfb767cf63db92f3d45ad3ff4e2a82979e8c7cd08d220a20",
     "openedPathsList": {
         "workspaces3": [
+            "file:///var/www/html/ConstanciaMP",
             "file:///var/www/html/constancias/constancias"
         ],
         "files2": []
@@ -49,7 +50,18 @@
                                     "id": "openRecentFolder",
                                     "uri": {
                                         "$mid": 1,
-                                        "fsPath": "/var/www/html/constancias/constancias",
+                                        "fsPath": "/var/www/html/ConstanciaMP",
+                                        "external": "file:///var/www/html/ConstanciaMP",
+                                        "path": "/var/www/html/ConstanciaMP",
+                                        "scheme": "file"
+                                    },
+                                    "enabled": true,
+                                    "label": "/var/www/html/ConstanciaMP"
+                                },
+                                {
+                                    "id": "openRecentFolder",
+                                    "uri": {
+                                        "$mid": 1,
                                         "external": "file:///var/www/html/constancias/constancias",
                                         "path": "/var/www/html/constancias/constancias",
                                         "scheme": "file"
@@ -105,7 +117,8 @@
                     },
                     {
                         "id": "workbench.action.toggleAutoSave",
-                        "label": "A&&uto Save"
+                        "label": "A&&uto Save",
+                        "checked": true
                     },
                     {
                         "id": "",
@@ -532,8 +545,7 @@
                 "items": [
                     {
                         "id": "workbench.action.navigateBack",
-                        "label": "&&Back",
-                        "enabled": false
+                        "label": "&&Back"
                     },
                     {
                         "id": "workbench.action.navigateForward",
@@ -542,8 +554,7 @@
                     },
                     {
                         "id": "workbench.action.navigateToLastEditLocation",
-                        "label": "&&Last Edit Location",
-                        "enabled": false
+                        "label": "&&Last Edit Location"
                     },
                     {
                         "id": "vscode.menubar.separator"
@@ -1367,16 +1378,17 @@
     },
     "theme": "vs-dark",
     "themeBackground": "#1e1e1e",
-    "pickerWorkingDir": "/var/www/html/constancias",
+    "pickerWorkingDir": "/var/www/html",
     "windowsState": {
         "lastActiveWindow": {
-            "backupPath": "/var/www/html/constancias/constancias/~/.vscode-root/Backups/1560785018057",
+            "folder": "file:///var/www/html/ConstanciaMP",
+            "backupPath": "/var/www/html/ConstanciaMP/~/.vscode-root/Backups/2363f3df3598c8083ad228f449a8b9b5",
             "uiState": {
-                "mode": 1,
-                "x": 305,
-                "y": 167,
-                "width": 1024,
-                "height": 768
+                "mode": 0,
+                "x": 49,
+                "y": 18,
+                "width": 1551,
+                "height": 882
             }
         },
         "openedWindows": []

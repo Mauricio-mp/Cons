@@ -1,0 +1,103 @@
+[Info  - 2:34:35 PM] Initialising intelephense 1.0.14
+[Info  - 2:34:35 PM] Initialised in 47 ms
+[Info  - 2:34:44 PM] Indexing started.
+[Info  - 2:37:21 PM] Indexing ended. 1143 files indexed in 158s.
+[Info  - 2:37:21 PM] Writing state to /var/www/html/ConstanciaMP/~/.vscode-root/User/workspaceStorage/ff527e6a1a779681aa8da1ab267dba30/bmewburn.vscode-intelephense-client/fc16410.
+[Info  - 2:37:23 PM] Wrote state in 2.2s.
+[Error - 4:22:02 PM] TypeError: Cannot read property 'type' of undefined
+    at m.checkFunctionCall (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:471033)
+    at m.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:469628)
+    at t.MasterDiagnosticsVisitor.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:456389)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10377)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.traverse (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:8413)
+    at diagnosticsTransform.e (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:371449)
+[Error - 7:41:07 AM] TypeError: Cannot read property 'type' of undefined
+    at m.checkFunctionCall (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:471033)
+    at m.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:469628)
+    at t.MasterDiagnosticsVisitor.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:456389)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10377)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.traverse (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:8413)
+    at diagnosticsTransform.e (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:371449)
+[Error - 8:05:53 AM] TypeError: Cannot read property 'type' of undefined
+    at m.checkFunctionCall (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:471033)
+    at m.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:469628)
+    at t.MasterDiagnosticsVisitor.preorder (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:456389)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10377)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.visitNode (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:10462)
+    at f.traverse (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:40:8413)
+    at diagnosticsTransform.e (/root/.vscode/extensions/bmewburn.vscode-intelephense-client-1.0.14/node_modules/intelephense/lib/intelephense.js:175:371449)
+[Info  - 10:36:33 AM] Indexing started.
+[Info  - 10:36:34 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:37:22 AM] Indexing started.
+[Info  - 10:37:22 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:39:34 AM] Indexing started.
+[Info  - 10:39:34 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:40:40 AM] Indexing started.
+[Info  - 10:40:40 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:41:08 AM] Indexing started.
+[Info  - 10:41:08 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:42:13 AM] Indexing started.
+[Info  - 10:42:14 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:43:23 AM] Indexing started.
+[Info  - 10:43:23 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:43:55 AM] Indexing started.
+[Info  - 10:43:56 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:44:17 AM] Indexing started.
+[Info  - 10:44:17 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:45:05 AM] Indexing started.
+[Info  - 10:45:05 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:46:22 AM] Indexing started.
+[Info  - 10:46:22 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:46:26 AM] Indexing started.
+[Info  - 10:46:26 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:46:47 AM] Indexing started.
+[Info  - 10:46:47 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:46:50 AM] Indexing started.
+[Info  - 10:46:50 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:46:58 AM] Indexing started.
+[Info  - 10:46:58 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:47:02 AM] Indexing started.
+[Info  - 10:47:02 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:47:24 AM] Indexing started.
+[Info  - 10:47:25 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:47:30 AM] Indexing started.
+[Info  - 10:47:30 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:47:44 AM] Indexing started.
+[Info  - 10:47:44 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:48:14 AM] Indexing started.
+[Info  - 10:48:15 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:48:48 AM] Indexing started.
+[Info  - 10:48:49 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:51:09 AM] Indexing started.
+[Info  - 10:51:09 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:51:16 AM] Indexing started.
+[Info  - 10:51:17 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:51:25 AM] Indexing started.
+[Info  - 10:51:25 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:51:28 AM] Indexing started.
+[Info  - 10:51:29 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:52:04 AM] Indexing started.
+[Info  - 10:52:04 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:52:29 AM] Indexing started.
+[Info  - 10:52:29 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:52:32 AM] Indexing started.
+[Info  - 10:52:32 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:52:53 AM] Indexing started.
+[Info  - 10:52:53 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 10:53:14 AM] Indexing started.
+[Info  - 10:53:14 AM] Indexing ended. 1 files indexed in 0s.
+[Info  - 12:41:03 PM] Indexing started.
+[Info  - 12:41:03 PM] Indexing ended. 1 files indexed in 0s.
+[Info  - 1:49:34 PM] Indexing started.
+[Info  - 1:49:34 PM] Indexing ended. 1 files indexed in 0s.
