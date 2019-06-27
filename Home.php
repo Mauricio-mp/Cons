@@ -1,6 +1,8 @@
 <?php 
 session_start();
 ob_start();
+
+//include('crearConexionGECOMP.php');
  ?>
 <!DOCTYPE html>
 <html lang="es">

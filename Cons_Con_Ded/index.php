@@ -186,25 +186,11 @@ $(document).ready(function(){
 
 
 </section>
+        
+
+
 <body style="background-color:#00FFFFFF">
 <div class="" style="margin-left:40em; margin-right:40em">
-
-<script type="text/javascript">
-  
-    var valor = document.getElementById('opcionMes').value
-
-
-</script>
-
-<?php 
-
-   $valor = "<script> document.writeln(valor); </script>"; // igualar el valor de la variable JavaScript a PHP 
-
-    echo $valor;  // muestra el resultado 
-
-
-
-?>
 
 </div>
 <section style="background-color: #F9FAFA;">
@@ -222,7 +208,7 @@ $(document).ready(function(){
                           </thead>  
                          <?php
          $consultar=mssql_query("SELECT * FROM prempy ");
-		while($mostrar=mssql_fetch_array($consultar)){
+		if($mostrar=mssql_fetch_array($consultar)){
 			echo "
                   <tr>
                     <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
@@ -233,7 +219,7 @@ $(document).ready(function(){
                   </tr>";
                    ?>
 
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -243,43 +229,16 @@ $(document).ready(function(){
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST">
-          <div class="constainer">
-            <?php 
+          <div >
+              <form>
+                <select class="form-control">
+                  <option  disabled selected>Seleccionar Opcion</option>
+                  <option>eretre</option>
+                  <option>tretretert</option>
+                </select>
+              </form>
 
-
-$formato=date('Y-m');
-$nuevafecha = strtotime ( '-1 month' , strtotime ( $formato ) ) ;
-$nuevafecha = date ( 'Y-m' , $nuevafecha );
-// echo $nuevafecha;
-
-
-
-
-
-?>
-
-            <form >
-<label>Seleccione mes a Generar</label>
-<select class="form-control" name="opcionMes" id="opcionMes"><option  disabled selected>Seleccionar Opcion</option>
-  <?php
-$optenerFechas1=mssql_query("SELECT DISTINCT cpayno  FROM prmisd  WHERE CONVERT(VARCHAR(25), tmodrec, 126) LIKE '$formato%' ORDER BY cpayno");
-while($Fechas4=mssql_fetch_array($optenerFechas1)){
-  echo "<option>".$Fechas4['cpayno']."</option>";
-}
-  ?>
-  <?php
-$optenerFechas=mssql_query("SELECT DISTINCT cpayno  FROM prmisd  WHERE CONVERT(VARCHAR(25), tmodrec, 126) LIKE '$nuevafecha%' ORDER BY cpayno");
-while($Fechas=mssql_fetch_array($optenerFechas)){
-  echo "<option>".$Fechas['cpayno']."</option>";
-}
-  ?>
-  
-</select>
-
-</form>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
