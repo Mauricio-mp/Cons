@@ -186,18 +186,8 @@ $(document).ready(function(){
 
 
 </section>
-<<<<<<< HEAD:Cons_Emb/index.php
 <body style="background-color:#00FFFFFF">
 
-=======
-        
-
-
-<body style="background-color:#00FFFFFF">
-<div class="" style="margin-left:40em; margin-right:40em">
-
-</div>
->>>>>>> 2aa01cc83afafe3a02f65d3e026ac182edaa3f1f:Cons_Con_Ded/index.php
 <section style="background-color: #F9FAFA;">
 	 <div class="table-responsive">  
                          <table id="employee_data" class="table table-striped table-bordered">  
@@ -213,7 +203,7 @@ $(document).ready(function(){
                           </thead>  
                          <?php
          $consultar=mssql_query("SELECT * FROM prempy ");
-		if($mostrar=mssql_fetch_array($consultar)){
+		while($mostrar=mssql_fetch_array($consultar)){
 			echo "
                   <tr>
                     <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
@@ -222,48 +212,9 @@ $(document).ready(function(){
                     <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
                     <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}'>Ver</a></td>
                   </tr>";
-<<<<<<< HEAD:Cons_Emb/index.php
                    
                 }              
                            ?>
-=======
-                   ?>
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SICORE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div >
-              <form>
-                <select class="form-control">
-                  <option  disabled selected>Seleccionar Opcion</option>
-                  <option>eretre</option>
-                  <option>tretretert</option>
-                </select>
-              </form>
-
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="location.href='DetalleConstancias.php?x=<?php echo $mostrar[0]; ?>'" type="button" class="btn btn-primary">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-                   <?php
-
-                }      
-                ?>        
-                           
->>>>>>> 2aa01cc83afafe3a02f65d3e026ac182edaa3f1f:Cons_Con_Ded/index.php
                        
                             </table>  
                 </div>  
