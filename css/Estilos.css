@@ -6,11 +6,15 @@
   margin-left: 10%;
   margin-right: 10%;
   width: 100%;
-  border: 3px solid #FFAA7FFF;
+  border: 0px solid #FFAA7FFF;
   padding: 10px;
   margin-top: 10%;
   background-color: #FFFFFFFF;
 
+}
+.centrarTexto{
+  text-align: center;
+  font-family: Times;
 }
 hr {
   height: 1px;
@@ -21,7 +25,7 @@ hr {
 .footer{
   text-align: center;
   font-size: 10px;
-  font-family: Arial;
+  font-family: Times;
   font-weight: bold;
 }
 .alinearCombobox{
@@ -29,12 +33,10 @@ hr {
   margin-right: 6em;
 }
 .parrafo{
-  text-align: justify;
   font-size: 17px;
-  font-family: Arial;
-  margin-left: 5em;
-  margin-right: 5em;
-  text-transform: uppercase;
+  font-family: Times;
+  margin-left: 3em;
+  margin-right: 3em;
 }
 .centrartitulo{
   text-align: center;
@@ -80,8 +82,8 @@ hr {
 }
 .center{
   margin: auto;
-  width: 60%;
-  border: 3px solid #FFAA7FFF;
+  width: 90%;
+  border: 0px solid #5DADE2;
   padding: 10px;
   margin-top: 10%;
   background-color: #FFFFFFFF;
@@ -89,7 +91,16 @@ hr {
 
 }
 .Fondo{
-  background-color: #FFFFFF;
+  background: url(../img/birds.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%;
+     height: 100%;
 }
 .full-screen{
   position: fixed;

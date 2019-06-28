@@ -280,7 +280,19 @@ $(document).ready(function(){
 </section>
 <section>
 	
-<h1 class="titulos">Inicio</h1>
+<div class="container">
+  <div class="center">
+    <h1 class="centrarTexto">Sistema de Generecion de constancias del Ministerio Publico (GECOMP)</h1>
+    <img src="img/9.png" style=" width:100%;">
+
+    
+
+    <p style="font-size: 20px; text-align: center;font-weight: bold; margin-top: 3em;">Mision</p>
+ <p class="parrafo">hdasd dsadasd asdasd dsadsa dsadasdasd asdas dasd sadas dasdas das asdsada dasdsad sadasd sad asdas das d asda Vfsfsdf sdfsdf sdfsdfsdf sdf sdfsdfsdf dsfsd f dsf sdf sdf  sdf s</p>
+     </div>
+
+
+</div>
 </section>
 	<!-- Content page-->
 
