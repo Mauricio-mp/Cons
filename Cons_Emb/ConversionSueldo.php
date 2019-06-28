@@ -289,7 +289,7 @@ function decmillon($numerodm){
 if ($numerodm == 10000000) 
 $num_letradmm = "DIEZ MILLONES"; 
 if ($numerodm > 10000000 && $numerodm <20000000){ 
-$num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(cienmiles($numerodm%1000000));	
+$num_letradmm = decena(Floor($numerodm/1000000))."MILLONES ".(cienmiles($numerodm%1000000));	
 } 
 if ($numerodm >= 20000000 && $numerodm <100000000){ 
 $num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(millon($numerodm%1000000));	
@@ -337,7 +337,7 @@ $cen=milmillon($cents);
 if ($cen=='') {
 	return $numf;
 }else{
-	return $numf." CON ".$cen." CENTAVOS";
+	return $numf."\tCON\t".$cen."\tCENTAVOS";
 }
 
 } 

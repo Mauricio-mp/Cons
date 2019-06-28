@@ -1,7 +1,7 @@
 <?php 
  session_start();
 ob_start();
-include('crearConexion.php');
+include('crearConexionGECOMP.php');
  //$varsession= $_SESSION['username'];
  //if($varsession== null || $varsession= ''){
  // header("location:prueba.php");

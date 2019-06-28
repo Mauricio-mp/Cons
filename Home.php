@@ -78,8 +78,8 @@ $(document).ready(function(){
            <li><a tabindex="-1" href="Porcentaje.php">Vacaciones</a></li>
         </ul>
       </li>
-        <li><a tabindex="-1" href="Porcentaje.php">Universidades</a></li>
-          <li><a tabindex="-1" href="Porcentaje.php">Embajadas y Consulados</a></li>
+        <li><a tabindex="-1" href="./Cons_Uni">Universidades</a></li>
+          <li><a tabindex="-1" href="./Cons_Emb">Embajadas y Consulados</a></li>
             <li><a tabindex="-1" href="Porcentaje.php">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
                   </ul>
                  </li>
                 <li><a tabindex="-1" href="Nuevorol.php">Crear Roll</a></li>
-                 <li><a tabindex="-1" href="Porcentaje.php">Cambiar Clave</a></li>
+                  <li><a data-toggle="modal" data-target="#CambiarContra">Cambiar Contraseña</a></li>
           </ul>
         </li>
 
@@ -172,7 +172,103 @@ $(document).ready(function(){
   </div>
 </div> 
 
+       
+  <!-- Modal -->
+<div class="modal fade" id="CambiarContra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">GECOMP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+      <div class="modal-body">
+       <div class="form-group label-floating">
+        <label class="control-label"> Ingrese Contraseña Anterior</label>
+         <input class="form-control" id="psw1" type="password" required/>
+             <div id="result"></div>
+      </div>
+     
 
+       
+       <div class="form-group label-floating">
+        <label class="control-label"> Nueva contraseña</label>
+            <input class="form-control" id="psw2" type="password" required/>
+      </div>
+      
+
+       
+       <div class="form-group label-floating">
+       <label class="control-label">Verificar Nueva contraseña</label>
+            <input class="form-control" id="psw3" type="password" required/>
+      </div>
+      <div id="valid"></div>
+                <div id="insert"></div>
+      </div>
+         <script>
+                $(document).ready(function(){
+                  $('#psw1').on('keyup', function(){
+
+                    var psw1=document.getElementById('psw1').value
+
+                      $.ajax({method:'POST', data:{psw1:psw1},url:'validarContra.php',success:function(data)
+                    {
+                      //$('#insert').html(data);
+                      $('#result').html(data);
+                      
+                    }
+                      
+                   
+                
+                   });   
+  
+                });
+
+                  $('#psw3').on('keyup', function(){
+
+                    var psw2=document.getElementById('psw2').value
+                    var psw3=document.getElementById('psw3').value
+
+                      $.ajax({method:'POST', data:{psw2:psw2,psw3:psw3},url:'validarContra1.php',success:function(data)
+                    {
+                      //$('#op').html(data);
+                      $('#valid').html(data);
+                      
+                    }
+                      
+                   
+                
+                   });   
+  
+                });
+
+                    $('#guardar').click(function(){
+                    var psw1=document.getElementById('psw1').value
+          var psw2=document.getElementById('psw2').value
+                    var psw3=document.getElementById('psw3').value
+
+
+                    $.ajax({method:'POST', data:{psw1:psw1,psw2:psw2,psw3:psw3},url:'insertarContra.php',success:function(data)
+                    {
+                       $('#insert').html(data);
+                    }
+                });
+
+                 }); 
+
+                  });
+                      
+                     </script>
+      </form>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-close"></i> Cerrar</button>
+              <button type="button"  name="guardar"  id="guardar" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>       
 
 
 

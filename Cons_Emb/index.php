@@ -66,11 +66,11 @@ $(document).ready(function(){
          <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Constancias de Trabajo<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="../Cons_Sin_Ded">Sin Deducciones</a></li>
+          <li><a tabindex="-1" href="#"   data-toggle="modal" data-target="#nuevoPorcentaje">Sin Deducciones</a></li>
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="index.php">Normal</a></li>
+                         <li><a tabindex="-1" href="Porcentaje.php">Normal</a></li>
                            <li><a tabindex="-1" href="Porcentaje.php">Con Plus</a></li>
                               <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
                         </ul>
@@ -187,26 +187,7 @@ $(document).ready(function(){
 
 </section>
 <body style="background-color:#00FFFFFF">
-<div class="" style="margin-left:40em; margin-right:40em">
 
-<script type="text/javascript">
-  
-    var valor = document.getElementById('opcionMes').value
-
-
-</script>
-
-<?php 
-
-   $valor = "<script> document.writeln(valor); </script>"; // igualar el valor de la variable JavaScript a PHP 
-
-    echo $valor;  // muestra el resultado 
-
-
-
-?>
-
-</div>
 <section style="background-color: #F9FAFA;">
 	 <div class="table-responsive">  
                          <table id="employee_data" class="table table-striped table-bordered">  
@@ -229,77 +210,13 @@ $(document).ready(function(){
                     <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
                     <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
                     <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" data-toggle=\"modal\" data-target=\"#myModal\">Ver</a></td>
+                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}'>Ver</a></td>
                   </tr>";
-                   ?>
-
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SICORE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST">
-          <div class="constainer">
-            <?php 
-
-
-$formato=date('Y-m');
-$nuevafecha = strtotime ( '-1 month' , strtotime ( $formato ) ) ;
-$nuevafecha = date ( 'Y-m' , $nuevafecha );
-// echo $nuevafecha;
-
-
-
-
-
-?>
-
-            <form >
-<label>Seleccione mes a Generar</label>
-<select class="form-control" name="opcionMes" id="opcionMes"><option  disabled selected>Seleccionar Opcion</option>
-  <?php
-$optenerFechas1=mssql_query("SELECT DISTINCT cpayno  FROM prmisd  WHERE CONVERT(VARCHAR(25), tmodrec, 126) LIKE '$formato%' ORDER BY cpayno");
-while($Fechas4=mssql_fetch_array($optenerFechas1)){
-  echo "<option>".$Fechas4['cpayno']."</option>";
-}
-  ?>
-  <?php
-$optenerFechas=mssql_query("SELECT DISTINCT cpayno  FROM prmisd  WHERE CONVERT(VARCHAR(25), tmodrec, 126) LIKE '$nuevafecha%' ORDER BY cpayno");
-while($Fechas=mssql_fetch_array($optenerFechas)){
-  echo "<option>".$Fechas['cpayno']."</option>";
-}
-  ?>
-  
-</select>
-
-</form>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="location.href='DetalleConstancias.php?x=<?php echo $mostrar[0]; ?>'" type="button" class="btn btn-primary">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-                   <?php
-
-                }      
-                ?>        
-                           
+                   
+                }              
+                           ?>
                        
                             </table>  
-
-                            
-                              
-                           
                 </div>  
 </section>
 
