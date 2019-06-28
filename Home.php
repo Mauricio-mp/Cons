@@ -97,7 +97,7 @@ $(document).ready(function(){
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="Man_mp.php">1</a></li>
+            <li><a href="footer.php">1</a></li>
             <li><a href="Man_pr.php">2</a></li>
             <li><a href="cai.php">3</a></li>
           </ul>
@@ -293,7 +293,9 @@ $(document).ready(function(){
 
 
 </div>
+
 </section>
+ 
 	<!-- Content page-->
 
 
@@ -314,5 +316,11 @@ $(document).ready(function(){
 	<script>
 		$.material.init();
 	</script>
+  <footer style="background-color:#011D30;padding: 20px;text-align: center">
+    
+    <p style="color: white">Copyright &copy Site Name 2019. Todos los Derechos Reservados.</p>
+  </footer>
+ 
 </body>
+
 </html>
