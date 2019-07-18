@@ -71,7 +71,7 @@ $(document).ready(function(){
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
                          <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
-                           <li><a tabindex="-1" href="Porcentaje.php">Con Plus</a></li>
+                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
                               <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
                         </ul>
                       </li>
@@ -85,8 +85,8 @@ $(document).ready(function(){
            <li><a tabindex="-1" href="Porcentaje.php">Vacaciones</a></li>
         </ul>
       </li>
-        <li><a tabindex="-1" href="Porcentaje.php">Universidades</a></li>
-          <li><a tabindex="-1" href="Porcentaje.php">Embajadas y Consulados</a></li>
+        <li><a tabindex="-1" href="../Cons_Uni">Universidades</a></li>
+          <li><a tabindex="-1" href="../Cons_Emb">Embajadas y Consulados</a></li>
             <li><a tabindex="-1" href="Porcentaje.php">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
@@ -186,7 +186,7 @@ $(document).ready(function(){
 
 
 </section>
-<body style="background-color:#00FFFFFF">
+<body class="Fondo">
 
 <section style="background-color: #F9FAFA;">
 	 <div class="table-responsive">  
@@ -273,5 +273,9 @@ else
 	<script>
 		$.material.init();
 	</script>
+   <footer style="background-color:#011D30;padding: 20px;text-align: center">
+    
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
+  </footer>
 </body>
 </html>

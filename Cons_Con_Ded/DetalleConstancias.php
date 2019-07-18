@@ -10,16 +10,38 @@ include('ConversionFecha.php');
 <head>
   <title>Inicio</title>
 
-   <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
            
             
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="../css/Estilos.css">
 
+<style>
+.dropdown-submenu {
+  position: relative;
+}
 
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+</head>
 </head>
 
   <!-- SideBar -->
@@ -40,12 +62,12 @@ include('ConversionFecha.php');
          <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Constancias de Trabajo<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="index.php"   data-toggle="modal" data-target="#nuevoPorcentaje">Sin Deducciones</a></li>
+          <li><a tabindex="-1" href="../Cons_Sin_Ded" >Sin Deducciones</a></li>
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="./Cons_Con_Ded">Normal</a></li>
-                           <li><a tabindex="-1" href="Porcentaje.php">Con Plus</a></li>
+                         <li><a tabindex="-1" href="index.php">Normal</a></li>
+                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
                               <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
                         </ul>
                       </li>
@@ -220,7 +242,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 include('../cerrarConexionVam.php'); 
 
  ?>
-
+<div class="container">
  <div class="center">
   <?php 
   $suma1=0;
@@ -349,7 +371,7 @@ if (isset($_POST['Imprimir'])) {
 
 
 
-<div class="footer">
+<div style="text-align: center">
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>  
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p> 
@@ -363,7 +385,7 @@ if (isset($_POST['Imprimir'])) {
 </div>
 
 </form>
-
+</div>
 
 
   
@@ -379,5 +401,9 @@ if (isset($_POST['Imprimir'])) {
   <script>
     $.material.init();
   </script>
+  <footer style="background-color:#011D30;padding: 20px;text-align: center">
+    
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
+  </footer>
 </body>
 </html>

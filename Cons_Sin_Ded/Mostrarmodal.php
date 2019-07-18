@@ -215,6 +215,10 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 }
 include('../cerrarConexionVam.php'); 
  ?>
+<div class="container">
+ 
+
+
 
  <div class="center">
 <div class="full-box text-center" style="padding: 30px 10px;">
@@ -265,7 +269,7 @@ if (isset($_POST['Imprimir'])) {
 
 
 
-<div class="footer">
+<div style="text-align: center">
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>	
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p>	
@@ -277,8 +281,11 @@ if (isset($_POST['Imprimir'])) {
     <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary">Imprimir</span> 
 </button>    
 </div>
+</div>
 
 </form>
+</div>
+
 
   
 	
@@ -293,5 +300,9 @@ if (isset($_POST['Imprimir'])) {
 	<script>
 		$.material.init();
 	</script>
+   <footer style="background-color:#011D30;padding: 20px;text-align: center">
+    
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
+  </footer>
 </body>
 </html>

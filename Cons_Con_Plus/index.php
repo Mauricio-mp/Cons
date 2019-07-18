@@ -66,12 +66,12 @@ $(document).ready(function(){
          <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Constancias de Trabajo<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="../Cons_Sin_Ded">Sin Deducciones</a></li>
+          <li><a tabindex="-1" href="index.php">Sin Deducciones</a></li>
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="index.php">Normal</a></li>
-                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
+                         <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
+                           <li><a tabindex="-1" href="Porcentaje.php">Con Plus</a></li>
                               <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
                         </ul>
                       </li>
@@ -186,13 +186,8 @@ $(document).ready(function(){
 
 
 </section>
-        
-
-
 <body class="Fondo">
-<div class="" style="margin-left:40em; margin-right:40em">
 
-</div>
 <section style="background-color: #F9FAFA;">
 	 <div class="table-responsive">  
                          <table id="employee_data" class="table table-striped table-bordered">  
@@ -215,18 +210,13 @@ $(document).ready(function(){
                     <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
                     <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
                     <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal.php?x={$mostrar[0]}'>Ver</a></td>
+                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}'>Ver</a></td>
                   </tr>";
-
-                }      
-                ?>        
-                           
+                   
+                }              
+                           ?>
                        
                             </table>  
-
-                            
-                              
-                           
                 </div>  
 </section>
 

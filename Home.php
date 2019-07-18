@@ -287,8 +287,17 @@ $(document).ready(function(){
 
     
 
-    <p style="font-size: 20px; text-align: center;font-weight: bold; margin-top: 3em;">Mision</p>
- <p class="parrafo">hdasd dsadasd asdasd dsadsa dsadasdasd asdas dasd sadas dasdas das asdsada dasdsad sadasd sad asdas das d asda Vfsfsdf sdfsdf sdfsdfsdf sdf sdfsdfsdf dsfsd f dsf sdf sdf  sdf s</p>
+    <p style="font-size: 20px; text-align: center;font-weight: bold; margin-top: 3em;">Misión</p>
+ <p class="parrafo">Ser un organismo Constitucional independiente, que representa, defiende y protege los intereses generales de la sociedad hondureña, dirigiendo en forma técnico jurídica la investigación de los delitos, ejerciendo la acción penal publica y sus demás funciones, sobre la base de la unidad de actuaciones y la dependencia jerárquica, con profesionalismo, objetividad, legalidad, autonomía funcional y administrativa, con absoluto respeto a la Constitución, convenciones internacionales y las leyes nacionales, fortaleciendo el Estado de Derecho.</p>
+
+    <p style="font-size: 20px; text-align: center;font-weight: bold; margin-top: 3em; ">Visión</p>
+ <p class="parrafo">Ser una Institución Pública consolidada, moderna y tecnificada,
+        de reconocido prestigio, confianza y liderazgo en el ejercicio de
+        la acción penal pública, con credibilidad, transparencia y libre
+        de toda injerencia político-sectaria; logrando de esta manera
+        el cumplimiento de sus fines, con personal altamente formado,
+        comprometido con la Institución y la sociedad, de sólidos valores
+        morales y éticos.</p>
      </div>
 
 
@@ -318,7 +327,7 @@ $(document).ready(function(){
 	</script>
   <footer style="background-color:#011D30;padding: 20px;text-align: center">
     
-    <p style="color: white">Copyright &copy Site Name 2019. Todos los Derechos Reservados.</p>
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
   </footer>
  
 </body>

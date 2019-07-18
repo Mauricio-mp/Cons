@@ -42,7 +42,8 @@ hr {
   margin-right: 6em;
 }
 .parrafo{
-  font-size: 17px;
+  text-align: justify;
+  font-size: 20px;
   font-family: Times;
   margin-left: 3em;
   margin-right: 3em;

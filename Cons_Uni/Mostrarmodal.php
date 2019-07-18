@@ -129,7 +129,7 @@ if (isset($_POST['Imprimir'])) {
 
 
 
-<div class="footer">
+<div>
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>	
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p>	
