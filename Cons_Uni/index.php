@@ -59,7 +59,7 @@ $(document).ready(function(){
  <a class="navbar-brand" href="inicio.php">Usuario</a>
     </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="../Home.php">Inicio</a></li>
+          <li><a href="../Home.php"><?php echo $_SESSION['username']; ?></a></li>
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Constancias <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
