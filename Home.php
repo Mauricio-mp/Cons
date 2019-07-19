@@ -66,7 +66,7 @@ $(document).ready(function(){
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
                          <li><a tabindex="-1" href="./Cons_Con_Ded">Normal</a></li>
-                           <li><a tabindex="-1" href="Porcentaje.php">Con Plus</a></li>
+                           <li><a tabindex="-1" href="Cons_Con_Plus">Con Plus</a></li>
                               <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
                         </ul>
                       </li>

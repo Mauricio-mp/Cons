@@ -52,7 +52,7 @@ $(document).ready(function(){
   </div>
   <div class="collapse navbar-collapse js-navbar-collapse">
     <ul class="nav navbar-nav">
- <a class="navbar-brand" href="inicio.php">Usuario</a>
+ <a class="navbar-brand" href="inicio.php"><?php echo $_SESSION['username']; ?></a>
     </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../Home.php">Inicio</a></li>
@@ -199,6 +199,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   $opnetersueldo=$row['nmonthpay'];
   $nombreEmpleado="<strong>".$row['cfname']."</strong>";
   $apellidoEmpleado="<strong>".$row['clname']."</strong>";
+  $NombreCompleto=$row['cfname'].$row['clname'];
   //echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -234,10 +235,11 @@ include('../crearConexionVam.php');
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
   $ejecutar['cDesc'];
+  $cargo=$ejecutar['cDesc'];
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-  $asignado['cdeptname'];
+  $Asignadoa=$asignado['cdeptname'];
 }
 include('../cerrarConexionVam.php'); 
 
@@ -355,12 +357,24 @@ include('../cerrarConexionGECOMP.php');
  </div>
 <?php 
 if (isset($_POST['Imprimir'])) {
+  $Codigo=$_SESSION['logeo'];
+  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (2,'$NombreCompleto','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo')");
+
   $id=$_POST['id_firma'];
+
+ if ($insertar==true) {
   echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$numero.'"</script>';
-}
+ }else{
+  echo "<script>alert('Error al Guardar Datos')</script>";
+ }
+  
+  
+  
 
 //echo "<script>alert('".$id."');</script>";
 //echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
+}
  ?>
 
 
@@ -378,9 +392,9 @@ if (isset($_POST['Imprimir'])) {
 </div>
  </div>
   <div class="text-center">
-     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' ">Cancelar</span> 
+     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
 </button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary">Imprimir</span> 
+    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary" style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
 </button>    
 </div>
 

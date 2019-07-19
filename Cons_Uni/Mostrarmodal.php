@@ -136,9 +136,9 @@ if (isset($_POST['Imprimir'])) {
 </div>
  </div>
   <div class="text-center">
-     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' ">Cancelar</span> 
+     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
 </button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary">Imprimir</span> 
+    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary"style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
 </button>    
 </div>
 

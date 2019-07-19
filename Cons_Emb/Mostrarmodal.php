@@ -41,6 +41,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $identidad=$row['cfedid'];
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
+    $NombreCompleto=$nombre.$apellido;
 	//echo "<script>alert('".$DESC."');</script>";
 	
 }
@@ -150,9 +151,17 @@ include('../cerrarConexionGECOMP.php');
 
 <?php 
 if (isset($_POST['Imprimir'])) {
-	$id=$_POST['id_firma'];
-	$id1=$_POST['id_'];
-	echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'"</script>';
+  $id=$_POST['id_firma'];
+  $id1=$_POST['id_'];
+ $Codigo=$_SESSION['logeo'];
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (9,'$NombreCompleto','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo')");
+if ($insertar=true) {
+  echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'"</script>';
+}else{
+  echo "<script>alert('ERROR')</script>";
+}
+
+		
 }
 
 //echo "<script>alert('".$id."');</script>";
@@ -174,9 +183,9 @@ if (isset($_POST['Imprimir'])) {
 </div>
  </div>
   <div class="text-center">
-     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' ">Cancelar</span> 
+     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
 </button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary">Imprimir</span> 
+    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary"style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
 </button>    
 </div>
 
