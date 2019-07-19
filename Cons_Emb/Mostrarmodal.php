@@ -10,9 +10,11 @@ include('ConversionFecha.php');
 <head>
 	<title>Inicio</title>
 
-   <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
            
             
 	<meta charset="UTF-8">
@@ -150,6 +152,7 @@ include('../cerrarConexionGECOMP.php');
 
 
 <?php 
+/*
 if (isset($_POST['Imprimir'])) {
   $id=$_POST['id_firma'];
   $id1=$_POST['id_'];
@@ -163,7 +166,7 @@ if ($insertar=true) {
 
 		
 }
-
+*/
 //echo "<script>alert('".$id."');</script>";
 //echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
  ?>
@@ -185,9 +188,42 @@ if ($insertar=true) {
   <div class="text-center">
      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
 </button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary"style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
-</button>    
+    <button type="button"  class="btn btn-primary"style="padding-left:80px;padding-right:80px  " data-toggle="modal" data-target="#modalh">Imprimir</span> 
+</button>   
+<div class="modal fade" id="modalh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">GECOMP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1> ¿Desea imprimir esta pagina?</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button name="Imprimir" id="Imprimir" type="submit" class="btn btn-primary">Aceptar</button>
+      </div>
+      <?php if (isset($_POST['Imprimir'])) {
+      $id=$_POST['id_firma'];
+  $id1=$_POST['id_'];
+ $Codigo=$_SESSION['logeo'];
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (9,'$NombreCompleto','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo')");
+if ($insertar=true) {
+  echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'"</script>';
+}else{
+  echo "<script>alert('ERROR')</script>";
+}
+
+}
+ ?>
+    </div>
+  </div>
+</div>  
 </div>
+
 
 </form>
 
