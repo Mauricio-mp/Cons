@@ -70,7 +70,7 @@ $(document).ready(function(){
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
+                         <li><a tabindex="-1" href="index.php">Normal</a></li>
                            <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
                         </ul>
                       </li>
@@ -101,9 +101,9 @@ $(document).ready(function(){
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+            <li><a href="Man_mp.php">1</a></li>
+            <li><a href="Man_pr.php">2</a></li>
+            <li><a href="cai.php">3</a></li>
           </ul>
         </li>
 
@@ -185,39 +185,102 @@ $(document).ready(function(){
 
 
 </section>
+        
+
+
 <body class="Fondo">
-
+<div class="" style="margin-left:10em; margin-right:10em">
 <section style="background-color: #F9FAFA;">
-	 <div class="table-responsive">  
-                         <table id="employee_data" class="table table-striped table-bordered">  
-                          <thead>  
-                               <tr>  
-                                    <td style="text-align:center;"><b>CODIGO DE EMPLEADO</b></td>  
-                                    <td style="text-align:center;"><b>NOMBRE </b></td>  
-                                    <td style="text-align:center;"><b>APELLIDO</b></td>  
-                                    <td style="text-align:center;"><b>IDENTIDAD</b></td>
-                                    <td style="text-align:center;"><b>Accion</b></td>  
+  <div class="center">
+    <form>
+      <div style="margin-left: 20em;margin-right: 20em;">
+        <label>Elija el tipo de Constancia</label>
+        <select class="form-control" name="opcion">
+          <option value="1">Constancia de trabajo Sin deducciones</option>
+          <option value="2">Constancia de trabajo con deducciones normal</option>
+          <option value="3">Constancia de Trabajo con Deducciones con Plus</option>
+          <option value="4">Constancia de Trabajo con Deducciones sin Plus</option>
+          <option value="5">Constancia para Bono de 13AVO</option>
+          <option value="6">Constancia para Bono de 14AVO</option>
+          <option value="7">Constancia para Bono de Vacaciones</option>
+          <option value="8">Constancia para Universidades</option>
+          <option value="9">Constancia para Embajadas/Consulados</option>
+          <option value="10">Constancia para T.S.C.</option>
+          <option value="11">Constancia de Cancelados</option>
+        </select>
+      </div>
 
-                               </tr>  
-                          </thead>  
-                         <?php
-         $consultar=mssql_query("SELECT * FROM prempy ");
-		while($mostrar=mssql_fetch_array($consultar)){
-			echo "
-                  <tr>
-                    <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}'>Ver</a></td>
-                  </tr>";
-                   
-                }              
-                           ?>
-                       
-                            </table>  
-                </div>  
+      <div style="margin-left: 20em;margin-right: 20em;">
+        <label>Seleccione fecha Minima</label>
+        <input type="date" class="form-control" name="fechaMinima">
+
+      </div>
+
+      <div style="margin-left: 20em;margin-right: 20em;">
+        <label>Seleccione fecha Maxima</label>
+         <input type="date" class="form-control" name="fechaMaxima">
+      </div>
+      
+    </form>
+  </div>
+
+   <div id="example_wrapper" class="dataTables_wrapper">
+  
+   <table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
+      <thead class="bg-gray">
+        <tr role="row">
+            <th class="sorting_desc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="" style="width: 136px;" aria-sort="descending">dasdasdas</th>
+            <th class="sorting_desc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="" style="width: 136px;" aria-sort="descending">dasdasdas</th>
+            <th class="sorting_desc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="" style="width: 136px;" aria-sort="descending">dasdasdas</th>
+
+         </tr>
+      </thead>
+      
+      <tbody>
+ 
+        <tr>
+          <td>sadadasd</td>
+          <td>sadadasd</td>  
+          <td>sadadasd</td>        
+        </tr>
+     </tbody>
+   </table>
+   
+   <script type="text/javascript">
+     $(document).ready(function(){
+    $('#myexample').DataTable(
+        {
+            "searching": true,
+            paging: true
+
+
+    });
+    
+   $(".tr-show").click(function(){
+        // $("#myexample > tbody").append('<tr><td scope="col" colspan="13" rowspan="1">Rozwinięcie / dodanie dodatkowej treśći</td></tr>');
+        
+        $("#updated_contacts").append($(".addElement span").clone());        
+    
+
+    });
+    
+});
+   </script>
+<!--<tr class="add-here">-->
+
+<!--</tr>-->
+<!--<tr class="add-hiere">-->
+<!--    <td colspan="13">-->
+<!--        <ul>-->
+<!--            <li>Sprawa w której jest dana ulotka</li>-->
+<!--            <li>inna sprawa w której jest dana ulotka</li>-->
+<!--        </ul>-->
+<!--    </td>-->
+<!--</tr>-->
+</div>
 </section>
+</div>
+
 
 	<!-- Content page-->
 
@@ -274,7 +337,7 @@ else
 	</script>
    <footer style="background-color:#011D30;padding: 20px;text-align: center">
     
-    <p style="color: white">Copyright &copy Site Name 2019. Todos los Derechos Reservados.</p>
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
   </footer>
 </body>
 </html>

@@ -32,11 +32,11 @@
     <p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>
     <p class="text-center text-muted text-uppercase">Inicia sesión con tu cuenta</p>
     <div class="form-group label-floating">
-      <label class="control-label" for="UserEmail">E-mail</label>
+      <label class="control-label" for="UserEmail"><strong>Codigo del Empleado</strong></label>
       <input class="form-control" name="UserEmail" type="text" placeholder="Escriba su E-mail" maxlength="6" required>
     </div>
     <div class="form-group label-floating">
-      <label class="control-label" for="UserPass">Contraseña</label>
+      <label class="control-label" for="UserPass"><strong>Contraseña</strong></label>
       <input class="form-control" name="UserPass" type="password" placeholder="Escribe tú contraseña" required>
 
     </div>

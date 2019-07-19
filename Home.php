@@ -96,7 +96,7 @@ $(document).ready(function(){
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="footer.php">1</a></li>
+            <li><a href="Busq_Cons1">ver constancias Emitidas</a></li>
             <li><a href="Man_pr.php">2</a></li>
             <li><a href="cai.php">3</a></li>
           </ul>
