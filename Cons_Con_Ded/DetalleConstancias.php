@@ -355,7 +355,45 @@ include('../cerrarConexionGECOMP.php');
 </select>
 
  </div>
-<?php 
+
+
+
+
+<br></br>
+<br></br>
+<br></br>
+
+
+
+<div style="text-align: center">
+ <hr />
+<p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>  
+<p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p> 
+</div>
+ </div>
+  <div class="text-center">
+     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
+</button> 
+    <button type="button" class="btn btn-primary" style="padding-left:80px;padding-right:80px  "data-toggle="modal" data-target="#modalh">Imprimir</span> 
+</button>    
+</div>
+<div class="modal fade" id="modalh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">GECOMP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1> ¿Desea imprimir esta pagina?</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button name="Imprimir" id="Imprimir" type="submit" class="btn btn-primary">Aceptar</button>
+      </div>
+     <?php 
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
@@ -376,28 +414,9 @@ if (isset($_POST['Imprimir'])) {
 //echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
 }
  ?>
-
-
-
-<br></br>
-<br></br>
-<br></br>
-
-
-
-<div style="text-align: center">
- <hr />
-<p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>  
-<p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p> 
-</div>
- </div>
-  <div class="text-center">
-     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
-</button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary" style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
-</button>    
-</div>
-
+    </div>
+  </div>
+</div> 
 </form>
 </div>
 

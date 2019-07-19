@@ -70,9 +70,8 @@ $(document).ready(function(){
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="index.php">Normal</a></li>
-                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
-                              <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
+                         <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
+                           <li><a tabindex="-1" href="index.php">Con Plus</a></li>
                         </ul>
                       </li>
         </ul>
@@ -115,21 +114,21 @@ $(document).ready(function(){
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Cooperativas<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevacooperativa.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Listacooperativas.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevacooperativa.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../Listacooperativas.php">Modificar</a></li>
                   </ul>
                  </li>
 
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Firma de Autorizacion<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevafirma.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Porcentaje.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevafirma.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../ModificarFirma">Modificar</a></li>
                   </ul>
                  </li>
                 
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Anular Constancias</a></li>
+                 <li><a tabindex="-1" href="../Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
+                 <li><a tabindex="-1" href="../Nuevaembajada.php">Anular Constancias</a></li>
           </ul>
         </li>
 
