@@ -199,7 +199,8 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   $opnetersueldo=$row['nmonthpay'];
   $nombreEmpleado="<strong>".$row['cfname']."</strong>";
   $apellidoEmpleado="<strong>".$row['clname']."</strong>";
-  $NombreCompleto=$row['cfname'].$row['clname'];
+  $Nombre=$row['cfname'];
+  $Apellido=$row['clname'];
   //echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -249,13 +250,13 @@ include('../cerrarConexionVam.php');
   <?php 
   $suma1=0;
   $suma2=0;
-          $optenerTotal=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numero' and cpayno='JUNIO/2018' and cpaycode !='100'");
+          $optenerTotal=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numero' and cpayno='$opcion' and cpaycode !='100'");
           while($consultar=mssql_fetch_array($optenerTotal)){
             $consultar['nothntax']=$consultar['nothntax'] *-1;
             $suma1=$suma1+$consultar['nothntax'];
               }
 
-         $optenerTotal1=mssql_query("SELECT * FROM prmisd WHERE cempno='$numero' AND cpayno='JUNIO/2018'");
+         $optenerTotal1=mssql_query("SELECT * FROM prmisd WHERE cempno='$numero' AND cpayno='$opcion'");
          while($row=mssql_fetch_array($optenerTotal1)){
            
            $Cant_dedu = $row['ndedamt'];
@@ -292,7 +293,7 @@ include('../cerrarConexionVam.php');
                                </tr>  
                           </thead>  
                          <?php
-          $consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numero' and cpayno='JUNIO/2018' and cpaycode !='100'");
+          $consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numero' and cpayno='$opcion' and cpaycode !='100'");
           while($consultar=mssql_fetch_array($consulta)){
             $consultar['nothntax']=$consultar['nothntax'] *-1;
               echo '
@@ -303,7 +304,7 @@ include('../cerrarConexionVam.php');
              </tr>';
           }
 
-         $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numero' AND cpayno='JUNIO/2018'");
+         $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numero' AND cpayno='$opcion'");
          while($consultarDeduccion1=mssql_fetch_array($consultarDeduccion)){
            $Cod_dedu = $consultarDeduccion1['cdesc'];
            $Cant_dedu = $consultarDeduccion1['ndedamt'];
@@ -397,12 +398,12 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (2,'$NombreCompleto','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,Apellido) VALUES (2,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$Apellido')");
 
   $id=$_POST['id_firma'];
 
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$numero.'"</script>';
+  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'"</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

@@ -27,6 +27,18 @@
 
   </head>
  <body class="cover" style="background-image: url(img/ministerio-público.jpg); ">  
+  <?php 
+include('validarnavegador.php');
+$opbeterNavegador= getBrowser($user_agent);
+
+if ($opbeterNavegador !='Google Chrome') {
+  echo "<script>";
+    echo "alert('Asegurese de que su navegador sea Google Chrome');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+}
+
+  ?>
   <div id="mostrar_datos"></div>
   <form method="POST" action="consultas.php" autocomplete="off" class="full-box logInForm">
     <p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>

@@ -73,7 +73,7 @@ $(document).ready(function(){
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
+                         <li><a tabindex="-1" href="index.php">Normal</a></li>
                            <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
                         </ul>
                       </li>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
+         <ul class="dropdown-menu" role="menu">
             <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
             <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="cai.php">3</a></li>
@@ -198,20 +198,7 @@ $(document).ready(function(){
     <form method="POST" >
       <div  class="form-group">
         <label>Elija el tipo de Constancia</label>
-        <select class="form-control" name="opcion">
-          <option selected="selected">Seleccione su opcion.....</option> 
-          <option value="1">Constancia de trabajo Sin deducciones</option>
-          <option value="2">Constancia de trabajo con deducciones normal</option>
-          <option value="3">Constancia de Trabajo con Deducciones con Plus</option>
-          <option value="4">Constancia de Trabajo con Deducciones sin Plus</option>
-          <option value="5">Constancia para Bono de 13AVO</option>
-          <option value="6">Constancia para Bono de 14AVO</option>
-          <option value="7">Constancia para Bono de Vacaciones</option>
-          <option value="8">Constancia para Universidades</option>
-          <option value="9">Constancia para Embajadas/Consulados</option>
-          <option value="10">Constancia para T.S.C.</option>
-          <option value="11">Constancia de Cancelados</option>
-        </select>
+        <input type="text" name="nombre" class="form-control" placeholder="Nombre del Empleado" required="required">
       </div>
 
       <div  class="form-group">
@@ -244,8 +231,10 @@ $(document).ready(function(){
         <tr role="row">
             <th style="text-align: center">Tipo de Constancia</th>
             <th style="text-align: center">Codigo de Empleado</th>
-            <th style="text-align: center">Cargo</th>
-            <th style="text-align: center">Asignado</th>
+            <th style="text-align: center;padding-left: 50px;padding-right: 50px ">Nombre</th>
+            <th style="text-align: center;padding-left: 50px;padding-right: 50px">Apellido</th>
+            <th style="text-align: center;padding-left: 60px;padding-right: 60px ">Cargo</th>
+            <th style="text-align: center;padding-left: 60px;padding-right: 60px ">Asignado</th>
             <th style="text-align: center">Sueldo</th>
             <th style="text-align: center">Estado</th>
             <th style="text-align: center">Observacion</th>
@@ -264,22 +253,14 @@ $(document).ready(function(){
      include('../crearConexionGECOMP.php');
           $fechaminima=$_POST['fechaMinima'];
           $fechamaxima=$_POST['fechaMaxima'];
-          $opcion=$_POST['opcion'];
+          $nombre=$_POST['nombre'];
           
 
-          if ($opcion=="Seleccione su opcion....." || $opcion =="") {
-             echo "<script>";
-    echo "alert('Seleccione una Opcion');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
-          }
+          
 
           if (strtotime($fechamaxima) < strtotime($fechaminima)) {
              echo "<script>";
-    echo "alert('ASEGURESE QUE LAS FECHAS 
-
-
-    -ESTEN CORRECTAS');";
+    echo "alert('ASEGURESE QUE LAS FECHAS SEAN CORRECTAS');";
     echo "window.location = 'index.php';";
     echo "</script>";
           }
@@ -288,7 +269,7 @@ $(document).ready(function(){
 
 
           
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Nombre like '%$nombre%'");
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {
@@ -355,6 +336,8 @@ $(document).ready(function(){
            <tr>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Nombre'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Apellido'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Cargo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Asignado'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>

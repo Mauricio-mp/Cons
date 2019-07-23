@@ -41,9 +41,9 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $codigoAsignado=$row['cdeptno'];
     $opnetersueldo=$row['nmonthpay'];
     $identidad=$row['cfedid'];
-    $nombre=trim($row['cfname']);
-    $apellido=trim($row['clname']);
-    $NombreCompleto=$nombre.$apellido;
+    $Nombre=trim($row['cfname']);
+    $Apellido=trim($row['clname']);
+    //$NombreCompleto=$nombre.$apellido;
 	//echo "<script>alert('".$DESC."');</script>";
 	
 }
@@ -210,7 +210,7 @@ if ($insertar=true) {
       $id=$_POST['id_firma'];
   $id1=$_POST['id_'];
  $Codigo=$_SESSION['logeo'];
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (9,'$NombreCompleto','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (9,'$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
 if ($insertar=true) {
   echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'"</script>';
 }else{

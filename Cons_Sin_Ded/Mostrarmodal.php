@@ -176,7 +176,8 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 	$codigoPuesto=$row['cjobtitle'];
 	$codigoAsignado=$row['cdeptno'];
 	$opnetersueldo=$row['nmonthpay'];
-  $NombreCompleto=$row['cfname'].$row['clname'];
+  $Nombre=$row['cfname'];
+  $Apellido=$row['clname'];
 	//echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -302,7 +303,7 @@ if (isset($_POST['Imprimir'])) {
 
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (1,'$NombreCompleto','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (1,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
 
   $id=$_POST['id_firma'];
 

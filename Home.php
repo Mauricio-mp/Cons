@@ -3,6 +3,16 @@ session_start();
 ob_start();
 
 //include('crearConexionGECOMP.php');
+
+$varsession= $_SESSION['username'];
+ if($varsession== null || $varsession= ''){
+   echo "<script>";
+    echo "alert('inicie session');";
+    echo "window.location = '../index.php';";
+    echo "</script>";
+
+  die();
+ }
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -97,7 +107,7 @@ $(document).ready(function(){
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="Busq_Cons1">ver constancias Emitidas</a></li>
-            <li><a href="Man_pr.php">2</a></li>
+            <li><a href="Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="cai.php">3</a></li>
           </ul>
         </li>

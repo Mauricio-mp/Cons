@@ -40,7 +40,8 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 	$codigoPuesto=$row['cjobtitle'];
 	$codigoAsignado=$row['cdeptno'];
 	$opnetersueldo=$row['nmonthpay'];
-	$NombreCompleto=$row['cfname'].$row['clname'];
+	$Nombre=$row['cfname'];
+  $Apellido=$row['clname'];
 	//echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -134,7 +135,7 @@ if (isset($_POST['Imprimir'])) {
 
 
 
-<div>
+<div style="text-align: center">
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>	
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p>	
@@ -169,7 +170,7 @@ if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion) VALUES (8,'$NombreCompleto','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
 
 
  if ($insertar==true) {

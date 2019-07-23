@@ -137,13 +137,13 @@ $texto = "EL(A) SUSCRITO ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HA
   include('../crearConexionVam.php'); 
   $suma1=0;
   $suma2=0;
-          $optenerTotal=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='JUNIO/2018' and cpaycode !='100'");
+          $optenerTotal=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='$opcion' and cpaycode !='100'");
           while($consultar=mssql_fetch_array($optenerTotal)){
             $consultar['nothntax']=$consultar['nothntax'] *-1;
             $suma1=$suma1+$consultar['nothntax'];
               }
 
-         $optenerTotal1=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='JUNIO/2018'");
+         $optenerTotal1=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='$opcion'");
          while($row=mssql_fetch_array($optenerTotal1)){
            
            $Cant_dedu = $row['ndedamt'];
@@ -175,7 +175,7 @@ $pdf->Cell(170,0,'',0,1,'C');
 $pdf->Cell(270,0,'Monto',0,1,'C'); 
 $pdf->Ln(5);
 $pdf->Ln(5);
-$consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='JUNIO/2018' and cpaycode !='100'");
+$consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='$opcion' and cpaycode !='100'");
           while($fila=mssql_fetch_array($consulta)){
             $fila['nothntax']=$fila['nothntax'] *-1;
             $fila['cref'];
@@ -189,7 +189,7 @@ $consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and 
 
           }
 
-           $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='JUNIO/2018'");
+           $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='$opcion'");
          while($consultarDeduccion1=mssql_fetch_array($consultarDeduccion)){
            $Cod_dedu = $consultarDeduccion1['cdesc'];
            $Cant_dedu = $consultarDeduccion1['ndedamt'];

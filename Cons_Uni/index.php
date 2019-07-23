@@ -2,12 +2,15 @@
  session_start();
 ob_start();
 include('../crearConexionVam.php');
- //$varsession= $_SESSION['username'];
- //if($varsession== null || $varsession= ''){
- // header("location:prueba.php");
+$varsession= $_SESSION['username'];
+ if($varsession== null || $varsession= ''){
+   echo "<script>";
+    echo "alert('inicie session');";
+    echo "window.location = '../index.php';";
+    echo "</script>";
 
- // die();
- //}
+  die();
+ }
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -100,10 +103,10 @@ $(document).ready(function(){
 
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
+         <ul class="dropdown-menu" role="menu">
             <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+            <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
+            <li><a href="cai.php">3</a></li>
           </ul>
         </li>
 
