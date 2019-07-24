@@ -103,11 +103,12 @@ $(document).ready(function(){
 
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-         <ul class="dropdown-menu" role="menu">
+       <ul class="dropdown-menu" role="menu">
             <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
             <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
-            <li><a href="cai.php">3</a></li>
+            <li><a href="../Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
+
         </li>
 
 

@@ -2,7 +2,7 @@
  session_start();
 ob_start();
 include('../crearConexionVam.php');
-$varsession= $_SESSION['username'];
+ $varsession= $_SESSION['username'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -103,12 +103,11 @@ $(document).ready(function(){
 
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
+         <ul class="dropdown-menu" role="menu">
             <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
             <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="../Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
-
         </li>
 
 
@@ -193,45 +192,168 @@ $(document).ready(function(){
 
 
 <body class="Fondo">
-<div class="" style="margin-left:40em; margin-right:40em">
+<div class="" style="margin-left:10em; margin-right:10em">
+<section style="background-color: #F9FAFA;">
+  <div class=" container">
+    <h1 class="centrartitulo">Detalle de Constancias</h1>
+    <form method="POST" >
+      <div  class="form-group">
+        <label>Seleccione fecha Minima</label>
+        <input type="date" class="form-control" name="fechaMinima">
+
+      </div>
+
+      <div  class="form-group">
+        <label>Seleccione fecha Maxima</label>
+         <input type="date" class="form-control" name="fechaMaxima">
+      </div>
+      
+      <div style="text-align: center" class="form-group"> 
+        <button type="text" name="BtnAceptar" class="btn btn-primary" style="padding-left:80px;padding-right:80px  ">Aceptar</button>
+      </div>
+    </form>
+ <?php 
+ $cons1=0;
+      $cons2=0;
+      $cons7=0;
+      $cons9=0;
+      $cons=0;
+  if (isset($_POST['BtnAceptar'])) {
+    include('ConversionFecha.php');
+    include('../crearConexionGECOMP.php');
+      $fechaminima=$_POST['fechaMinima'];
+      $fechaMaxima=$_POST['fechaMaxima'];
+
+      $dia1 = date("d", strtotime($fechaminima));
+      $mes1 = date("m", strtotime($fechaminima));
+      $year1 = date("Y", strtotime($fechaminima));
+
+
+      $dia2 = date("d", strtotime($fechaMaxima));
+      $mes2 = date("m", strtotime($fechaMaxima));
+      $year2 = date("Y", strtotime($fechaMaxima));
+
+      $fecha1=fecha($dia1,$mes1,$year1);
+      $fecha2=fecha($dia2,$mes2,$year2);
+      echo "<h3>"."Resultados desde el ".$fecha1." hasta el ".$fecha2."</h3>";
+      
+      //constsncias de Trabajo sin deducciones
+        $consultarConstancia1=mssql_query("SELECT count(*) AS cons1 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=1 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+
+      $optenerCons1 = mssql_fetch_array($consultarConstancia1);
+      $cons1 = $optenerCons1['cons1'];
+     // echo "Constancia de trabajo Sin deducciones:"." ".$cons1;
+
+       //constsncias de Trabajo sin deducciones
+        $consultarConstancia2=mssql_query("SELECT count(*) AS cons2 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=2 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons2 = mssql_fetch_array($consultarConstancia2);
+      $cons2 = $optenerCons2['cons2'];
+      //echo "Constancia de trabajo Con deducciones Normal:"." ".$cons2;
+
+       //constsncias de Trabajo sin deducciones
+        $consultarConstancia7=mssql_query("SELECT count(*) AS cons7 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=7 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons7 = mssql_fetch_array($consultarConstancia7);
+      $cons7 = $optenerCons7['cons7'];
+     // echo "Constancia para Bono de Vacaciones:"." ".$cons7;
+
+       //constsncias de Trabajo sin deducciones
+        $consultarConstancia9=mssql_query("SELECT count(*) AS cons9 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=9 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons9 = $optenerCons9['cons9'];
+      //echo "Constancia para Embajadas/Consulados:"." ".$cons9;
+
+       //constsncias de Trabajo sin deducciones
+
+
+     
+      $suma= $cons1+$cons2+$cons7+$cons9;
+      $cons = $suma;
+
+  }
+   ?>
+
+
+  
+
+     <div id="example_wrapper" class="dataTables_wrapper table-responsive">
+      <table style="width: 100%" class="table table-striped">
+        <thead class="thead-dark">
+        <tr role="row">
+            <th style="text-align: center">DETALLE DE CONSTANCIAS</th>
+
+
+         </tr>
+      </thead>
+       <tbody>
+         <tr>
+
+
+            <td>Constancia de trabajo Sin deducciones</td>
+            <td><?php echo $cons1;?></td>
+
+
+           </tr>
+            <tr>
+
+
+
+             <td >Constancia de trabajo Con deducciones Normal</td>
+             <td><?php echo $cons2;?></td>
+
+
+           </tr>
+            <tr>
+
+
+
+             <td >Constancia para Bono de Vacaciones</td>
+             <td><?php echo $cons7;?></td>
+
+
+           </tr>
+            <tr>
+
+
+
+             <td >Constancia para Embajadas/Consulados</td>
+             <td><?php echo $cons9;?></td>
+
+           </tr>
+            <tr>
+
+
+
+             <td>Total Constancias</td>
+             <td><?php echo $cons;?></td>
+
+           </tr>
+       </tbody>
+
+      </table>
+
+
+<div>
 
 </div>
-<section style="background-color: #F9FAFA;">
-	 <div class="table-responsive">  
-                         <table id="employee_data" class="table table-striped table-bordered">  
-                          <thead>  
-                               <tr>  
-                                    <td style="text-align:center;"><b>CODIGO DE EMPLEADO</b></td>  
-                                    <td style="text-align:center;"><b>NOMBRE </b></td>  
-                                    <td style="text-align:center;"><b>APELLIDO</b></td>  
-                                    <td style="text-align:center;"><b>IDENTIDAD</b></td>
-                                    <td style="text-align:center;"><b>Accion</b></td>  
+   
+     </div>
 
-                               </tr>  
-                          </thead>  
-                         <?php
-         $consultar=mssql_query("SELECT * FROM prempy ");
-		while($mostrar=mssql_fetch_array($consultar)){
-			echo "
-                  <tr>
-                    <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal.php?x={$mostrar[0]}'>Ver</a></td>
-                  </tr>";
 
-                }      
-                ?>        
-                           
-                       
-                            </table>  
 
-                            
-                              
-                           
-                </div>  
 </section>
+
+
+</div>
+
+<div>
+ 
+
+<div class="center container">
+    
+   </div>
+
+</div>
+
 
 	<!-- Content page-->
 
