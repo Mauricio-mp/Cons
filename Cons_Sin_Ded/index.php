@@ -89,7 +89,7 @@ $(document).ready(function(){
       </li>
         <li><a tabindex="-1" href="../Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="../Cons_Emb">Embajadas y Consulados</a></li>
-            <li><a tabindex="-1" href="Porcentaje.php">T.S.C.</a></li>
+             <li><a tabindex="-1" href="../TSC">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
 
@@ -190,6 +190,59 @@ $(document).ready(function(){
 
 </section>
 <body class="Fondo">
+  <style type="text/css">
+     .cuadrado{
+     width: 250px; 
+     height: 100px; 
+     border: 3px solid #555;
+     background: #FFFFFFFF;
+}
+
+ .rojo{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(243, 105, 61,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.verde{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(51, 255, 144,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+.blanco{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: #FFF;
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.linear{
+  margin-top:1px;
+  margin-left:90px;
+}
+ </style>
+     <div class="cuadrado">
+        <div class="blanco">
+          <p class="linear">ACTIVO</p>
+        </div>
+
+         <div class="verde">
+          <p class="linear">INACTIVO</p>
+        </div>
+
+         <div class="rojo">
+          <p class="linear">SUSPENDIDO</p>
+        </div>
+       
+      </div>
 
 <section style="background-color: #F9FAFA;">
 	 <div class="table-responsive">  
@@ -207,13 +260,25 @@ $(document).ready(function(){
                          <?php
          $consultar=mssql_query("SELECT * FROM prempy ");
 		while($mostrar=mssql_fetch_array($consultar)){
+      if ($mostrar['cstatus']=="T") {
+        $Color="rgba(243, 105, 61,0.8)";
+      }
+      if ($mostrar['cstatus']=="I") {
+        $Color="rgba(51, 255, 144,0.8)";
+
+      }
+       if ($mostrar['cstatus']=="A") {
+        $Color="";
+        
+      }
 			echo "
                   <tr>
-                    <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}'>Ver</a></td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
+                    
                   </tr>";
                    
                 }              

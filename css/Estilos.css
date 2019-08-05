@@ -1,3 +1,5 @@
+
+
 .logo{
   width:50%;
     height:50%;
@@ -11,6 +13,8 @@
    color: white;
    text-align: center;
 }
+
+
 .centrar{
   margin-left: 10%;
   margin-right: 10%;
@@ -30,6 +34,10 @@ hr {
   background-color: black;
     margin-left: 8em;
   margin-right: 8em;
+}
+.texto1{
+  
+ 
 }
 .footer{
   text-align: center;

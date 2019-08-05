@@ -124,30 +124,37 @@ include('../cerrarConexionGECOMP.php');
 </select>
 
  </div>
-  </div>
 
-	 <div class="alinearCombobox">
- 	<label class="control-label">Seleccione Embaja/Consulado</label>
+   <div class="alinearCombobox">
+  <label class="control-label">Seleccione Embaja/Consulado</label>
  
-<select class="form-control" name="id_" id="id_">
-		<?php
-		 include('../crearConexionGECOMP.php'); 
- 	$sql=mssql_query("SELECT * FROM EMBAJADAS_CONSULADOS ");
- 	while($fila=mssql_fetch_array($sql)){
- 		 echo "<option value='".$fila['Id_EMBAJADA']."'>";
- 		 echo utf8_encode($fila['NOMBRE_EMBAJADA']); 
- 		echo "</option>";
+<select class="form-control" name="id_embajada" id="id_embajada">
+    <?php
+     include('../crearConexionGECOMP.php'); 
+  $embajadaConsulta=mssql_query("SELECT * FROM EMBAJADAS_CONSULADOS ");
+  while($optenerId=mssql_fetch_array($embajadaConsulta)){
+     echo "<option value='".$optenerId['Id_EMBAJADA']."'>";
+     echo utf8_encode($optenerId['NOMBRE_EMBAJADA']); 
+    echo "</option>";
 
- 		
+    
 }
 
 include('../cerrarConexionGECOMP.php');
  
- 	?>
+  ?>
 
 </select>
 
  </div>
+
+
+
+  </div>
+
+
+
+
 
 
 
@@ -192,6 +199,7 @@ if ($insertar=true) {
 </button>   
 <div class="modal fade" id="modalh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
+
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">GECOMP</h5>
@@ -208,8 +216,9 @@ if ($insertar=true) {
       </div>
       <?php if (isset($_POST['Imprimir'])) {
       $id=$_POST['id_firma'];
-  $id1=$_POST['id_'];
+  $id1=$_POST['id_embajada'];
  $Codigo=$_SESSION['logeo'];
+
    $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (9,'$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
 if ($insertar=true) {
   echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'"</script>';
@@ -220,12 +229,14 @@ if ($insertar=true) {
 }
  ?>
     </div>
+
   </div>
 </div>  
 </div>
+  </form>
 
 
-</form>
+
 
   
 	

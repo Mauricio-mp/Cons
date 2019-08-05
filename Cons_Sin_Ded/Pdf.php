@@ -41,10 +41,14 @@ $formato=number_format($opnetersueldo,2);
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
     $desempenio=trim($ejecutar['cDesc']);
+    $desemp=strtolower($desempenio);
+    $desempenio=ucwords($desemp);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
     $asignacion=trim($asignado['cdeptname']);
+     $asignacion_minuscula=strtolower($asignacion);
+    $asignacion=ucwords($asignacion_minuscula);
 }
 
 
@@ -59,6 +63,9 @@ include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
+
+  $FrimaCons=strtolower($nombreFirma);
+  $nombreFirma=ucwords($FrimaCons);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
 
@@ -69,7 +76,7 @@ class PDF extends PDF_WriteTag
 function Header()
 {
     // Logo
-    $this->Image('../img/9.png',10,6,75);
+    $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
     $this->SetFont('Times','B',14);
     // Move to the right
@@ -91,7 +98,7 @@ function Footer()
     $this->SetFont('Arial','I',8);
     // Page number
     $this->SetLineWidth(0);
-    $this->Line(20,280,190,280);
+    //$this->Line(20,280,190,280);
     $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1',0,0,'C');
     $this->Ln();
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
@@ -104,15 +111,15 @@ function Footer()
 
 $pdf=new PDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','',10);
+$pdf->SetFont('Arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
 
 
 // Stylesheet
-$pdf->SetStyle("p","Arial","",10,"0,0,0",0);
-$pdf->SetStyle("h1","arial","N",10,"0,0,0",0);
-$pdf->SetStyle("a","arial","BU",10,"0,0,0");
+$pdf->SetStyle("p","Arial","",12,"0,0,0",0);
+$pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
+$pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",0,"0,0,0");
@@ -121,29 +128,34 @@ $pdf->SetStyle("vb","arial","B",0,"0,0,0");
 
 $pdf->Ln(5);
 
-// Text
-$txt="<vb>".utf8_encode($nombre)." ".utf8_encode($apellido)."</vb>";
-
-$texto = "EL(A) SUSCRITO ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
-
-
+//  Ñ  ñ  ó
+$txt=utf8_encode($nombre)." ".utf8_encode($apellido);
+$nombreEmp=strtolower($txt);
+$txt="<vb>".ucwords($nombreEmp)."</vb>";
 
 
 
-$pdf->WriteTag(0,5,utf8_decode($texto),0,"J",0,0);
+$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." del ministerio publico hace constar que ".$txt." ha laborado por contrato en esta institucion a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L.".$formato.").";
+
+//$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
+
+
+
+
+$pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
 
 
 $pdf->Cell(10,20,'',0,1,'C'); 
-$texto1="PARA LOS FINES QUE AL INTERESADO LE CONVENGA SE LE EXTIENDE LA PRESENTE EN LA CIUDAD DE TEGUCIGALPA, MUNICIPIO DEL DISTRITO CENTRAL A ".$fechaActual."";
-$pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
+$texto1="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio Central, a ".$fechaActual."";
+$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'________________________________________________',0,1,'C');
+$pdf->Cell(172,5,'_______________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+$pdf->Cell(172,7,utf8_encode($nombreFirma),0,1,'C');
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,$puestoFirma,0,1,'C');
 

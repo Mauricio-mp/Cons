@@ -20,8 +20,26 @@ include('ConversionFecha.php');
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="../css/Estilos.css">
+<?php  
 
+$Status=$_GET['Status'];
+if ($Status=="T") {
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA SUSPENDIDO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
 
+}
+
+if ($Status=="I") {
+  //header('location:index.php');
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA INACTIVO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+}
+
+?>
 </head>
 
 	<!-- SideBar -->
@@ -178,6 +196,12 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 	$opnetersueldo=$row['nmonthpay'];
   $Nombre=$row['cfname'];
   $Apellido=$row['clname'];
+
+  $nombreCompleto=$Nombre." ".$Apellido;
+  $cambiarLetra=strtolower($nombreCompleto);
+
+  $nombreCompleto=ucwords($cambiarLetra);
+
 	//echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -232,7 +256,7 @@ include('../cerrarConexionVam.php');
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
 </div>
-<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($row['cfname'])."\t".utf8_encode($row['clname']);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
+<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreCompleto);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
 
 <p class="parrafo">para los fines que al interesado le convenga, se le extiende la presente en la ciudad de Tegucigalpa, municipio del ditrito central a <?php echo $fechaActual ?>
 </p>

@@ -18,6 +18,11 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $identidad=$row['cfedid'];
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
+
+    $nombreCompleto=$nombre." ".$apellido;
+
+    $minusculas=strtolower($nombreCompleto);
+    $nombreCompleto=ucwords($minusculas);
     //echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -32,10 +37,10 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $fechaAcuerdo=fecha2($dia2,$mes2,$anio2); 
 
   if ($row['dhire']==$row['dcntrct']) {
-    $msg=", labora en esta Institución desde los ".$fechaContrato.", ";
+    $msg="labora en esta Institución desde los ".$fechaContrato.", ";
   }
   if ($row['dhire']>$row['dcntrct']) {
-    $msg=", labora en esta Institución desde los ".$fechaContrato.", ";
+    $msg="labora en esta Institución desde los ".$fechaContrato.", ";
   }
 $var=convertir($opnetersueldo);
 $formato=number_format($opnetersueldo,2);
@@ -44,10 +49,16 @@ $formato=number_format($opnetersueldo,2);
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
     $desempenio=trim($ejecutar['cDesc']);
+
+    $ConversionMinusculas=strtolower($desempenio);
+    $desempenio=ucwords($ConversionMinusculas);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
     $asignacion=trim($asignado['cdeptname']);
+
+    $min=strtolower($asignacion);
+    $asignacion=ucwords($min);
 }
 
 
@@ -63,6 +74,9 @@ include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
+  $FrimaCons=strtolower($nombreFirma);
+  $nombreFirma=ucwords($FrimaCons);
+
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
 
@@ -100,7 +114,7 @@ function Footer()
     $this->SetFont('Arial','I',8);
     // Page number
     $this->SetLineWidth(0);
-    $this->Line(20,280,190,280);
+    //$this->Line(20,280,190,280);
     $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1',0,0,'C');
     $this->Ln();
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
@@ -117,34 +131,18 @@ function Footer()
 
 
 $pdf=new PDF();
-$pdf->AliasNbPages();
-$pdf->SetAutoPageBreak(true, 15);
-$pdf->SetMargins(25,0,25);
-$pdf->SetFont('courier','',12);
 $pdf->AddPage();
-
-
-
-
-
-
-$pdf->SetAlpha(0.2);
-
-
- $pdf->Image('../img/9.png',0,85,225);
-
-$pdf->SetAlpha(1);
-
-
-
+$pdf->SetFont('arial','',13);
+$pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
+$pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
 
 
 // Stylesheet
-$pdf->SetStyle("p","arial","N",14,"0,0,0",0);
-$pdf->SetStyle("h1","arial","N",14,"0,0,0",0);
-$pdf->SetStyle("a","arial","BU",14,"0,0,0");
-$pdf->SetStyle("pers","arial","I",14,"0,0,0");
-$pdf->SetStyle("place","arial","U",14,"0,0,0");
+$pdf->SetStyle("p","arial","",12,"0,0,0",0);
+$pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
+$pdf->SetStyle("a","arial","BU",12,"0,0,0");
+$pdf->SetStyle("pers","arial","I",0,"0,0,0");
+$pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",14,"0,0,0");
 
 
@@ -160,43 +158,44 @@ $txt2="
 ";
 
 $txt3=" 
-<p>El(La) Suscrito(a), ".strtolower($puestoFirma).", HACE CONSTAR: Que el(la) Señor(a) <vb>".$nombre." ".$apellido."</vb>, con número de identidad <vb>".$identidad."</vb>".$msg."en el cargo de <vb>".trim($desempenio)."</vb>, asignada a, <vb>".$asignacion."</vb> devengando un salario mensual de L <vb>".$formato." (".$var.")</vb>.</p>
+<p>El (a) Suscrito(a), ".strtolower($puestoFirma).", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion." devengando un salario mensual de ".$var." (L.".$formato.").</p>
 ";
 
 
-$texto1=" <p>Y para los fines que al interesado (a) convengan, se le extiende la presente en la ciudad de Tegucigalpa, Municipio del Distrito Central, a los ".$fechaActual.".
+$texto1=" <p>Constancia que se expide a parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, a los ".$fechaActual.".
 </p>";
 
 
-$txtembajada=" 
-<p><vb>".$nombreembajada."</vb></p>
-";
 
 
+
+$txtembajada=$nombreembajada;
+$nombreEmbajada=strtolower($txtembajada);
+$txtembajada="<vb>".ucwords($nombreEmbajada)."</vb>";
+
+
+$pdf->Ln(0);
+$pdf->WriteTag(0,10,utf8_decode($txt1),0,"R",0,0);
 $pdf->Ln(10);
-$pdf->WriteTag(0,5,utf8_decode($txt1),0,"J",0,0);
-$pdf->Ln(10);
- $pdf->SetX(24);
 $pdf->Cell(0,0,utf8_decode('Señores'),0,0,'L'); 
 $pdf->Ln(4);
-$pdf->WriteTag(0,5,utf8_decode($txtembajada),0,"J",0,0);
-$pdf->Ln(1);
-$pdf->WriteTag(0,5,utf8_decode($txt2),0,"J",0,0);
-$pdf->Ln(8);
-$pdf->WriteTag(0,5,utf8_decode($txt3),0,"J",0,0);
+$pdf->WriteTag(0,2,utf8_decode($txtembajada),0,"L",0,0);
+$pdf->Ln(4);
+$pdf->WriteTag(0,2,utf8_decode($txt2),0,"L",0,0);
+$pdf->Ln(14);
+$pdf->WriteTag(0,7,utf8_decode($txt3),0,"J",0,0);
 
 $pdf->Ln(8);
-$pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 
 $pdf->line();  
-$pdf->Cell(10,25,'',0,1,'C'); 
-
-$pdf->Cell(172,5,'_____________________________________________',0,1,'C');
+$pdf->Cell(10,50,'',0,1,'C'); 
+$pdf->Cell(172,5,'_______________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+$pdf->Cell(172,7,utf8_encode($nombreFirma),0,1,'C');
 $pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,5,$puestoFirma,0,1,'C');
+$pdf->Cell(172,7,$puestoFirma,0,1,'C');
 
 // Signature
 

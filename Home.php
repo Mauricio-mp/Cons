@@ -91,7 +91,7 @@ $(document).ready(function(){
       </li>
         <li><a tabindex="-1" href="./Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="./Cons_Emb">Embajadas y Consulados</a></li>
-            <li><a tabindex="-1" href="Porcentaje.php">T.S.C.</a></li>
+            <li><a tabindex="-1" href="./TSC">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
 
@@ -131,9 +131,19 @@ $(document).ready(function(){
                  <li><a tabindex="-1" href="ModificarFirma">Modificar</a></li>
                   </ul>
                  </li>
+
+                 
                 
                  <li><a tabindex="-1" href="Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
                   <li><a tabindex="-1" href="Nuevaembajada.php">Anular Constancias</a></li>
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia T.S.C<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="./Mant_Acuerdo">Acuerdo</a></li>
+                 <li><a tabindex="-1" href="./Mant_Acuerdo/excel.php">Modificar</a></li>
+                  </ul>
+                 </li>
                   
           </ul>
         </li>

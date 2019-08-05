@@ -89,7 +89,7 @@ $(document).ready(function(){
       </li>
         <li><a tabindex="-1" href="index.php">Universidades</a></li>
           <li><a tabindex="-1" href="../Cons_Emb">Embajadas y Consulados</a></li>
-            <li><a tabindex="-1" href="#">T.S.C.</a></li>
+            <li><a tabindex="-1" href="../TSC">T.S.C.</a></li>
               <li><a tabindex="-1" href="#">Cancelados</a></li>
 
 
