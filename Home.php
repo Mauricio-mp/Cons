@@ -8,7 +8,7 @@ $varsession= $_SESSION['username'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
-    echo "window.location = '../index.php';";
+    echo "window.location = 'index.php';";
     echo "</script>";
 
   die();
@@ -72,13 +72,7 @@ $(document).ready(function(){
         <a class="test" tabindex="-1" href="#">Constancias de Trabajo<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a  href="./Cons_Sin_Ded">Sin Deducciones</a></li>
-                       <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
-                       <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="Cons_Con_Ded">Normal</a></li>
-                           <li><a tabindex="-1" href="Cons_Con_Plus">Con Plus</a></li>
-                        </ul>
-                      </li>
+          <li><a  href="./Cons_Con_Ded">Con Deducciones</a></li>
         </ul>
       </li>
             <li class="dropdown-submenu">
@@ -144,7 +138,14 @@ $(document).ready(function(){
                  <li><a tabindex="-1" href="./Mant_Acuerdo/excel.php">Modificar</a></li>
                   </ul>
                  </li>
-                  
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia Deducciones<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="Man_Cons_Con">Ingresos</a></li>
+                 <li><a tabindex="-1" href="Man_Cons_Con/deducciones.php">Deducciones</a></li>
+                  </ul>
+                 </li>                  
           </ul>
         </li>
 

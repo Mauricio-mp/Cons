@@ -197,8 +197,13 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   $codigoPuesto=$row['cjobtitle'];
   $codigoAsignado=$row['cdeptno'];
   $opnetersueldo=$row['nmonthpay'];
-  $nombreEmpleado="<strong>".$row['cfname']."</strong>";
-  $apellidoEmpleado="<strong>".$row['clname']."</strong>";
+  $nombreEmpleado=$row['cfname'];
+  $ConvMas=strtolower($nombreEmpleado);
+  $nombreEmpleado=ucwords($ConvMas);
+  $apellidoEmpleado=$row['clname'];
+  $conMin=strtolower($apellidoEmpleado);
+  $apellidoEmpleado=ucwords($conMin);
+  $nombreCompleto="<strong>".$nombreEmpleado." ".$apellidoEmpleado."</strong>";
   $Nombre=$row['cfname'];
   $Apellido=$row['clname'];
   //echo "<script>alert('".$DESC."');</script>";
@@ -279,51 +284,252 @@ include('../cerrarConexionVam.php');
       <img src="../img/9.png" alt="user-picture" class="logo">
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
-      <p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreEmpleado)."\t".utf8_encode($apellidoEmpleado);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".number_format($opnetersueldo,2).")";?></p>
-<p class="parrafo"><?php echo "Total de deducciones: planilla de sueldos de  $DateNum fue de ". $sumaTotal." (". $formatoTotal."). "."Total neto: ".$formatoNeto; ?></p>
+      <p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreCompleto)."\t";  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".number_format($opnetersueldo,2).")";?> Teniendo:</p>
+
 </br>
-<table  style="margin-left: 6em;"  >  
-                          <thead>  
-                               <tr>  
-                                    <td><b>Nombre</b></td>
-                                    <td></td>  
-                                    <td><b>Monto </b></td>  
+<h3>Ingresos</h3>
+<table style="margin-left:60px;font-size:15px"; border="0" width="80%">
+  <thead >  
+  <tr>
+    <td></td>
+  </tr>    
+  </thead>
+  <tbody>
+    <tr >
+      <td style="padding:5px;text-align:left"><strong>Ingresos Permanetes</strong></td>  
+
+    </tr>
+    <tr>
+    <?php 
+    $cont=0;
+    $sumadorDeduccionesPermanentes=0;
+    include('../crearConexionVam.php');
+    $sql=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numero' and cpayno='$opcion' and cpaycode !='IHSS' and cpaycode!='INJUPEMP'");
+    while($optenerDatos= mssql_fetch_array($sql)){
+      $codigoVam=$optenerDatos['cpaycode'];
+include('../crearConexionGECOMP.php');
+$verconsulta=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$codigoVam' and PERMANENTE='1'");
+while($verconsulta1=mssql_fetch_array($verconsulta)){
+  $IngresoPermanente=$verconsulta1['DESCRIPCION'];
+  $monto1=$optenerDatos['nothtax'];
+  $cont=$cont+$monto1;
+
+
+
+
+
+
+    
+    ?>
+      <td style="text-align:left"><?php echo $IngresoPermanente;?></td>
+      <td></td>
+      <td><?php echo  "L.".$monto1;?></td>
+      <td></td>
+      </tr>
+      <?php
+    }
+      }
+      ?>
+      <tr>
+      <td style="padding:5px;text-align:left"><strong>Ingresos Temporales</strong></td> 
+      
+      
+
+    </tr>
+
+    <tr>
+      <?php 
+        include('../crearConexionVam.php');
+    $ConsultaTemporal=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numero' and cpayno='$opcion' and cpaycode !='IHSS' and cpaycode!='INJUPEMP'");
+    while($optenerDatosTempral= mssql_fetch_array($ConsultaTemporal)){
+      $CodigoDatoVam=$optenerDatosTempral['cpaycode'];
+include('../crearConexionGECOMP.php');
+$ConsultaGECOMP=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$CodigoDatoVam' and TEMPORAL=1");
+while($verconsulta=mssql_fetch_array($ConsultaGECOMP)){
+  $IngresoTemporal=$verconsulta['DESCRIPCION'];
+  $monto2=$optenerDatosTempral['nothtax'];
+  $cont=$cont+$monto2;
+
+
+
+
+
+      ?>
+      <td style="text-align:left"><?php echo $IngresoTemporal;?></td>
+      <td></td>
+      <td><?php echo  "L.".$monto2; ?></td>
+      <td></td>
+      </tr>
+      <?php 
+      }
+
+    }
+       ?>
+    <tr>
+    <td style="text-align:left;padding:5px"><strong>Total De Ingresos</strong></td>  
+      <td></td>
+      <td></td>
+      <td><?php echo  "L.".$cont;?></td>
+      </tr>
+  </tbody>
  
+                       
+</table>  
 
-                               </tr>  
-                          </thead>  
-                         <?php
-          $consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numero' and cpayno='$opcion' and cpaycode !='100'");
-          while($consultar=mssql_fetch_array($consulta)){
-            $consultar['nothntax']=$consultar['nothntax'] *-1;
-              echo '
-           <tr>
-             <td style="text-align:left">'.utf8_encode($consultar['cref']).'</td>
-             <td>---------------------------------------------</td>
-             <td>'.$consultar['nothntax'].'</td>
-             </tr>';
-          }
+<h3>Deducciones</h3>
+<table style="margin-left:60px;font-size:15px"; border="0" width="80%">
+  <thead >  
+  <tr>
+    <td></td>
+  </tr>    
+  </thead>
+  <tbody>
+    <tr >
+      <td style="padding-top: 10px;text-align:left"><strong>deducciones Permanentes</strong></td>  
 
-         $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numero' AND cpayno='$opcion'");
-         while($consultarDeduccion1=mssql_fetch_array($consultarDeduccion)){
-           $Cod_dedu = $consultarDeduccion1['cdesc'];
-           $Cant_dedu = $consultarDeduccion1['ndedamt'];
-           $cantida=$Cant_dedu;
-          $formato=number_format($cantida,2);
-          
-           echo '
-           <tr>
-             <td style="text-align:left">'.utf8_encode($Cod_dedu).'</td>
-             <td >---------------------------------------------</td>
-             <td>'.$formato.'</td>
-             </tr>';
-            
-         }   
-         
-         
-         
-                     
-                           ?>
+
+    </tr>
+     <tr >
+      <?php 
+      include('../crearConexionVam.php');
+      $verdeducciones=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numero' and cpayno='$opcion' and cpaycode ='INJUPEMP'");
+      while($verDatos=mssql_fetch_array($verdeducciones)){
+        $positivo1=$verDatos['nothntax']*-1;
+        $sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo1;
+      
+
+       ?>
+      <td style="text-align:left;padding-top: 10px"><?php echo $verDatos['cref'] ?></td>  
+      <td><?php echo  "L.".$positivo1; ?></td>
+      <td></td>
+      <td></td>
+
+    <?php } ?>
+    </tr>
+
+    <tr >
+      <?php 
+      include('../crearConexionVam.php');
+      $verdeduccionesIHSS=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numero' and cpayno='$opcion' and cpaycode ='IHSS'");
+      while($verDatosIHSS=mssql_fetch_array($verdeduccionesIHSS)){
+         $positivo2=$verDatosIHSS['nothntax']*-1;
+        $sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo2;
+      
+
+       ?>
+      <td style="text-align:left;padding-top: 10px"><?php echo $verDatosIHSS['cref'] ?></td>  
+      <td><?php echo  "L.".$positivo2; ?></td>
+      <td></td>
+      <td></td>
+
+    <?php } ?>
+    </tr>
+
+    <tr>
+    <?php 
+    include('../crearConexionVam.php');
+    $Permanentes=mssql_query("SELECT * FROM prmisd WHERE cempno = '$numero' and cpayno='$opcion'");
+    while($OptenerDatosPer= mssql_fetch_array($Permanentes)){
+      $CodigoVam=$OptenerDatosPer['cdedcode'];
+
+include('../crearConexionGECOMP.php');
+$VerConsultaPermanentes=mssql_query("SELECT * FROM  DEDUCCION_DEDUCCIONES WHERE CODIGO_DEDUCCION='$CodigoVam' and PERMANENTE=1");
+while($verconsulta3=mssql_fetch_array($VerConsultaPermanentes)){
+  $DeduccionesPermanentes=$verconsulta3['DESCRIPCION'];
+  $monto=$OptenerDatosPer['ndedamt'];
+  
+  $sumadorDeduccionesPermanentes=$sumadorDeduccionesPermanentes+$monto;
+
+
+
+
+
+
+    
+    ?>
+      <td style="text-align:left;padding-top: 10px"><?php echo $DeduccionesPermanentes;?></td>
+     <td><?php echo "L.".$monto ?></td>
+      <td></td>
+       <td></td>
+      </tr>
+      <?php
+    }
+      }
+      ?>
+
+       <tr>
+      <td style="text-align:left;padding-top: 10px"><strong>Total deducciones Permanentes</strong></td> 
+      <td></td>
+      <td></td>
+      <td><?php echo  "L.".$sumadorDeduccionesPermanentes; ?></td>
+      
+    </tr>
+
+
+      <tr>
+      <td style="text-align:left;padding-top: 10px"><strong>Deducciones Temporales</strong></td> 
+      
+    </tr>
+
+   <tr>
+    <?php 
+    $sumadorDeduccionesTemporales=0;
+    include('../crearConexionVam.php');
+    $PermanentesVam=mssql_query("SELECT * FROM prmisd WHERE cempno = '$numero' and cpayno='$opcion'");
+    while($OptenerTeporalVam= mssql_fetch_array($PermanentesVam)){
+      $DatosVam=$OptenerTeporalVam['cdedcode'];
+
+include('../crearConexionGECOMP.php');
+$VaerDeduccionesTemporales=mssql_query("SELECT * FROM  DEDUCCION_DEDUCCIONES WHERE CODIGO_DEDUCCION='$DatosVam' and TEMPORAL=1");
+while($verconsulta4=mssql_fetch_array($VaerDeduccionesTemporales)){
+  $DeduccionesTemporales=$verconsulta4['DESCRIPCION'];
+  $MOntoTempral=$OptenerTeporalVam['ndedamt'];
+  
+  $sumadorDeduccionesTemporales=$sumadorDeduccionesTemporales+$MOntoTempral;
+
+
+
+
+
+
+    
+    ?>
+      <td style="text-align:left"><?php echo $DeduccionesTemporales;?></td>
+     <td><?php echo "L.".$MOntoTempral ?></td>
+      <td></td>
+       <td></td>
+      </tr>
+      <?php
+    }
+      }
+      ?>
+
+
+    <td style="text-align:left;padding-top: 10px"><strong>Total deducciones Temporales</strong></td>  
+      <td></td>
+      <td></td>
+      <td><?php echo "L".$sumadorDeduccionesTemporales; ?></td>
+      </tr>
+
+      <tr>
+        <td style="text-align:left;padding-top: 10px">TOTAL DEDUCCIONES</td>
+        <td></td>
+        <td></td>
+        <td><strong><?php $Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
+          echo "L.".$Total_Deduccines;
+        ?></strong></td>
+      </tr>
+
+      <tr>
+        <td style="text-align:left;padding-top: 10px">TOTAL NETO</td>
+        <td></td>
+        <td></td>
+        <td><strong><?php $Total_neto=$cont-$Total_Deduccines;
+          echo "L.".$Total_neto;
+        ?></strong></td>
+      </tr>
+  </tbody>
+ 
                        
 </table>  
 

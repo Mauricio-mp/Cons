@@ -42,10 +42,14 @@ $formato=number_format($opnetersueldo,2);
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
     $desempenio=trim($ejecutar['cDesc']);
+    $ConvertirDesen=strtolower($desempenio);
+    $desempenio=ucwords($ConvertirDesen);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
     $asignacion=trim($asignado['cdeptname']);
+    $ConvertiAsignacion=strtolower($asignacion);
+    $asignacion=ucwords($ConvertiAsignacion);
 }
 
 
@@ -61,6 +65,8 @@ include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
+  $convertirFirma=strtolower($nombreFirma);
+  $nombreFirma=ucwords($convertirFirma);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
 
@@ -74,7 +80,7 @@ class PDF extends PDF_WriteTag
 function Header()
 {
     // Logo
-    $this->Image('../img/9.png',10,6,75);
+    $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
     $this->SetFont('Times','B',14);
     // Move to the right
@@ -109,108 +115,221 @@ function Footer()
 
 $pdf=new PDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','',10);
+$pdf->SetFont('Arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
 
 
 // Stylesheet
-$pdf->SetStyle("p","Arial","",10,"0,0,0",0);
-$pdf->SetStyle("h1","arial","N",10,"0,0,0",0);
-$pdf->SetStyle("a","arial","BU",10,"0,0,0");
+$pdf->SetStyle("p","Arial","",12,"0,0,0",0);
+$pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
+$pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
-$pdf->SetStyle("vb","arial","B",0,"0,0,0");
+$pdf->SetStyle("vb","arial","B",12,"0,0,0");
+$pdf->SetStyle("Negritas","arial","B",14,"0,0,0");
 
 
 
 $pdf->Ln(5);
 
-// Text
-$txt="<vb>".utf8_encode($nombre)." ".utf8_encode($apellido)."</vb>";
+// Text   ñ  í   ó   ú
+$txt=utf8_encode($nombre)." ".utf8_encode($apellido);
+$ConvertirNombre=strtolower($txt);
+$txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 
-$texto = "EL(A) SUSCRITO ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
+$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." del minsiterio público hace constar que ".$txt." ha laborado en esta institucion a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (".$formato."). Teniendo:";
 
 
-  include('../crearConexionVam.php'); 
-  $suma1=0;
-  $suma2=0;
-          $optenerTotal=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='$opcion' and cpaycode !='100'");
-          while($consultar=mssql_fetch_array($optenerTotal)){
-            $consultar['nothntax']=$consultar['nothntax'] *-1;
-            $suma1=$suma1+$consultar['nothntax'];
-              }
+ 
 
-         $optenerTotal1=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='$opcion'");
-         while($row=mssql_fetch_array($optenerTotal1)){
-           
-           $Cant_dedu = $row['ndedamt'];
-           
-           $suma2=$suma2+$Cant_dedu;
-           //$cantida=$Cant_dedu;
-          //$formato=number_format($cantida,2);
-          
-          //echo $Cant_dedu;
-            
-         } 
-         $total=$suma1+$suma2;
-         $sumaTotal=convertir($total);
-         $formatoTotal=number_format($total,2);
-         $totalNeto=$opnetersueldo-$total;
-         $formatoNeto=number_format($totalNeto,2);
-
-$texto1="<p>TOTAL DE DEDUCCIONES: PLANILLA DE SUELDOS DE ".$DateNum." FUE DE ".$sumaTotal." ($formatoTotal). TOTAL NETO: $formatoNeto, DISTRIBUIDAS DE ELA SIGUIENTE FORMA: </p>";
+$texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio Central, a ".$fechaActual."";
 
 $pdf->WriteTag(0,5,utf8_decode($texto),0,"J",0,0);
 $pdf->Ln(5);
-$pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(175,5,'INGRESOS',0,1,'C'); 
+$pdf->SetFont('Arial','',12);
 $pdf->Ln(5);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(50,5,'Ingresos Permanentes',0,1,'L'); 
+$pdf->SetFont('Arial','',12);
+
+//Consulta para Ingresos Permanentes
+ $cont=0;
+    $sumadorDeduccionesPermanentes=0;
+    include('../crearConexionVam.php');
+    $sql=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numeroEmpleado' and cpayno='$opcion' and cpaycode !='IHSS' and cpaycode!='INJUPEMP'");
+    while($optenerDatos= mssql_fetch_array($sql)){
+      $codigoVam=$optenerDatos['cpaycode'];
+include('../crearConexionGECOMP.php');
+$verconsulta=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$codigoVam' and PERMANENTE='1'");
+while($verconsulta1=mssql_fetch_array($verconsulta)){
+  $IngresoPermanente=$verconsulta1['DESCRIPCION'];
+  $monto1=$optenerDatos['nothtax'];
+  $cont=$cont+$monto1;
+  $pdf->Ln(3);
+$pdf->Cell(30,5,$IngresoPermanente,0,1,'L'); 
+$pdf->Cell(100,-5,number_format($monto1,2),0,1,'R'); 
+$pdf->Ln(8);
+
+
+}
+}
+//fin de Consulta Ingresos Permanentes
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(50,5,'Ingresos Temporales',0,1,'L'); 
+$pdf->SetFont('Arial','',12);
+
+ include('../crearConexionVam.php');
+    $ConsultaTemporal=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numeroEmpleado' and cpayno='$opcion' and cpaycode !='IHSS' and cpaycode!='INJUPEMP'");
+    while($optenerDatosTempral= mssql_fetch_array($ConsultaTemporal)){
+      $CodigoDatoVam=$optenerDatosTempral['cpaycode'];
+include('../crearConexionGECOMP.php');
+$ConsultaGECOMP=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$CodigoDatoVam' and TEMPORAL=1");
+while($verconsulta=mssql_fetch_array($ConsultaGECOMP)){
+  $IngresoTemporal=$verconsulta['DESCRIPCION'];
+  $monto2=$optenerDatosTempral['nothtax'];
+  $cont=$cont+$monto2;
+  $pdf->Ln(3);
+$pdf->Cell(30,5,$IngresoTemporal,0,1,'L'); 
+$pdf->Cell(100,-5,number_format($monto2,2),0,1,'R'); 
+$pdf->Ln(8);
+
+}
+}
+$pdf->SetFont('Arial','B',12);
+$pdf->Ln(3);
+$pdf->Cell(30,5,'Total Ingresos',0,1,'L'); 
+$pdf->Cell(175,-5,number_format($cont,2),0,1,'R'); 
+$pdf->Ln(8);
+$pdf->SetFont('Arial','',12);
+
 $pdf->Ln(5);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(175,5,'DEDUCCIONES',0,1,'C'); 
+$pdf->SetFont('Arial','',12);
 
-
-$pdf->Cell(90,0,utf8_decode('Descripción'),0,1,'C'); 
-$pdf->Cell(170,0,'',0,1,'C'); 
-$pdf->Cell(270,0,'Monto',0,1,'C'); 
 $pdf->Ln(5);
-$pdf->Ln(5);
-$consulta=mssql_query("SELECT * FROM prmisc WHERE cempno ='$numeroEmpleado' and cpayno='$opcion' and cpaycode !='100'");
-          while($fila=mssql_fetch_array($consulta)){
-            $fila['nothntax']=$fila['nothntax'] *-1;
-            $fila['cref'];
-             $formato1=number_format($fila['nothntax'],2);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(50,5,'Deducciones Permanentes',0,1,'L'); 
+$pdf->SetFont('Arial','',12);
 
-            $pdf->Cell(140,0,$fila['cref'],0,1,'L'); 
-            $pdf->Cell(170,0,'',0,1,'C'); 
-            $pdf->Cell(270,0,"L. ".$formato1,0,1,'C'); 
-            $pdf->Ln(5);
-            
+include('../crearConexionVam.php');
+$verdeducciones=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numeroEmpleado' and cpayno='$opcion' and cpaycode ='INJUPEMP'");
+while($verDatos=mssql_fetch_array($verdeducciones)){
+$positivo1=$verDatos['nothntax']*-1;
+$sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo1;
 
-          }
+$pdf->Ln(3);
+$pdf->Cell(30,5,$verDatos['cref'] ,0,1,'L'); 
+$pdf->Cell(100,-5,number_format($positivo1,2),0,1,'R'); 
+$pdf->Ln(8);
 
-           $consultarDeduccion=mssql_query("SELECT * FROM prmisd WHERE cempno='$numeroEmpleado' AND cpayno='$opcion'");
-         while($consultarDeduccion1=mssql_fetch_array($consultarDeduccion)){
-           $Cod_dedu = $consultarDeduccion1['cdesc'];
-           $Cant_dedu = $consultarDeduccion1['ndedamt'];
-          $formato=number_format($Cant_dedu,2);
-          $pdf->Cell(140,0,$Cod_dedu,0,1,'L'); 
-            $pdf->Cell(170,0,'',0,1,'C'); 
-            $pdf->Cell(270,0,"L. ".$formato,0,1,'C'); 
-            $pdf->Ln(5);
-           
-            
-         }   
+}
+include('../crearConexionVam.php');
+      $verdeduccionesIHSS=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numeroEmpleado' and cpayno='$opcion' and cpaycode ='IHSS'");
+      while($verDatosIHSS=mssql_fetch_array($verdeduccionesIHSS)){
+         $positivo2=$verDatosIHSS['nothntax']*-1;
+        $sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo2;
 
-           
+$pdf->Ln(3);
+$pdf->Cell(30,5,$verDatosIHSS['cref'],0,1,'L'); 
+$pdf->Cell(100,-5,number_format($positivo2,2),0,1,'R'); 
+$pdf->Ln(8);
+      
+}
 
-//$pdf->Cell(170,0,'dww2',0,1,'C'); 
-//$pdf->Cell(270,0,'dww3',0,1,'C'); 
+ include('../crearConexionVam.php');
+    $Permanentes=mssql_query("SELECT * FROM prmisd WHERE cempno = '$numeroEmpleado ' and cpayno='$opcion'");
+    while($OptenerDatosPer= mssql_fetch_array($Permanentes)){
+      $CodigoVam=$OptenerDatosPer['cdedcode'];
+
+include('../crearConexionGECOMP.php');
+$VerConsultaPermanentes=mssql_query("SELECT * FROM  DEDUCCION_DEDUCCIONES WHERE CODIGO_DEDUCCION='$CodigoVam' and PERMANENTE=1");
+while($verconsulta3=mssql_fetch_array($VerConsultaPermanentes)){
+  $DeduccionesPermanentes=$verconsulta3['DESCRIPCION'];
+  $monto=$OptenerDatosPer['ndedamt'];
+  
+  $sumadorDeduccionesPermanentes=$sumadorDeduccionesPermanentes+$monto;
+  $pdf->Ln(3);
+$pdf->Cell(30,5,$DeduccionesPermanentes,0,1,'L'); 
+$pdf->Cell(100,-5,number_format($monto,2),0,1,'R'); 
+$pdf->Ln(8);
+
+}
+}
+$pdf->SetFont('Arial','B',12);
+$pdf->Ln(3);
+$pdf->Cell(30,5,'Total Deducciones Permanentes',0,1,'L'); 
+$pdf->Cell(175,-5,number_format($sumadorDeduccionesPermanentes,2),0,1,'R'); 
+$pdf->SetFont('Arial','',12);
+
+$pdf->Ln(10);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(50,5,'Deducciones Temporales',0,1,'L'); 
+$pdf->SetFont('Arial','',12);
+
+
+
+
+ 
+    $sumadorDeduccionesTemporales=0;
+    include('../crearConexionVam.php');
+    $PermanentesVam=mssql_query("SELECT * FROM prmisd WHERE cempno = '$numeroEmpleado' and cpayno='$opcion'");
+    while($OptenerTeporalVam= mssql_fetch_array($PermanentesVam)){
+      $DatosVam=$OptenerTeporalVam['cdedcode'];
+
+include('../crearConexionGECOMP.php');
+$VaerDeduccionesTemporales=mssql_query("SELECT * FROM  DEDUCCION_DEDUCCIONES WHERE CODIGO_DEDUCCION='$DatosVam' and TEMPORAL=1");
+while($verconsulta4=mssql_fetch_array($VaerDeduccionesTemporales)){
+  $DeduccionesTemporales=$verconsulta4['DESCRIPCION'];
+  $MOntoTempral=$OptenerTeporalVam['ndedamt'];
+  
+  $sumadorDeduccionesTemporales=$sumadorDeduccionesTemporales+$MOntoTempral;
+
+  $pdf->Ln(3);
+$pdf->Cell(30,5,$DeduccionesTemporales,0,1,'L'); 
+$pdf->Cell(100,-5,number_format($MOntoTempral,2),0,1,'R'); 
+$pdf->Ln(8);
+  }
+}
+
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Ln(3);
+$pdf->Cell(30,5,'Total Deducciones Temporales',0,1,'L'); 
+$pdf->Cell(175,-5,number_format($sumadorDeduccionesTemporales,2),0,1,'R'); 
+$pdf->SetFont('Arial','',12);
+
+$Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Ln(10);
+$pdf->Cell(30,5,'Total Deducciones ',0,1,'L'); 
+$pdf->Cell(175,-5,number_format($Total_Deduccines,2),0,1,'R'); 
+$pdf->SetFont('Arial','',12);
+
+$Total_neto=$cont-$Total_Deduccines;
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Ln(10);
+$pdf->Cell(30,5,'Total Neto ',0,1,'L'); 
+$pdf->Cell(175,-5,number_format($Total_neto,2),0,1,'R'); 
+$pdf->SetFont('Arial','',12);
+
+
+
+$pdf->Ln(15);
+$pdf->WriteTag(0,5,utf8_decode($texto2),0,"J",0,0);
+
 
 
 
 $pdf->Cell(10,20,'',0,1,'C'); 
-$texto1="PARA LOS FINES QUE AL INTERESADO LE CONVENGA SE LE EXTIENDE LA PRESENTE EN LA CIUDAD DE TEGUCIGALPA, MUNICIPIO DEL DISTRITO CENTRAL A ".$fechaActual."";
+//$texto1="PARA LOS FINES QUE AL INTERESADO LE CONVENGA SE LE EXTIENDE LA PRESENTE EN LA CIUDAD DE TEGUCIGALPA, MUNICIPIO DEL DISTRITO CENTRAL A ".$fechaActual."";
 $pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
