@@ -63,33 +63,26 @@ $(document).ready(function(){
     </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../Home.php">Inicio</a></li>
-          <li class="dropdown">
+           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Constancias <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
          <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Constancias de Trabajo<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="../Cons_Sin_Ded">Sin Deducciones</a></li>
-                       <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
-                       <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="index.php">Normal</a></li>
-                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
-                        </ul>
-                      </li>
+          <li><a  href="../Cons_Sin_Ded">Sin Deducciones</a></li>
+          <li><a  href="../Cons_Con_Ded">Con Deducciones</a></li>
         </ul>
       </li>
             <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Bonos<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#"   data-toggle="modal" data-target="#nuevoPorcentaje">13AVO</a></li>
-          <li><a tabindex="-1" href="Porcentaje.php">14AVO</a></li>
-           <li><a tabindex="-1" href="Porcentaje.php">Vacaciones</a></li>
+          <li><a tabindex="-1" href="../Cons_13-14">13Avo/14Avo</a></li>
+           <li><a tabindex="-1" href="../Cons_Vac">Vacaciones</a></li>
         </ul>
       </li>
         <li><a tabindex="-1" href="../Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="../Cons_Emb">Embajadas y Consulados</a></li>
-             <li><a tabindex="-1" href="../TSC">T.S.C.</a></li>
+            <li><a tabindex="-1" href="../TSC">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
 
@@ -112,7 +105,7 @@ $(document).ready(function(){
         </li>
 
 
-        <li class="dropdown">
+         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-submenu">
@@ -127,12 +120,30 @@ $(document).ready(function(){
                  <a class="test" tabindex="-1" href="#">Firma de Autorizacion<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                    <li><a tabindex="-1" href="../Nuevafirma.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="../ModificarFirma">Modificar</a></li>
+                 <li><a tabindex="-1" href="../ModificarFirma">Modificar firma</a></li>
                   </ul>
                  </li>
+
+                 
                 
                  <li><a tabindex="-1" href="../Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
-                 <li><a tabindex="-1" href="../Nuevaembajada.php">Anular Constancias</a></li>
+                  <li><a tabindex="-1" href="../Nuevaembajada.php">Anular Constancias</a></li>
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia T.S.C<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="../Mant_Acuerdo">Acuerdo</a></li>
+                 <li><a tabindex="-1" href="../Mant_Acuerdo/excel.php">Subir Excel</a></li>
+                  </ul>
+                 </li>
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia Deducciones<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="../Man_Cons_Con">Ingresos</a></li>
+                 <li><a tabindex="-1" href="../Man_Cons_Con/deducciones.php">Deducciones</a></li>
+                  </ul>
+                 </li>                  
           </ul>
         </li>
 
@@ -161,7 +172,7 @@ $(document).ready(function(){
         
         
 <!-- Modal -->
-<div class="modal fade" id="nuevoPorcentaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -175,7 +186,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button onclick="location.href='cerrarSesion.php'" type="button" class="btn btn-primary">si</button>
+        <button onclick="location.href='../index.php'" type="button" class="btn btn-primary">si</button>
       </div>
     </div>
   </div>
@@ -193,6 +204,59 @@ $(document).ready(function(){
 
 
 <body class="Fondo">
+  <style type="text/css">
+     .cuadrado{
+     width: 250px; 
+     height: 100px; 
+     border: 3px solid #555;
+     background: #FFFFFFFF;
+}
+
+ .rojo{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(243, 105, 61,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.verde{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(51, 255, 144,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+.blanco{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: #FFF;
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.linear{
+  margin-top:1px;
+  margin-left:90px;
+}
+ </style>
+     <div class="cuadrado">
+        <div class="blanco">
+          <p class="linear">ACTIVO</p>
+        </div>
+
+         <div class="verde">
+          <p class="linear">INACTIVO</p>
+        </div>
+
+         <div class="rojo">
+          <p class="linear">SUSPENDIDO</p>
+        </div>
+       
+      </div>
 <div class="" style="margin-left:40em; margin-right:40em">
 
 </div>
@@ -212,13 +276,25 @@ $(document).ready(function(){
                          <?php
          $consultar=mssql_query("SELECT * FROM prempy ");
 		while($mostrar=mssql_fetch_array($consultar)){
+
+       if ($mostrar['cstatus']=="T") {
+        $Color="rgba(243, 105, 61,0.8)";
+      }
+      if ($mostrar['cstatus']=="I") {
+        $Color="rgba(51, 255, 144,0.8)";
+
+      }
+       if ($mostrar['cstatus']=="A") {
+        $Color="";
+        
+      }
 			echo "
                   <tr>
-                    <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal1.php?x={$mostrar[0]}'>Ver</a></td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal1.php?x={$mostrar[0]}'>Ver</a></td>
                   </tr>";
 
                 }      

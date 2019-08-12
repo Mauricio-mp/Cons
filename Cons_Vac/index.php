@@ -56,7 +56,7 @@ $(document).ready(function(){
   </div>
   <div class="collapse navbar-collapse js-navbar-collapse">
     <ul class="nav navbar-nav">
- <a class="navbar-brand" href="inicio.php">Usuario</a>
+ <a class="navbar-brand" href="../Home.php"><?php echo $_SESSION['username']; ?></a>
     </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../Home.php">Inicio</a></li>
@@ -99,37 +99,56 @@ $(document).ready(function(){
         </li>
 
 
-       <li class="dropdown">
+         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="Man_mp.php">1</a></li>
-            <li><a href="Man_pr.php">2</a></li>
-            <li><a href="cai.php">3</a></li>
+         <ul class="dropdown-menu" role="menu">
+            <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
+            <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
+            <li><a href="../Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
+
         </li>
 
 
-        <li class="dropdown">
+          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Cooperativas<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevacooperativa.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Listacooperativas.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevacooperativa.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../Listacooperativas.php">Modificar</a></li>
                   </ul>
                  </li>
 
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Firma de Autorizacion<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevafirma.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Porcentaje.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevafirma.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../ModificarFirma">Modificar firma</a></li>
                   </ul>
                  </li>
+
+                 
                 
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Anular Constancias</a></li>
+                 <li><a tabindex="-1" href="../Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
+                  <li><a tabindex="-1" href="../Nuevaembajada.php">Anular Constancias</a></li>
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia T.S.C<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="../Mant_Acuerdo">Acuerdo</a></li>
+                 <li><a tabindex="-1" href="../Mant_Acuerdo/excel.php">Subir Excel</a></li>
+                  </ul>
+                 </li>
+
+                   <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Constancia Deducciones<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="../Man_Cons_Con">Ingresos</a></li>
+                 <li><a tabindex="-1" href="../Man_Cons_Con/deducciones.php">Deducciones</a></li>
+                  </ul>
+                 </li>                  
           </ul>
         </li>
 

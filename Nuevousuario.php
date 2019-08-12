@@ -5,8 +5,8 @@ include('crearConexionGECOMP.php');
  //$varsession= $_SESSION['username'];
  //if($varsession== null || $varsession= ''){
  // header("location:prueba.php");
-
- 
+//}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -282,7 +282,7 @@ $(document).ready(function(){
 
 </section>
 
-<body style="background-color:#00FFFFFF">
+<body class="Fondo">
 
 <section>
           <div class="center" style="background-color: #FFFFFFFF;">

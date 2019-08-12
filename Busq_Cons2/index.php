@@ -197,7 +197,7 @@ $(document).ready(function(){
   <div class="center container">
     <form method="POST" >
       <div  class="form-group">
-        <label>Elija el tipo de Constancia</label>
+        <label>Escriba el nombre del empleado</label>
         <input type="text" name="nombre" class="form-control" placeholder="Nombre del Empleado" required="required">
       </div>
 
