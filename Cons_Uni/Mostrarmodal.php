@@ -10,9 +10,11 @@ include('ConversionFecha.php');
 <head>
 	<title>Inicio</title>
 
-   <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
            
             
 	<meta charset="UTF-8">
@@ -38,6 +40,8 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 	$codigoPuesto=$row['cjobtitle'];
 	$codigoAsignado=$row['cdeptno'];
 	$opnetersueldo=$row['nmonthpay'];
+	$Nombre=$row['cfname'];
+  $Apellido=$row['clname'];
 	//echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));
@@ -72,10 +76,12 @@ include('../crearConexionVam.php');
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
 	$ejecutar['cDesc'];
+    $cargo=$ejecutar['cDesc'];
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
 	$asignado['cdeptname'];
+	$Asignadoa=$asignado['cdeptname'];
 }
 include('../cerrarConexionVam.php'); 
  ?>
@@ -129,7 +135,7 @@ if (isset($_POST['Imprimir'])) {
 
 
 
-<div>
+<div style="text-align: center">
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>	
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p>	
@@ -138,10 +144,51 @@ if (isset($_POST['Imprimir'])) {
   <div class="text-center">
      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
 </button> 
-    <button type="submit" name="Imprimir" id="Imprimir" class="btn btn-primary"style="padding-left:80px;padding-right:80px  ">Imprimir</span> 
+    <button type="button"  class="btn btn-primary"style="padding-left:80px;padding-right:80px  "data-toggle="modal" data-target="#modalh">Imprimir</span> 
 </button>    
 </div>
+<div class="modal fade" id="modalh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">GECOMP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1> ¿Desea imprimir esta pagina?</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button name="Imprimir" id="Imprimir" type="submit" class="btn btn-primary">Aceptar</button>
+      </div>
+     <?php 
+if (isset($_POST['Imprimir'])) {
 
+	$id=$_POST['id_firma'];
+  $Codigo=$_SESSION['logeo'];
+
+  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
+
+
+ if ($insertar==true) {
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'"</script>';
+ }else{
+  echo "<script>alert('Error al Guardar Datos')</script>";
+ }
+  
+  
+  
+
+//echo "<script>alert('".$id."');</script>";
+//echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
+}
+ ?>
+    </div>
+  </div>
+</div> 
 </form>
 
   

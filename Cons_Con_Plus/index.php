@@ -2,12 +2,15 @@
  session_start();
 ob_start();
 include('../crearConexionVam.php');
- //$varsession= $_SESSION['username'];
- //if($varsession== null || $varsession= ''){
- // header("location:prueba.php");
+$varsession= $_SESSION['username'];
+ if($varsession== null || $varsession= ''){
+   echo "<script>";
+    echo "alert('inicie session');";
+    echo "window.location = '../index.php';";
+    echo "</script>";
 
- // die();
- //}
+  die();
+ }
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,9 +73,8 @@ $(document).ready(function(){
                        <li class="dropdown-submenu">
                         <a class="test" tabindex="-1" href="#">Con Deducciones<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a tabindex="-1" href="index.php">Normal</a></li>
-                           <li><a tabindex="-1" href="../Cons_Con_Plus">Con Plus</a></li>
-                              <li><a tabindex="-1" href="Porcentaje.php">Sin Plus</a></li>
+                         <li><a tabindex="-1" href="../Cons_Con_Ded">Normal</a></li>
+                           <li><a tabindex="-1" href="index.php">Con Plus</a></li>
                         </ul>
                       </li>
         </ul>
@@ -87,7 +89,7 @@ $(document).ready(function(){
       </li>
         <li><a tabindex="-1" href="../Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="../Cons_Emb">Embajadas y Consulados</a></li>
-            <li><a tabindex="-1" href="Porcentaje.php">T.S.C.</a></li>
+             <li><a tabindex="-1" href="../TSC">T.S.C.</a></li>
               <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
 
 
@@ -102,10 +104,11 @@ $(document).ready(function(){
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="Man_mp.php">1</a></li>
-            <li><a href="Man_pr.php">2</a></li>
-            <li><a href="cai.php">3</a></li>
+            <li><a href="../Busq_Cons1">ver constancias Emitidas</a></li>
+            <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
+            <li><a href="../Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
+
         </li>
 
 
@@ -115,21 +118,21 @@ $(document).ready(function(){
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Cooperativas<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevacooperativa.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Listacooperativas.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevacooperativa.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../Listacooperativas.php">Modificar</a></li>
                   </ul>
                  </li>
 
                 <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Firma de Autorizacion<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Nuevafirma.php">Nueva</a></li>
-                 <li><a tabindex="-1" href="Porcentaje.php">Modificar</a></li>
+                   <li><a tabindex="-1" href="../Nuevafirma.php">Nueva</a></li>
+                 <li><a tabindex="-1" href="../ModificarFirma">Modificar</a></li>
                   </ul>
                  </li>
                 
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
-                 <li><a tabindex="-1" href="Nuevaembajada.php">Anular Constancias</a></li>
+                 <li><a tabindex="-1" href="../Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
+                 <li><a tabindex="-1" href="../Nuevaembajada.php">Anular Constancias</a></li>
           </ul>
         </li>
 

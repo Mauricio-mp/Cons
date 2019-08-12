@@ -68,10 +68,11 @@ body, html{
 	width: 90%;
 	max-width: 300px;
 	padding: 15px;
+	border: 1px solid black;
 	box-shadow: 0 0 3px rgba(0,0,100,.7);
 	border-radius: 0 0 2px 2px;
 	background-color: #454545;	
-	opacity: 0.8;
+	opacity: 0.9;
 }
 .logInForm p,
 .logInForm label{
