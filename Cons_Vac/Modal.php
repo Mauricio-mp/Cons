@@ -35,6 +35,28 @@ $(document).ready(function(){
   });
 });
 </script>
+
+
+<?php  
+
+$Status=$_GET['Status'];
+if ($Status=="T") {
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA SUSPENDIDO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+
+}
+
+if ($Status=="I") {
+  //header('location:index.php');
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA INACTIVO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+}
+
+?>
 </head>
 <body>
 	<script>
