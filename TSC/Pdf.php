@@ -165,7 +165,7 @@ function Footer()
 
 $pdf=new PDF();
 $pdf->AddPage();
-$pdf->SetFont('arial','',12);
+$pdf->SetFont('arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
 
@@ -182,14 +182,14 @@ $pdf->SetStyle("vb","arial","B",0,"0,0,0");
 
 $pdf->Ln(5);
 
-// Text
+// Text   ñ  í   ó   ú
 
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $nombreEmp=strtolower($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
 
 
-$texto = "El(a) suscrito ".utf8_encode($puestoFirma)." del ministerio publico hace constar que ".$txt." con numero de identidad ".$Identidad." labora por contrato en esta instutucion a partir del ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempena como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por Costo de Vida, siendo afectivo a partir del ".$Fecha_Efectivo." con un sueldo mensual de: \t".$var."\t"." (L.".$formato.").";
+$texto = "El(a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con numero de identidad ".$Identidad.", labora por contrato en esta institución a partir del ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por Costo de Vida, siendo efectivo a partir del ".$Fecha_Efectivo." con un sueldo mensual de: \t".$var."\t"." (L.  ".$formato.").";
 
 
 
@@ -235,7 +235,7 @@ $pdf->Cell(270,0,$formato_Fondo_Combus,0,1,'C');
 
 
 $pdf->Cell(10,20,'',0,1,'C'); 
-$texto1="Constancia que se expide a peticion de parte del interesado(a), en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual."";
+$texto1="Constancia que se expide a petición de parte del interesado(a), en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual."";
 $pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  

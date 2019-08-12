@@ -300,7 +300,7 @@ $CANCELADOS=0;
 
                           <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Puesto o Cargo</label>
-                        <input class="form-control" type="text" Id="Puesto" value="<?php echo $ejecutar['PUESTO_EMPLEADO']; ?>" name="Puesto" Required placeholder="Ingrese la cantidad de meses de adelanto" min="1" max="12" onkeypress="return mCheck2(event)" pattern="[A-Z ]{2,100}" title="Unicamente Numeros, minimo 2 y maximo 100" placeholder="Ingrese El Puesto o Cargo">
+                        <input class="form-control" type="text" Id="Puesto" value="<?php echo $ejecutar['PUESTO_EMPLEADO']; ?>" name="Puesto" Required placeholder="Ingrese la cantidad de meses de adelanto" min="1" max="12" onkeypress="return mCheck2(event)"  title="Unicamente Numeros, minimo 2 y maximo 100" placeholder="Ingrese El Puesto o Cargo">
                              <script language="javascript"> 
                                     function mCheck2(e, field) {
                                      key = e.keyCode ? e.keyCode : e.which

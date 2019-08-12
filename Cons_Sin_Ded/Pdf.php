@@ -128,14 +128,14 @@ $pdf->SetStyle("vb","arial","B",0,"0,0,0");
 
 $pdf->Ln(5);
 
-//  Ñ  ñ  ó
+//  Ñ  ñ  ó  ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $nombreEmp=strtolower($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
 
 
 
-$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." del ministerio publico hace constar que ".$txt." ha laborado por contrato en esta institucion a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L.".$formato.").";
+$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt." ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato.").";
 
 //$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
 
@@ -147,7 +147,7 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
 
-$pdf->Cell(10,20,'',0,1,'C'); 
+$pdf->Cell(10,10,'',0,1,'C'); 
 $texto1="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio Central, a ".$fechaActual."";
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 

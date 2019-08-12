@@ -59,7 +59,7 @@ $(document).ready(function(){
   </div>
   <div class="collapse navbar-collapse js-navbar-collapse">
     <ul class="nav navbar-nav">
- <a class="navbar-brand" href="inicio.php"><?php echo $_SESSION['username']; ?></a>
+  <a class="navbar-brand" href="../Home.php"><?php echo $_SESSION['username']; ?></a>
     </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../Home.php">Inicio</a></li>

@@ -79,15 +79,16 @@ class PDF extends PDF_WriteTag
 // Page header
 function Header()
 {
-    // Logo
+     // Logo
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
     $this->SetFont('Times','B',14);
     // Move to the right
-    $this->Ln(25);
+    $this->Ln(40);
     $this->Cell(72);
     // Title
-    $this->Cell(15,70,'CONSTANCIA',0,0,'C');
+
+    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
     $this->Ln(20);
 }
@@ -113,35 +114,38 @@ function Footer()
 
 
 $pdf=new PDF();
-$pdf->AliasNbPages();
-$pdf->SetAutoPageBreak(true, 15);
-$pdf->SetMargins(25,0,25);
-$pdf->SetFont('Arial','',13);
 $pdf->AddPage();
+$pdf->SetFont('Arial','',13);
+$pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
+$pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
+
 
 // Stylesheet
-$pdf->SetStyle("p","arial","N",12,"0,0,0",0);
-$pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
-$pdf->SetStyle("a","arial","BU",12,"0,0,0");
+$pdf->SetStyle("p","Arial","",13,"0,0,0",0);
+$pdf->SetStyle("h1","arial","N",13,"0,0,0",0);
+$pdf->SetStyle("a","arial","BU",13,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",0,"0,0,0");
 
 
 
+$pdf->Ln(5);
+
+
 // Text
 $txt=" 
-<p>El (a) Suscrito ".$puestoFirma." del ministerio público hace constar que <vb>".$nombreCompleto."</vb> ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo." actualmente se desempeña como: ".trim($desempenio)." "."asignado a: ".$asignacion.".</p>
+<p>El (a) suscrito ".$puestoFirma." del Ministerio Público hace constar que <vb>".$nombreCompleto."</vb> ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo." actualmente se desempeña como: ".trim($desempenio)." "."asignado a: ".$asignacion.".</p>
 ";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
 $texto1=" <p>Constancia que se expide a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del distrito Central, a ".$fechaActual.".
 </p>";
 
-$pdf->Ln(30);
-$pdf->WriteTag(0,5,utf8_decode($txt),0,"J",0,0);
-$pdf->Ln(10);
-$pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
+
+$pdf->WriteTag(0,7,utf8_decode($txt),0,"J",0,0);
+$pdf->Cell(10,10,'',0,1,'C'); 
+$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 
 $pdf->line();  

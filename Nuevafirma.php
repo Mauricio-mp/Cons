@@ -316,7 +316,7 @@ $(document).ready(function(){
 
                          <div class="form-group label-floating">
                         <label class="control-label">Ingrese el nombre Completo</label>
-                        <input class="form-control" type="text" Id="Nombre" name="Nombre" Required onkeypress="return mCheck1(event)" minlength=15 pattern="[A-Z ]{15,60}" title="Unicamente letras mayusculas, minimo 15 y maximo 60" placeholder="Ingrese el Nombre Completo">
+                        <input class="form-control" type="text" Id="Nombre" name="Nombre" Required onkeypress="return mCheck1(event)" minlength=15 pattern="[A-Z ]{5,60}" title="Unicamente letras mayusculas, minimo 15 y maximo 60" placeholder="Ingrese el Nombre Completo">
                                  <script language="javascript"> 
                                     function mCheck1(e, field) {
                                      key = e.keyCode ? e.keyCode : e.which

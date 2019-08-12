@@ -63,7 +63,7 @@ $(document).ready(function(){
          <label>Seleccione mes a Generar</label>
 <select class="form-control" name="opcionMes" id="opcionMes"><option  disabled selected>Seleccionar Opcion</option>
   <?php
-  $formato=date("Y-m");
+  $formato=date('Y-m',strtotime('2019-05-06'));
 $nuevafecha = strtotime ( '-1 month' , strtotime ( $formato ) ) ;
 $nuevafecha = date ( 'Y-m' , $nuevafecha );
 // echo $nuevafecha;

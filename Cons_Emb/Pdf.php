@@ -138,12 +138,14 @@ $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha:
 
 
 // Stylesheet
-$pdf->SetStyle("p","arial","",12,"0,0,0",0);
+$pdf->SetStyle("p","arial","",13,"0,0,0",0);
 $pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
 $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
-$pdf->SetStyle("vb","arial","B",14,"0,0,0");
+$pdf->SetStyle("vb","arial","B",12,"0,0,0");
+$pdf->SetStyle("negrta","arial","B",13,"0,0,0");
+
 
 
 
@@ -158,7 +160,7 @@ $txt2="
 ";
 
 $txt3=" 
-<p>El (a) Suscrito(a), ".strtolower($puestoFirma).", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion." devengando un salario mensual de ".$var." (L.".$formato.").</p>
+<p>El (a) suscrito(a), ".strtolower($puestoFirma).", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion.", devengando un salario mensual de ".$var." (L. ".$formato.").</p>
 ";
 
 
@@ -171,7 +173,7 @@ $texto1=" <p>Constancia que se expide a parte interesada, en la Ciudad de Teguci
 
 $txtembajada=$nombreembajada;
 $nombreEmbajada=strtolower($txtembajada);
-$txtembajada="<vb>".ucwords($nombreEmbajada)."</vb>";
+$txtembajada="<negrta>".ucwords($nombreEmbajada)."</negrta>";
 
 
 $pdf->Ln(0);
