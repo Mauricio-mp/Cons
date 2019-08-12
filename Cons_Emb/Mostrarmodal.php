@@ -21,7 +21,26 @@ include('ConversionFecha.php');
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="../css/Estilos.css">
 
+<?php  
 
+$Status=$_GET['Status'];
+if ($Status=="T") {
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA SUSPENDIDO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+
+}
+
+if ($Status=="I") {
+  //header('location:index.php');
+   echo "<script>";
+    echo "alert('EL EMPLEADO SELECCIONADO ESTA INACTIVO');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
+}
+
+?>
 </head>
 
 	<!-- SideBar -->
