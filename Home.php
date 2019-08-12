@@ -75,9 +75,8 @@ $(document).ready(function(){
             <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Bonos<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#"   data-toggle="modal" data-target="#nuevoPorcentaje">13AVO</a></li>
-          <li><a tabindex="-1" href="Porcentaje.php">14AVO</a></li>
-           <li><a tabindex="-1" href="Porcentaje.php">Vacaciones</a></li>
+          <li><a tabindex="-1" href="./Cons_13-14">13Avo/14Avo</a></li>
+           <li><a tabindex="-1" href="./Cons_Vac">Vacaciones</a></li>
         </ul>
       </li>
         <li><a tabindex="-1" href="./Cons_Uni">Universidades</a></li>
