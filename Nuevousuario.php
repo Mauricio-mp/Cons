@@ -452,7 +452,7 @@ $(document).ready(function(){
                         
 
                             <div class="center" style="background-color: #FFFFFFFF;">
-                              <h4 align="center" ><b>Seleccione Los Accesos que Tendra este Rol</b></h4>
+                              <h4 align="center" ><b> Accesos que Tendra este Usuario</b></h4>
                              <h4 align="center" ><b></b></h4>
                          
                        

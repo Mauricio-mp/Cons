@@ -39,6 +39,13 @@ $val18=0;
 $val19=0;
 $val20=0;
 $val21=0;
+$val22=0;
+$val23=0;
+$val24=0;
+$val25=0;
+$val26=0;
+$val27=0;
+$val28=0;
 
 
 
@@ -113,10 +120,29 @@ $val21=0;
              }                
         if ($row['Id_Permiso']==21) {
                  $val21=1;
+             }  
+        if ($row['Id_Permiso']==22) {
+                 $val22=1;
              }                
-
-
-        
+        if ($row['Id_Permiso']==23) {
+                 $val23=1;
+             }               
+       if ($row['Id_Permiso']==24) {
+                 $val24=1;
+             }                
+        if ($row['Id_Permiso']==25) {
+                 $val25=1;
+             } 
+       if ($row['Id_Permiso']==26) {
+                 $val26=1;
+             }                
+        if ($row['Id_Permiso']==27) {
+                 $val27=1;
+             } 
+         if ($row['Id_Permiso']==28) {
+                 $val28=1;
+             }                
+      
 
 
 
@@ -129,11 +155,8 @@ $val21=0;
                           
 
                           <input type="checkbox" name="CTSD" value="1" <?php if ($val1==1) { echo "checked"; }  ?>> Constancia de Trabajo sin Deducciones<br>
-                          <input type="checkbox" name="CTCDN" value="2" <?php if ($val2==1) { echo "checked"; }  ?>>  Constancia de Trabajo con Deducciones Normal<br>
-                          <input type="checkbox" name="CTCDCP" value="3"<?php if ($val3==1) { echo "checked"; }  ?>> Constancia de Trabajo con Deducciones con Plus<br>
-                          <input type="checkbox" name="CTCDSP" value="4"<?php if ($val4==1) { echo "checked"; }  ?>> Constancia de Trabajo con Deducciones sin Plus<br>
-                          <input type="checkbox" name="TRECE_AVO" value="5"<?php if ($val5==1) { echo "checked"; }  ?>>  Constancia para Bono de 13AVO<br>
-                          <input type="checkbox" name="CATORCE_AVO" value="6"<?php if ($val6==1) { echo "checked"; }  ?>> Constancia para Bono de 14AVO<br>
+                          <input type="checkbox" name="CTCD" value="2" <?php if ($val2==1) { echo "checked"; }  ?>>  Constancia de Trabajo con Deducciones<br>
+                          <input type="checkbox" name="TRECE_AVO" value="5"<?php if ($val5==1) { echo "checked"; }  ?>>  Constancia para Bono de 13AVO/14AVO<br>
                           <input type="checkbox" name="VAC" value="7"<?php if ($val7==1) { echo "checked"; }  ?>> Constancia para Bono de Vacaciones<br>
                           <input type="checkbox" name="UNIVERSIDADES" value="8"<?php if ($val8==1) { echo "checked"; }  ?>>  Constancia para Universidades<br>
                           <input type="checkbox" name="EMBAJADAS" value="9"<?php if ($val9==1) { echo "checked"; }  ?>> Constancia para Embajadas/Consulados<br>
@@ -149,5 +172,12 @@ $val21=0;
                           <input type="checkbox" name="CR" value="19"<?php if ($val19==1) { echo "checked"; }  ?>>  Crear Roll<br>
                           <input type="checkbox" name="CV" value="20"<?php if ($val20==1) { echo "checked"; }  ?>> Cambiar Clave<br>
                           <input type="checkbox" name="AC" value="21"<?php if ($val21==1) { echo "checked"; }  ?>> Anular Constancias<br>
+                          <input type="checkbox" name="cbx1" value="22" <?php if ($val22==1) { echo "checked"; }  ?>> Datos del Acuerdo para Constancia del T.S.C.<br>
+                          <input type="checkbox" name="cbx2" value="23" <?php if ($val23==1) { echo "checked"; }  ?>> Excel para Constancias del T.S.C.<br>
+                          <input type="checkbox" name="cbx3" value="24" <?php if ($val24==1) { echo "checked"; }  ?>> Mantenimiento a Ingresos para constancia con Deducciones<br>
+                          <input type="checkbox" name="cbx4" value="25" <?php if ($val25==1) { echo "checked"; }  ?>> Mantenimiento a Deducciones para constancia con Deducciones<br>
+                          <input type="checkbox" name="cbx5" value="26" <?php if ($val26==1) { echo "checked"; }  ?>> Reporte de Constancias Emitidas Entre Fechas<br>
+                          <input type="checkbox" name="cbx6" value="27" <?php if ($val27==1) { echo "checked"; }  ?>> Reporte de Constancias Emitidas por Empleado<br>
+                          <input type="checkbox" name="cbx7" value="28" <?php if ($val28==1) { echo "checked"; }  ?>> Estadistico de Constancias Generadas entre Fcehas<br>
 </body>
 </html>
