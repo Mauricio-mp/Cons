@@ -337,19 +337,16 @@ $(document).ready(function(){
 
                             <div class="center" style="background-color: #FFFFFFFF;">
                               <h4 align="center" ><b>Seleccione Los Accesos que Tendra este Rol</b></h4>
-                             <h4 align="center" ><b></b></h4>
+                          <h4 align="center" ><b></b></h4>
                           <input type="checkbox" name="CTSD" value="1"> Constancia de Trabajo sin Deducciones<br>
-                          <input type="checkbox" name="CTCDN" value="1">  Constancia de Trabajo con Deducciones Normal<br>
-                          <input type="checkbox" name="CTCDCP" value="1"> Constancia de Trabajo con Deducciones con Plus<br>
-                          <input type="checkbox" name="CTCDSP" value="1"> Constancia de Trabajo con Deducciones sin Plus<br>
-                          <input type="checkbox" name="TRECE_AVO" value="1">  Constancia para Bono de 13AVO<br>
-                          <input type="checkbox" name="CATORCE_AVO" value="1"> Constancia para Bono de 14AVO<br>
+                          <input type="checkbox" name="CTCD" value="1">  Constancia de Trabajo con Deducciones<br>
+                          <input type="checkbox" name="TRECE_AVO" value="1">  Constancia para Bono de 13AVO/14AVO<br>
                           <input type="checkbox" name="VAC" value="1"> Constancia para Bono de Vacaciones<br>
                           <input type="checkbox" name="UNIVERSIDADES" value="1">  Constancia para Universidades<br>
                           <input type="checkbox" name="EMBAJADAS" value="1"> Constancia para Embajadas/Consulados<br>
                           <input type="checkbox" name="TSC" value="1"> Constancia para T.S.C.<br>
                           <input type="checkbox" name="CANCELADOS" value="1">  Constancia de Cancelados<br>
-                           <input type="checkbox" name="NC" value="1"> Nueva Cooperativa<br>
+                          <input type="checkbox" name="NC" value="1"> Nueva Cooperativa<br>
                           <input type="checkbox" name="MC" value="1">  Mantenimiento Cooperativa<br>
                           <input type="checkbox" name="NFA" value="1"> Nueva Firma de Autorizacion<br>
                           <input type="checkbox" name="MFA" value="1"> Mantenimiento de Firma de Autorizacion<br>
@@ -359,8 +356,14 @@ $(document).ready(function(){
                           <input type="checkbox" name="CR" value="1">  Crear Roll<br>
                           <input type="checkbox" name="CV" value="1"> Cambiar Clave<br>
                           <input type="checkbox" name="AC" value="1"> Anular Constancias<br>
-                       
-                             
+                        
+                          <input type="checkbox" name="cbx1" value="1"> Datos del Acuerdo para Constancia del T.S.C.<br>
+                          <input type="checkbox" name="cbx2" value="1"> Excel para Constancias del T.S.C.<br>
+                          <input type="checkbox" name="cbx3" value="1"> Mantenimiento a Ingresos para constancia con Deducciones<br>
+                          <input type="checkbox" name="cbx4" value="1"> Mantenimiento a Deducciones para constancia con Deducciones<br>
+                          <input type="checkbox" name="cbx5" value="1"> Reporte de Constancias Emitidas Entre Fechas<br>
+                          <input type="checkbox" name="cbx6" value="1"> Reporte de Constancias Emitidas por Empleado<br>
+                          <input type="checkbox" name="cbx7" value="1"> Estadistico de Constancias Generadas entre Fcehas<br>
                               
 
                                </div>
@@ -416,26 +419,16 @@ $(document).ready(function(){
                                              insertar($idrol, $Id_Permiso);
                                             } 
 
-                                             if (isset($_POST["CTCDN"])) {
+                                             if (isset($_POST["CTCD"])) {
                                              $Id_Permiso=2;
                                              insertar($idrol, $Id_Permiso);
                                             } 
-                                             if (isset($_POST["CTCDCP"])) {
-                                             $Id_Permiso=3;
-                                             insertar($idrol, $Id_Permiso);
-                                            } 
-                                             if (isset($_POST["CTCDSP"])) {
-                                             $Id_Permiso=4;
-                                             insertar($idrol, $Id_Permiso);
-                                            } 
+                                            
                                                if (isset($_POST["TRECE_AVO"])) {
                                              $Id_Permiso=5;
                                              insertar($idrol, $Id_Permiso);
                                             } 
-                                                if (isset($_POST["CATORCE_AVO"])) {
-                                             $Id_Permiso=6;
-                                             insertar($idrol, $Id_Permiso);
-                                            } 
+                                                
                                                   if (isset($_POST["VAC"])) {
                                              $Id_Permiso=7;
                                              insertar($idrol, $Id_Permiso);
@@ -496,6 +489,39 @@ $(document).ready(function(){
                                              $Id_Permiso=21;
                                              insertar($idrol, $Id_Permiso);
                                             }
+
+                                                if (isset($_POST["cbx1"])) {
+                                             $Id_Permiso=22;
+                                             insertar($idrol, $Id_Permiso);
+                                            } 
+                                              if (isset($_POST["cbx2"])) {
+                                             $Id_Permiso=23;
+                                             insertar($idrol, $Id_Permiso);
+                                            } 
+                                              if (isset($_POST["cbx3"])) {
+                                             $Id_Permiso=24;
+                                             insertar($idrol, $Id_Permiso);
+                                            } 
+                                              if (isset($_POST["cbx4"])) {
+                                             $Id_Permiso=25;
+                                             insertar($idrol, $Id_Permiso);
+                                            } 
+                                              if (isset($_POST["cbx5"])) {
+                                             $Id_Permiso=26;
+                                             insertar($idrol, $Id_Permiso);
+                                            }
+                                              if (isset($_POST["cbx6"])) {
+                                             $Id_Permiso=27;
+                                             insertar($idrol, $Id_Permiso);
+                                            }
+                                                 if (isset($_POST["cbx7"])) {
+                                             $Id_Permiso=28;
+                                             insertar($idrol, $Id_Permiso);
+                                            }
+
+
+
+
                                              
                                               if ($res1==1) {
                                           echo "<script> alert('Datos Almacenados con Exito'); </script>";
