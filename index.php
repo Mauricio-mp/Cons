@@ -23,10 +23,27 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    
+    <style type="text/css">
+      img.zoom {
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+}
+ 
+.transition {
+    -webkit-transform: scale(1.8); 
+    -moz-transform: scale(1.8);
+    -o-transform: scale(1.8);
+    transform: scale(1.8);
+}
+    </style>  
 
   </head>
- <body class="cover" style="background-image: url(img/ministerio-público.jpg); ">  
+ <body >  
+  <img src="img/ministerio-público.jpg" class="zoom"/>
   <?php 
 include('validarnavegador.php');
 $opbeterNavegador= getBrowser($user_agent);
