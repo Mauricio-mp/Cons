@@ -2,31 +2,34 @@
  session_start();
 ob_start();
 include('../crearConexionVam.php');
- //$varsession= $_SESSION['username'];
- //if($varsession== null || $varsession= ''){
- // header("location:prueba.php");
+ $varsession= $_SESSION['username'];
+ if($varsession== null || $varsession= ''){
+   echo "<script>";
+    echo "alert('inicie session');";
+    echo "window.location = '../index.php';";
+    echo "</script>";
 
- // die();
- //}
+  die();
+ }
  ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Inicio</title>
+  <title>Inicio</title>
 
 
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
            
             
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="../css/Estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../css/Estilos.css">
 
-	<style>
+  <style>
 .dropdown-submenu {
   position: relative;
 }
@@ -48,16 +51,70 @@ $(document).ready(function(){
 </script>
 </head>
 
-	<!-- SideBar -->
+  <!-- SideBar -->
 <section id="loadgif">
 
-   <?php include '../Menu.php'; ?>
+  <?php include '../Menu.php'; ?>
+
 
 </section>
 <body class="Fondo">
+  <style type="text/css">
+     .cuadrado{
+     width: 250px; 
+     height: 100px; 
+     border: 3px solid #555;
+     background: #FFFFFFFF;
+}
+
+ .rojo{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(243, 105, 61,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.verde{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: rgba(51, 255, 144,0.8);
+     margin-left: 20px;
+     margin-top: 10px;
+}
+.blanco{
+     width: 20px; 
+     height: 20px; 
+     border: 1px solid #555;
+     background: #FFF;
+     margin-left: 20px;
+     margin-top: 10px;
+}
+
+.linear{
+  margin-top:1px;
+  margin-left:90px;
+}
+ </style>
+     <div class="cuadrado">
+        <div class="blanco">
+          <p class="linear">ACTIVO</p>
+        </div>
+
+         <div class="verde">
+          <p class="linear">INACTIVO</p>
+        </div>
+
+         <div class="rojo">
+          <p class="linear">SUSPENDIDO</p>
+        </div>
+       
+      </div>
 
 <section style="background-color: #F9FAFA;">
-	 <div class="table-responsive">  
+   <div class="table-responsive">  
                          <table id="employee_data" class="table table-striped table-bordered">  
                           <thead>  
                                <tr>  
@@ -71,14 +128,26 @@ $(document).ready(function(){
                           </thead>  
                          <?php
          $consultar=mssql_query("SELECT * FROM prempy ");
-		while($mostrar=mssql_fetch_array($consultar)){
-			echo "
+    while($mostrar=mssql_fetch_array($consultar)){
+      if ($mostrar['cstatus']=="T") {
+        $Color="rgba(243, 105, 61,0.8)";
+      }
+      if ($mostrar['cstatus']=="I") {
+        $Color="rgba(51, 255, 144,0.8)";
+
+      }
+       if ($mostrar['cstatus']=="A") {
+        $Color="";
+        
+      }
+      echo "
                   <tr>
-                    <td align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal.php?x={$mostrar[0]}'>Ver</a></td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Modal.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
+                    
                   </tr>";
                    
                 }              
@@ -88,15 +157,15 @@ $(document).ready(function(){
                 </div>  
 </section>
 
-	<!-- Content page-->
+  <!-- Content page-->
 
 
 
-	<!-- Notifications area -->
-	
+  <!-- Notifications area -->
+  
 
-	<!-- Dialog help -->
-	 <script>  
+  <!-- Dialog help -->
+   <script>  
  $(document).ready(function(){  
       $('#employee_data').DataTable();  
  });  
@@ -129,18 +198,18 @@ else
   })
   }); 
  </script>
-	
-	<!--====== Scripts -->
-	<script src="../js/jquery-3.3.1.min.js"></script>
-	<script src="../js/sweetalert2.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/material.min.js"></script>
-	<script src="../js/ripples.min.js"></script>
-	<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="../js/main.js"></script>
-	<script>
-		$.material.init();
-	</script>
+  
+  <!--====== Scripts -->
+  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="../js/sweetalert2.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/material.min.js"></script>
+  <script src="../js/ripples.min.js"></script>
+  <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    $.material.init();
+  </script>
    <footer style="background-color:#011D30;padding: 20px;text-align: center">
     
     <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
