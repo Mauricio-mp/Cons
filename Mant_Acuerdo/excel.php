@@ -35,6 +35,11 @@ $(document).ready(function(){
   });
 });
 </script>
+<section id="loadgif">
+ <?php include '../Menu.php'; ?>
+
+
+</section>
 </head>
 <body>
  <div >
