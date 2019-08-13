@@ -78,7 +78,7 @@ $(document).ready(function(){
         <li><a tabindex="-1" href="./Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="./Cons_Emb">Embajadas y Consulados</a></li>
             <li><a tabindex="-1" href="./TSC">T.S.C.</a></li>
-              <li><a tabindex="-1" href="Porcentaje.php">Cancelados</a></li>
+               <li><a tabindex="-1" href="Cons_Cancelados">Cancelados</a></li>
 
 
 
