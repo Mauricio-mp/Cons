@@ -297,8 +297,7 @@ $(document).ready(function(){
 
 </section>
 
-<body style="background-color:#00FFFFFF">
-
+<body class="Fondo">
 <section>
 
           <form class="center" method="post">

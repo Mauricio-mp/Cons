@@ -293,7 +293,7 @@ $(document).ready(function(){
 
 </section>
 
-<body style="background-color:#00FFFFFF">
+ <body class="Fondo">
 
 <section>
           <div class="center" style="background-color: #FFFFFFFF;">
