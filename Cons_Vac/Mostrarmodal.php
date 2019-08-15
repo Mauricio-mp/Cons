@@ -178,10 +178,12 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 	$codigoPuesto=$row['cjobtitle'];
 	$codigoAsignado=$row['cdeptno'];
 	$opnetersueldo=$row['nmonthpay'];
+  $Codigo_Emplea=$row['cempno'];
 	//echo "<script>alert('".$DESC."');</script>";
 
    $nombreconcatenado =  utf8_encode($row['cfname']).utf8_encode($row['clname']);
-
+ $nom =  utf8_encode($row['cfname']);
+  $ape =  utf8_encode($row['clname']);
 
    $dia1 = date("d", strtotime($row['dhire']));
    $mes1 = date("m", strtotime($row['dhire']));
@@ -317,7 +319,7 @@ include('../cerraConexionVam.php');
 <?php 
 if (isset($_POST['Imprimir'])) {
  include('../crearConexionGECOMP.php'); 
-$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion) VALUES (7,'$concatenada','$nombreconcatenado','$cargo','$asig','$opnetersueldo',1,6352,getdate())");
+$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion) VALUES (7,'$concatenada','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,6352,getdate())");
                                     
                                     if ($insertar) {
                                    
