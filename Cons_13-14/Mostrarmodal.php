@@ -217,7 +217,7 @@ $msg="ha laborado por acuerdo en esta institucion a partir del ".$fechaAcuerdo."
     $msg="ha laborado por contrato en esta institucion a partir de ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", ";
   }
 
-$var=convertir($opnetersueldo);
+
 
 
 if ($bono =="14AVO") {
@@ -249,11 +249,11 @@ if ($row1=mssql_fetch_array($mostrarDatos1)) {
                                $mesletras=fecha3($mesmostrar);
                           $mensaje_embargos="NO TIENE COMPROMETIDO SU BONO DE ".$msg4.", EL CUAL SE PAGARA EL MES DE ".$mespago." DEL AÑO ".$aniomostrar.".";
                                }else{
-
+                          $opnetersueldo=($opnetersueldo-$dato1);
                          $embargo_letras=convertir($dato1);
                          $mesletras=fecha3($mesmostrar);
 
-                          $mensaje_embargos="TIENE COMPROMETIDO SU BONO DE ".$msg4." EN ".$embargo_letras.", EL CUAL SE PAGARA EL MES DE ".$mespago." DEL AÑO ".$aniomostrar.".";
+                          $mensaje_embargo="TIENE COMPROMETIDO SU BONO DE ".$msg4." EN ".$embargo_letras.", EL CUAL SE PAGARA EL MES DE ".$mespago." DEL AÑO ".$aniomostrar.".";
                                }
                       }else{
                             $mesletras=fecha3($mesmostrar);
@@ -272,9 +272,16 @@ if ($row1=mssql_fetch_array($mostrarDatos1)) {
 include('../cerraConexionVam.php');
 include('../crearConexionGECOMP.php');
 
-
+$var=convertir($opnetersueldo);
+$formato=number_format($opnetersueldo,2);
  ?>
+
+
 <?php 
+
+
+
+
 include('../crearConexionVam.php'); 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
@@ -300,7 +307,7 @@ include('../cerraConexionVam.php');
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
 </div>
-<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($row['cfname'])."\t".utf8_encode($row['clname']);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
+<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($row['cfname'])."\t".utf8_encode($row['clname']);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$formato.")";?></p>
 
 
 <p class="parrafo"><?php echo $mensaje_embargos ?>
