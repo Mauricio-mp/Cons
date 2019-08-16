@@ -14,6 +14,12 @@
    text-align: center;
 }
 
+.Disenio{
+  background-color:  #FFFFFFFF;
+  margin-left: 20em;
+  margin-right: 20em;
+
+}
 
 .centrar{
   margin-left: 10%;
@@ -48,6 +54,13 @@ hr {
 .alinearCombobox{
   margin-left: 6em;
   margin-right: 6em;
+}
+.parrafoCancelados{
+    text-align: justify;
+  font-size: 20px;
+  font-family: Times;
+  margin-left: 5em;
+  margin-right: 5em;
 }
 .parrafo{
   text-align: justify;

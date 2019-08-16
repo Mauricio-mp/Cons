@@ -42,7 +42,7 @@ $(document).ready(function(){
 </section>
 </head>
 <body>
- <div >
+ <div class="container center" >
 
 <form name="importa" method="post" action=""  enctype="multipart/form-data" class="container">
    <h2 style="text-align:center">Seleciones el Archivo a Importar</h2>
@@ -189,6 +189,7 @@ $(window).load(function() {
    <table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
       <thead class="bg-gray">
         <tr role="row">
+           <th>Codigo de Empleado</th>
             <th>Codigo de Empleado</th>
             <th>Sueldo</th>
             <th>Caja Chica</th>
@@ -213,6 +214,7 @@ $(window).load(function() {
                           $Contador=0;
                           $Rojo="rgba(243, 105, 61,0.8)";
                           $val=0;
+                          $Errores=0;
 
                             session_start();
 							ob_start();
@@ -227,6 +229,8 @@ $(window).load(function() {
    	                          	$actualizar=mssql_query("UPDATE Base_Constancia SET Estado=0 WHERE Estado=1");
 
                                 for ($i = 1; $i <=$filas; $i++) {
+                                  $Contador=$Contador+1;
+                                   $Color="";
                             
                             $_DATOS_EXCEL[$i]['No. Empleado'] = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
                             $empleado=$_DATOS_EXCEL[$i]['No. Empleado'];
@@ -253,42 +257,87 @@ $(window).load(function() {
                              $_DATOS_EXCEL[$i]['CajaChica'] = $objPHPExcel->getActiveSheet()->getCell('H' . $i)->getCalculatedValue();
                              $Fondo_Combus= $_DATOS_EXCEL[$i]['CajaChica'];
 
+                             if (trim($empleado)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                              if (is_numeric($empleado)==false) {
+                              $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+
+                               if (is_numeric($Salario)==false) {
+                              $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+
+                              if (is_numeric($Salario)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Caja_Chica)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Plus)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Zonaje_Plus)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Zonaje)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Fondo_Reint)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+                              if (is_numeric($Fondo_Combus)==false) {
+                                $Color=$Rojo;
+                              $val=1;
+                              $Errores=$Errores+1;
+                               
+                             }
+
+                              echo '
+                              <tr>
+                              <td style="background-color:'.$Color.'">'.$Contador.'</td>
+                              <td style="background-color:'.$Color.'">'.$empleado.'</td>
+                              <td style="background-color:'.$Color.'">'.$Salario.'</td>
+                              <td style="background-color:'.$Color.'">'.$Caja_Chica.'</td>
+                              <td style="background-color:'.$Color.'">'.$Plus.'</td>
+                              <td style="background-color:'.$Color.'">'.$Zonaje_Plus.'</td>
+                              <td style="background-color:'.$Color.'">'.$Zonaje.'</td>
+                              <td style="background-color:'.$Color.'">'.$Fondo_Reint.'</td>
+                              <td style="background-color:'.$Color.'">'.$Fondo_Combus.'</td>
+
+                              </tr>
+                              ';
 
 
-//,Fecha ,Puesto,Departamento,Salario ,Caja_Chica, Plus ,Zonaje_Plus ,Zonaje , Fondo_Reint,Fondo_Combus ,Usuario_creacion ,Fecha_Creacion  ,Usuario_Modificacion , Fecha_Modificacion,Estado,Lugar
- // ,'$desc','$puesto','$Depto','$salario','$Caja_Chica','$Sueldo_Plus','$ZonajePlus','$Zonaje','$Fondo_Reintegral','$Comnustible','$varsession',GETDATE(),'$Lugar'
 
 
-                           
-	$insert=mssql_query("INSERT INTO Base_Constancia(Base_Empledo,Salario,Caja_Chica,Plus,Zonaje_Plus,Zonaje,Fondo_Reint,Fondo_Combus,Usuario_creacion,Fecha_Creacion,Estado) VALUES('$empleado','$Salario','$Caja_Chica','$Plus','$Zonaje_Plus','$Zonaje','$Fondo_Reint','$Fondo_Combus','$varsession',GETDATE(),1)");
-							
-							}
-
-							$consultar=mssql_query("SELECT * FROM Base_Constancia WHERE Estado=1");
-							while($fila=mssql_fetch_array($consultar)){
-
-							//$fila['Fecha']=date("Y/m/d",strtotime($fila['Fecha']));
-					
-              
-                              
-                            ?>
-                            
-                                 <tr>
-                          	
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Base_Empledo']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Salario']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Caja_Chica']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Plus']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Zonaje_Plus']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Zonaje']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Fondo_Reint']; ?></td>
-                          		<td style="background-color:<?php echo $Color?>"><?php echo $fila['Fondo_Combus']; ?></td>
-                          	</tr>
-
-							
-                      
-
-                            <?php
                              
                                 }
 
@@ -351,7 +400,7 @@ $(window).load(function() {
 if ($val==1) {
   echo "<div class=\"alert alert-danger\" style='margin-right:40em;'>
   <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-  <strong>¡Error!</strong> Verifique que el archivo en excel tenga los datos correctos, Se encontraron ".$Contador." Errores.
+  <strong>¡Error!</strong> Verifique que el archivo en excel tenga los datos correctos, Se encontraron ".$Errores." Errores.
 </div>";
 
 

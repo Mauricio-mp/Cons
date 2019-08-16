@@ -98,6 +98,12 @@ $(document).ready(function(){
   margin-left:90px;
 }
  </style>
+
+ <div class="container" style="background-color: #F9FAFA; border: 1px solid #555;">
+
+  <h1 style="text-align: center">Constancia de Cancelados</h1>
+   
+ </div>
      <div class="cuadrado">
         <div class="blanco">
           <p class="linear">ACTIVO</p>
@@ -146,7 +152,7 @@ $(document).ready(function(){
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Mostrarmodal.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Form_constancia.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
                     
                   </tr>";
                    
