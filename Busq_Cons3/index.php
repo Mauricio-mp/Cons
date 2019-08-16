@@ -1,7 +1,7 @@
 <?php 
  session_start();
 ob_start();
-include('../crearConexionVam.php');
+
  include('../Permisos.php');
  $varsession= $_SESSION['username'];
  $val= $_SESSION['CodEmpleado'];
@@ -22,7 +22,7 @@ include('../crearConexionVam.php');
        echo "</script>";
     } 
 
-
+include('../crearConexionVam.php');
  ?>
 <!DOCTYPE html>
 <html lang="es">

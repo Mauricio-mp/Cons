@@ -321,7 +321,7 @@ $(document).ready(function(){
 
                           <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Nombre del Nuevo Rol</label>
-                        <input class="form-control" type="text" Id="CNuevorol" name="CNuevorol" Required onkeypress="return mCheck(event)" pattern="[A-Z 0-9 ]{6,50}" title="Unicamente Letras Mayusculas, Minimo 6 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Rol">
+                        <input class="form-control" type="text" Id="CNuevorol" name="CNuevorol" Required onkeypress="return mCheck(event)" pattern="[A-Z 0-9 ]{6,50}" title="Unicamente Letras Mayusculas y Numeros, Minimo 6 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Rol">
                                  <script language="javascript"> 
                                     function mCheck(e, field) {
                                      key = e.keyCode ? e.keyCode : e.which
