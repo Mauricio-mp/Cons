@@ -2,7 +2,9 @@
  session_start();
 ob_start();
 include('../crearConexionVam.php');
+include('../Permisos.php');
  $varsession= $_SESSION['username'];
+ $val= $_SESSION['CodEmpleado'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -11,6 +13,16 @@ include('../crearConexionVam.php');
 
   die();
  }
+
+ //valida permisos
+    if (Verificar_Permisos( $val,22)== '0'){ 
+       echo "<script>";
+       echo "alert('Usted no Cuenta con el Permiso para Ingresar a esta opcion.');";
+       echo "window.location = '../Home.php';";
+       echo "</script>";
+    } 
+
+
  ?>
 <!DOCTYPE html>
 <html lang="es">
