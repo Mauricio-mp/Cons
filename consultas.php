@@ -20,6 +20,7 @@ $password=$_POST['UserPass'];
     if ($row) {
     
 		if($codigo == $row['CodEmpleado'] && $password == $row['Contrasenia']){
+            $_SESSION['CodEmpleado']=$row['CodEmpleado'];
 			$_SESSION['username']=$row['Nombre'];
 			$_SESSION['apellido']=$row['Apellido'];
 			$_SESSION['logeo']=$row['CodEmpleado'];
