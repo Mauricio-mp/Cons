@@ -3,6 +3,7 @@
 ob_start();
 include('../crearConexionVam.php');
  $varsession= $_SESSION['username'];
+ $usuarioCreacion=$_SESSION['logeo'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -253,7 +254,15 @@ if (isset($_POST['Imprimir'])) {
  $resolucion=$_GET['Resolucion'];
  $fechaResolucion=$_GET['FechaResolucion'];
 
- header("Location: PdfRenuncia.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma&Autoriza=$autoriza&FechaRetiro=$fechaRetiro&Resolucion=$resolucion&FechaResolucion=$fechaResolucion"); 
+
+
+  include('../crearConexionGECOMP.php');
+ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion) VALUES(11,'$nombre','$desempenio','$asignacion','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion')");
+ if ($insertar==true) {
+    header("Location: PdfRenuncia.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma&Autoriza=$autoriza&FechaRetiro=$fechaRetiro&Resolucion=$resolucion&FechaResolucion=$fechaResolucion"); 
+ }
+
+
 }
  ?>
     </div>

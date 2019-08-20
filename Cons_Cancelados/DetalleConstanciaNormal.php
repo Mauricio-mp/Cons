@@ -3,6 +3,7 @@
 ob_start();
 include('../crearConexionVam.php');
  $varsession= $_SESSION['username'];
+ $usuarioCreacion=$_SESSION['logeo'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -127,6 +128,7 @@ $Consultafirma=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$fir
 if ($filaFirma=mssql_fetch_array($Consultafirma)) {
 	$optenerFirma=$filaFirma['PUESTO_EMPLEADO'];
 	$NombreFirma=$filaFirma['NOMBRE_EMPLEADO'];
+
 	$ConvertirNombre=strtolower($NombreFirma);
 	$NombreFirma=ucwords($ConvertirNombre);
 	$convFirma=strtolower($optenerFirma);
@@ -143,7 +145,9 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
 
+
     $NombreCompleto=utf8_encode($nombre)." ".utf8_encode($apellido);
+    $NombresCompletos=$NombreCompleto;
     $convertirNombre=strtolower($NombreCompleto);
     $NombreCompleto="<strong>".ucwords($convertirNombre)."</strong>";
 
@@ -152,12 +156,14 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
  $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
     $desempenio=trim($ejecutar['cDesc']);
+    $cargo=$desempenio;
     $ConvertirDesen=strtolower($desempenio);
     $desempenio=ucwords($ConvertirDesen);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
     $asignacion=trim($asignado['cdeptname']);
+    $Asignados=$asignacion;
     $ConvertiAsignacion=strtolower($asignacion);
     $asignacion=ucwords($ConvertiAsignacion);
 }
@@ -208,7 +214,7 @@ $texto2="Constancia que se expide a petición de parte interesada, en la ciudad 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+      </div>Asignado
       <form method="POST">
       <div class="modal-body">
         <h1> ¿Desea imprimir esta pagina?</h1>
@@ -226,8 +232,13 @@ if (isset($_POST['Imprimir'])) {
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
  $FechaFinalContrato=$_GET['f_F_C'];
+ include('../crearConexionGECOMP.php');
+ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion) VALUES(11,'$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion')");
+ if ($insertar==true) {
+ 	 header("Location: Pdf.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma"); 
+ }
 
- header("Location: Pdf.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma"); 
+
 }
  ?>
     </div>
