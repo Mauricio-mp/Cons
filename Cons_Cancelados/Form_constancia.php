@@ -116,6 +116,74 @@ $(document).ready(function(){
  </div>
 
  <div class="container" style="background-color: #F9FAFA; border: 1px solid #555;">
+  <?php 
+ if (isset($_POST['Aceptar'])) {
+  $val=0;
+$opcion=$_POST['opcion'];
+$fechaInicioContrato=$_POST['fechaInicioContrato'];
+$fechaFinalContrato=$_POST['fechaFinalContrato'];
+$fechaInicioAcuerdo=$_POST['fechaInicioAcuerdo'];
+$FechaFinalAcuerdo=$_POST['FechaFinalAcuerdo'];
+$firma=$_POST['firma'];
+$FechaRetiro=$_POST['FechaRetiro'];
+$Resolucion=$_POST['Resolucion'];
+$FechaResolucion=$_POST['FechaResolucion'];
+$Autoriza=$_POST['Autoriza'];
+
+if ($opcion=='') {
+  $val=1;
+  echo '
+<div class="alert alert-warning" role="alert">
+  <strong>ERROR..</strong> Selecciones tipo de constancia.
+</div>
+';
+}
+
+if ($firma=='') {
+  $val=1;
+  echo '
+<div class="alert alert-warning" role="alert">
+  <strong>ERROR..</strong> no ha seleccionado firma.
+</div>
+';
+}
+if ($fechaInicioContrato=='' && $fechaFinalContrato=='' && $fechaInicioAcuerdo=='' && $FechaFinalAcuerdo=='') {
+  $val=1;
+  echo '
+<div class="alert alert-warning" role="alert">
+  <strong>ERROR..</strong> Selecciones fechas de acuerdo o fechas de contrato.
+</div>
+';
+}
+
+
+
+
+if ($val==0) {
+   if ($opcion==1) {
+
+
+header("Location: DetalleConstanciaNormal.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma"); 
+ }
+
+ if ($opcion==2) {
+header("Location: DetalleConstanciaRetiro.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
+ }
+
+  if ($opcion==3) {
+header("Location: DetalleConstanciaRenuncia.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
+ }
+}
+
+
+ 
+
+
+
+}
+
+
+  ?>
    <form method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">Seleccine Tipo de Constancia</label>
@@ -211,42 +279,7 @@ $(document).ready(function(){
 </form>
 
  </div>
- <?php 
- if (isset($_POST['Aceptar'])) {
-$opcion=$_POST['opcion'];
-$fechaInicioContrato=$_POST['fechaInicioContrato'];
-$fechaFinalContrato=$_POST['fechaFinalContrato'];
-$fechaInicioAcuerdo=$_POST['fechaInicioAcuerdo'];
-$FechaFinalAcuerdo=$_POST['FechaFinalAcuerdo'];
-$firma=$_POST['firma'];
-$FechaRetiro=$_POST['FechaRetiro'];
-$Resolucion=$_POST['Resolucion'];
-$FechaResolucion=$_POST['FechaResolucion'];
-$Autoriza=$_POST['Autoriza'];
-
-
-
- if ($opcion==1) {
-
-
-header("Location: DetalleConstanciaNormal.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma"); 
- }
-
- if ($opcion==2) {
-header("Location: DetalleConstanciaRetiro.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
- }
-
-  if ($opcion==3) {
-header("Location: DetalleConstanciaRenuncia.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
- }
  
-
-
-
-}
-
-
-  ?>
  <script type="text/javascript">
     
 function habilitar(form)
@@ -264,6 +297,8 @@ if(form.opcion.options[1].selected)
      document.getElementById('FechaResolucion').disabled=true;
      document.getElementById('Autoriza').disabled=true;
 
+    
+
 
      
    }
@@ -279,7 +314,14 @@ if(form.opcion.options[1].selected)
      document.getElementById('Resolucion').disabled=false;
      document.getElementById('FechaResolucion').disabled=false;
      document.getElementById('Autoriza').disabled=false;
+
+          document.getElementById('firma').required = true;
+     document.getElementById('FechaRetiro').required = true;
+     document.getElementById('Resolucion').required = true;
+     document.getElementById('FechaResolucion').required = true;
+     document.getElementById('Autoriza').required = true;
      
+
 
 
 
@@ -298,6 +340,15 @@ if(form.opcion.options[1].selected)
      document.getElementById('Resolucion').disabled=false;
      document.getElementById('FechaResolucion').disabled=false;
      document.getElementById('Autoriza').disabled=false;
+
+     
+     document.getElementById('firma').required = true;
+     document.getElementById('FechaRetiro').required = true;
+     document.getElementById('Resolucion').required = true;
+     document.getElementById('FechaResolucion').required = true;
+     document.getElementById('Autoriza').required = true;
+
+     //document.getElementById("Resolucion").required = true;
      
 
 
