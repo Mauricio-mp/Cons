@@ -1,4 +1,5 @@
 <?php 
+$validar=0;
  $Firma=$_GET['firma'];
  $Codigo=$_GET['codigo'];
  $FechaIncioAcuerdo=$_GET['f_I_A'];
@@ -29,10 +30,10 @@ $Dia_Inicio_Acuerdo=(date('d',strtotime($FechaIncioAcuerdo)));
  $anio_Final_Acuerdo=(date('Y',strtotime($FechaFinalAcuerdo)));
 
 
-$FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
-$FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
-$FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
-$FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
+$fechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
+$fechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
+$fechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+$fechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
 
 $dia=date("d");
@@ -63,12 +64,22 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $fechaContrato=fecha($dia1,$mes1,$anio1); 
    $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
 
-  if ($FechaIncioAcuerdo='' && $FechaFinalAcuerdo='') {
-  $mensaje="";
-}else{
-  
-  $mensaje="y bajo la modalidad de Acuerdo del ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
+ if ($FechaIncioAcuerdo=='' && $FechaFinalAcuerdo=='') {
+  $validar=1;
+
+  $mensaje1="bajo la modalidad de contrato a partir del ".$fechaIncioContrato." al ".$fechaFinalContrato;
 }
+
+if ($FechaIncioContrato=='' && $FechaFinalContrato=='') {
+  $validar=1;
+  $mensaje1="bajo la modalidad de Acuerdo ".$fechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
+}
+
+if ($validar==0) {
+  $mensaje1="bajo la modalidad de contrato a partir del ".$fechaIncioContrato." al ".$fechaFinalContrato." y bajo la modalidad de Acuerdo ".$fechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
+}
+
+
 $var=convertir($opnetersueldo);
 $formato=number_format($opnetersueldo,2);
 
@@ -174,7 +185,7 @@ $txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 
-$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución bajo la modalidad de contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
+$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución ".$mensaje1.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
 
 
  

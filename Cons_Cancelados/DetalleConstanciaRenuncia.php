@@ -67,6 +67,7 @@ $(document).ready(function(){
    <br></br>
  </br>
  <?php 
+ $validar=0;
  include('ConversionFecha.php');
  $firma=$_GET['firma'];
  $codigo=$_GET['codigo'];
@@ -115,10 +116,10 @@ $Dia_Inicio_Acuerdo=(date('d',strtotime($fechaIncioAcuerdo)));
  $anio_Final_Acuerdo=(date('Y',strtotime($fechaFinalAcuerdo)));
 
 
-$fechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
-$fechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
+$FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
+$FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
 $FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
-$fechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
+$FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
 
 $dia=date("d");
@@ -126,11 +127,19 @@ $mes=date("m");
 $anio=date("Y");
 $fechaActual=fecha1($dia,$mes,$anio);
 
-if ($fechaIncioAcuerdo='' && $fechaFinalAcuerdo='') {
-	$mensaje="";
-}else{
-	
-	$mensaje="y bajo la modalidad de Acuerdo del ".$FechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
+if ($fechaIncioAcuerdo=='' && $fechaFinalAcuerdo=='') {
+  $validar=1;
+
+  $mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato;
+}
+
+if ($fechaIncioContrato=='' && $fechaFinalContrato=='') {
+  $validar=1;
+  $mensaje1="bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
+}
+
+if ($validar==0) {
+  $mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato." y bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
 }
 
 
@@ -176,7 +185,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 }
 
 // Text   ñ  í   ó   ú
-$texto1="El (a) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad." ha laborado por contrato en esta institución a bajo la modalidad de contrato del ".$fechaIncioContrato." al ".$fechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".$desempenio.", asignado a ".$asignacion.", interponiendo su retiro Voluntario a partir del ".$FechaRetiro." ante el despacho del señor ".$Autoriza." de la Republica, declara con lugar según Resolución No. ".$Resolucion." Notificado el ".$optenerfechaResolucion." a las ".$optenerHora;
+$texto1="El (a) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad." ha laborado por contrato en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".$asignacion.", interponiendo su retiro Voluntario a partir del ".$FechaRetiro." ante el despacho del señor ".$Autoriza." de la Republica, declara con lugar según Resolución No. ".$Resolucion." Notificado el ".$optenerfechaResolucion." a las ".$optenerHora;
 
 $texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
   ?>
