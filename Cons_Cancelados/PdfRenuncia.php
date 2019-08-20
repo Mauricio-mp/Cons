@@ -5,12 +5,32 @@
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
  $FechaFinalContrato=$_GET['f_F_C'];
+ $Autoriza=$_GET['Autoriza'];
+ $FechaRetiro=$_GET['FechaRetiro'];
+ $Resolucion=$_GET['Resolucion'];
+ $fechaResolucion=$_GET['FechaResolucion'];
+
+ 
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
+
+$Dia_Resolucion=(date('d',strtotime($fechaResolucion)));
+ $mes_Resolucion=(date('m',strtotime($fechaResolucion)));
+ $anio_Resolucion=(date('Y',strtotime($fechaResolucion)));
+
+$optenerfechaResolucion= fecha($Dia_Resolucion,$mes_Resolucion,$anio_Resolucion);
+
+$optenerHora= (date('g:i A',strtotime($fechaResolucion)));
+
+$Dia_Retiro=(date('d',strtotime($FechaRetiro)));
+ $mes_Retiro=(date('m',strtotime($FechaRetiro)));
+ $anio_Retiro=(date('Y',strtotime($FechaRetiro)));
+
+ $FechaRetiro=fecha($Dia_Retiro,$mes_Retiro,$anio_Retiro);
 
 $Dia_Inicio_Contrato=(date('d',strtotime($FechaIncioContrato)));
  $mes_Inicio_Contrato=(date('m',strtotime($FechaIncioContrato)));
@@ -174,7 +194,7 @@ $txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 
-$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución bajo la modalidad de contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
+$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución bajo la modalidad de contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).", interponiendo su Renuncia a partir del ".$FechaRetiro." ante el despacho del señor ".$Autoriza." de la Republica, declarada con lugar según Resolución No. ".$Resolucion." Notificado el ".$optenerfechaResolucion." a las ".$optenerHora;
 
 
  

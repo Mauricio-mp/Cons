@@ -74,6 +74,28 @@ $(document).ready(function(){
  $fechaFinalAcuerdo=$_GET['f_F_A'];
  $fechaIncioContrato=$_GET['f_I_C'];
  $fechaFinalContrato=$_GET['f_F_C'];
+ //$Resolucion=$_GET['Resolucion'];
+ $Autoriza=$_GET['Autoriza'];
+
+ $FechaRetiro=$_GET['FechaRetiro'];
+$Resolucion=$_GET['Resolucion'];
+$FechaResolucion=$_GET['FechaResolucion'];
+
+
+
+$Dia_Resolucion=(date('d',strtotime($FechaResolucion)));
+ $mes_Resolucion=(date('m',strtotime($FechaResolucion)));
+ $anio_Resolucion=(date('Y',strtotime($FechaResolucion)));
+
+$optenerfechaResolucion= fecha($Dia_Resolucion,$mes_Resolucion,$anio_Resolucion);
+
+$Dia_Retiro=(date('d',strtotime($FechaRetiro)));
+ $mes_Retiro=(date('m',strtotime($FechaRetiro)));
+ $anio_Retiro=(date('Y',strtotime($FechaRetiro)));
+
+ $FechaRetiro=fecha($Dia_Retiro,$mes_Retiro,$anio_Retiro);
+ 
+ $optenerHora= (date('g:i A',strtotime($FechaResolucion)));
 
 
  $Dia_Inicio_Contrato=(date('d',strtotime($fechaIncioContrato)));
@@ -95,7 +117,7 @@ $Dia_Inicio_Acuerdo=(date('d',strtotime($fechaIncioAcuerdo)));
 
 $fechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
 $fechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
-$fechaIncioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+$FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
 $fechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
 
@@ -108,7 +130,7 @@ if ($fechaIncioAcuerdo='' && $fechaFinalAcuerdo='') {
 	$mensaje="";
 }else{
 	
-	$mensaje="y por Acuerdo el ".$fechaIncioAcuerdo." hasta el ".$fechaFinalAcuerdo;
+	$mensaje="y bajo la modalidad de Acuerdo del ".$FechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
 }
 
 
@@ -132,6 +154,7 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
+    
 
     $NombreCompleto=utf8_encode($nombre)." ".utf8_encode($apellido);
     $convertirNombre=strtolower($NombreCompleto);
@@ -153,7 +176,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 }
 
 // Text   ñ  í   ó   ú
-$texto1="El (a) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad." ha laborado por contrato en esta institución a partir del ".$fechaIncioContrato." al ".$fechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".$desempenio.", asignado a ".$asignacion;
+$texto1="El (a) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad." ha laborado por contrato en esta institución a bajo la modalidad de contrato del ".$fechaIncioContrato." al ".$fechaFinalContrato." ".$mensaje.", desempeñando el cargo de ".$desempenio.", asignado a ".$asignacion.", interponiendo su retiro Voluntario a partir del ".$FechaRetiro." ante el despacho del señor ".$Autoriza." de la Republica, declara con lugar según Resolución No. ".$Resolucion." Notificado el ".$optenerfechaResolucion." a las ".$optenerHora;
 
 $texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
   ?>
@@ -216,8 +239,12 @@ if (isset($_POST['Imprimir'])) {
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
  $FechaFinalContrato=$_GET['f_F_C'];
+ $autoriza=$_GET['Autoriza'];
+ $fechaRetiro=$_GET['FechaRetiro'];
+ $resolucion=$_GET['Resolucion'];
+ $fechaResolucion=$_GET['FechaResolucion'];
 
- header("Location: Pdf.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma"); 
+ header("Location: PdfRetiro.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma&Autoriza=$autoriza&FechaRetiro=$fechaRetiro&Resolucion=$resolucion&FechaResolucion=$fechaResolucion"); 
 }
  ?>
     </div>

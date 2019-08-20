@@ -26,12 +26,14 @@ if ($status=='A' || $status=='I') {
 <head>
 	<title>Inicio</title>
 
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+	 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
-           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
-           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+
            
             
 	<meta charset="UTF-8">
@@ -120,9 +122,9 @@ $(document).ready(function(){
     <div class="form-group">
       <select class="form-control" id="opcion" name="opcion" onChange="habilitar(this.form)">
       <option selected="selected" disabled>Seleccione su opcion.....</option> 
-      <option>Despido Normal</option>
-      <option>Retiro Voluntario</option>
-      <option>Despido en periodo de prueba</option>
+      <option value="1">Despido Normal</option>
+      <option value="2">Retiro Voluntario</option>
+      <option value="3">Renuncia</option>
 
     </select>
     </div>
@@ -148,7 +150,32 @@ $(document).ready(function(){
     <input type="date" class="form-control" id="FechaFinalAcuerdo" name="FechaFinalAcuerdo" placeholder="YYYY-mm-dd" disabled>
   </div>
 
+ 
+
+   <div class="form-group">
+    <label for="FechaRetiro">Fecha Retiro</label>
+    <input type="date" class="form-control" id="FechaRetiro" name="FechaRetiro" placeholder="YYYY-mm-dd" disabled>
+  </div>
+   <div class="form-group">
+    <label for="Resolucion">Resolucion</label>
+    <input type="text" class="form-control" id="Resolucion" name="Resolucion" placeholder="ejemplo: FGA-XXX-XXXX" disabled>
+  </div>
+   <div class="form-group">
+    <label for="Resolucion">Autoriza Retiro</label>
+    <select class="form-control" id="Autoriza" name="Autoriza" disabled><option>Fiscal General</option><option>Fiscal Adjunto</option></select>
+  </div>
+    
   <div class="form-group">
+    <label for="FechaRetiro">Fecha Resolucion</label>
+  <div class='input-group date' id='datetimepicker1' >
+    <input type='text' name="FechaResolucion" id="FechaResolucion" class="form-control" disabled >
+    <span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
+   </span>
+  </div>
+   </div>
+
+    <div class="form-group">
     <label for="exampleInputPassword3">Firma Constancia</label>
     <select class="form-control"  id="firma" name="firma" disabled>
       <option selected="selected" disabled>Seleccione firma.....</option> 
@@ -163,6 +190,15 @@ $(document).ready(function(){
 
     </select>
   </div>
+       
+  <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+  </script>
+
+
+
 
  
 
@@ -177,15 +213,34 @@ $(document).ready(function(){
  </div>
  <?php 
  if (isset($_POST['Aceptar'])) {
-   # code...
- 
+$opcion=$_POST['opcion'];
 $fechaInicioContrato=$_POST['fechaInicioContrato'];
 $fechaFinalContrato=$_POST['fechaFinalContrato'];
 $fechaInicioAcuerdo=$_POST['fechaInicioAcuerdo'];
 $FechaFinalAcuerdo=$_POST['FechaFinalAcuerdo'];
 $firma=$_POST['firma'];
+$FechaRetiro=$_POST['FechaRetiro'];
+$Resolucion=$_POST['Resolucion'];
+$FechaResolucion=$_POST['FechaResolucion'];
+$Autoriza=$_POST['Autoriza'];
 
-header("Location: DetalleConstancia.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma"); 
+
+
+ if ($opcion==1) {
+
+
+header("Location: DetalleConstanciaNormal.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma"); 
+ }
+
+ if ($opcion==2) {
+header("Location: DetalleConstanciaRetiro.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
+ }
+
+  if ($opcion==3) {
+header("Location: DetalleConstanciaRenuncia.php?f_I_C=$fechaInicioContrato&f_F_C=$fechaFinalContrato&f_I_A=$fechaInicioAcuerdo&f_F_A=$FechaFinalAcuerdo&codigo=$CodigoEmpleado&firma=$firma&FechaRetiro=$FechaRetiro&Resolucion=$Resolucion&FechaResolucion=$FechaResolucion&Autoriza=$Autoriza"); 
+ }
+ 
+
 
 
 }
@@ -204,9 +259,52 @@ if(form.opcion.options[1].selected)
      document.getElementById('FechaFinalAcuerdo').disabled=false;
      document.getElementById('firma').disabled=false;
 
+     document.getElementById('FechaRetiro').disabled=true;
+     document.getElementById('Resolucion').disabled=true;
+     document.getElementById('FechaResolucion').disabled=true;
+     document.getElementById('Autoriza').disabled=true;
+
 
      
    }
+  if(form.opcion.options[2].selected)
+  {
+     document.getElementById('fechaInicioContrato').disabled=false;
+     document.getElementById('fechaFinalContrato').disabled=false;
+     document.getElementById('fechaInicioAcuerdo').disabled=false;
+     document.getElementById('FechaFinalAcuerdo').disabled=false;
+     document.getElementById('firma').disabled=false;
+
+     document.getElementById('FechaRetiro').disabled=false;
+     document.getElementById('Resolucion').disabled=false;
+     document.getElementById('FechaResolucion').disabled=false;
+     document.getElementById('Autoriza').disabled=false;
+     
+
+
+
+     
+   }
+
+    if(form.opcion.options[3].selected)
+  {
+     document.getElementById('fechaInicioContrato').disabled=false;
+     document.getElementById('fechaFinalContrato').disabled=false;
+     document.getElementById('fechaInicioAcuerdo').disabled=false;
+     document.getElementById('FechaFinalAcuerdo').disabled=false;
+     document.getElementById('firma').disabled=false;
+
+     document.getElementById('FechaRetiro').disabled=false;
+     document.getElementById('Resolucion').disabled=false;
+     document.getElementById('FechaResolucion').disabled=false;
+     document.getElementById('Autoriza').disabled=false;
+     
+
+
+
+     
+   }
+
 
 }
   </script>
