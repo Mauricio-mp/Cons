@@ -4,7 +4,7 @@ ob_start();
 include('crearConexionGECOMP.php');
 include('Permisos.php');
  $varsession= $_SESSION['username'];
- $val= $_SESSION['CodEmpleado'];
+ $val1= $_SESSION['CodEmpleado'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -15,7 +15,7 @@ include('Permisos.php');
  }
 
  //valida permisos
-    if (Verificar_Permisos( $val,19)== '0'){ 
+    if (Verificar_Permisos( $val1,19)== '0'){ 
        echo "<script>";
        echo "alert('Usted no Cuenta con el Permiso para Ingresar a esta opcion.');";
        echo "window.location = './Home.php';";
@@ -405,7 +405,7 @@ $(document).ready(function(){
                                       echo "<script> alert('EL ROL:\t ".$Nuevorol."\t YA EXISTE, POR FAVOR ELIGA OTRO '); </script>";
                                     }
                                     if ($val==0) {
-                                       $res1=mssql_query("INSERT INTO SERoles (Nombre, USUARIO_CREACION, FECHA_CREACION) VALUES ('$Nuevorol','006351',Getdate())");
+                                       $res1=mssql_query("INSERT INTO SERoles (Nombre, USUARIO_CREACION, FECHA_CREACION) VALUES ('$Nuevorol','$val1',Getdate())");
                                         if ($res1==true) {
                                               $res2=mssql_query("SELECT MAX(Id_Rol) AS Id_Rol FROM SERoles");
                                                  while($row = mssql_fetch_array($res2)){
@@ -417,9 +417,9 @@ $(document).ready(function(){
 
 
                                      function insertar ($idrol, $Id_Permiso) {
-
+                                          $val1= $_SESSION['CodEmpleado'];
                              
-                                       $res=mssql_query("INSERT INTO SERoles_Permisos (Id_Rol, Id_Permiso, USUARIO_CREACION, FECHA_CREACION) VALUES ('$idrol','$Id_Permiso','006351',Getdate())");
+                                       $res=mssql_query("INSERT INTO SERoles_Permisos (Id_Rol, Id_Permiso, USUARIO_CREACION, FECHA_CREACION) VALUES ('$idrol','$Id_Permiso','$val1',Getdate())");
                                         if ($res==true) {
                                           $res1=1;
                                         }else{

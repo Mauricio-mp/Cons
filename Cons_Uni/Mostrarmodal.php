@@ -186,7 +186,7 @@ if (isset($_POST['Imprimir'])) {
 if (isset($_POST['Imprimir'])) {
 
 	$id=$_POST['id_firma'];
-  $Codigo=$_SESSION['logeo'];
+  $Codigo= $_SESSION['CodEmpleado'];
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
    $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");

@@ -144,7 +144,8 @@ if ($Status=="INACTIVO") {
 
 
                       include('../crearConexionGECOMP.php');
-                   $res2=mssql_query("UPDATE CONSTANCIA_GENERADA SET Estado=0, Observacion='$variable' WHERE Id_constancia='$cod'");
+                       $us= $_SESSION['CodEmpleado'];
+                   $res2=mssql_query("UPDATE CONSTANCIA_GENERADA SET Estado=0, Observacion='$variable', Usuario_Modifcacion='$us', Fecha_Modificacion=Getdate() WHERE Id_constancia='$cod'");
                                         if ($res2==true) {
                                         
                                             echo "<script> alert('Datos Almacenados con Exito'); </script>";

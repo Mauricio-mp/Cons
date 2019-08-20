@@ -422,8 +422,8 @@ $(document).ready(function(){
                                             } else {
                                                $c14avo=0;
                                                 }
-
-                                       $res=mssql_query("INSERT INTO COOPERATIVAS (SIGLAS_COOPERATIVA, NOMBRE_COOPERATIVA, MESES_ADELANTO, VAC, TRECE_AVO, CATORCE_AVO, USUARIO_CREACION, FECHA_CREACION, ESTATUS) VALUES ('$siglas','$nombre','$meses','$cvac','$c13avo','$c14avo','006351',Getdate(),'1')");
+                                          $cod= $_SESSION['CodEmpleado'];
+                                       $res=mssql_query("INSERT INTO COOPERATIVAS (SIGLAS_COOPERATIVA, NOMBRE_COOPERATIVA, MESES_ADELANTO, VAC, TRECE_AVO, CATORCE_AVO, USUARIO_CREACION, FECHA_CREACION, ESTATUS) VALUES ('$siglas','$nombre','$meses','$cvac','$c13avo','$c14avo','$cod',Getdate(),'1')");
                                         if ($res==true) {
                                           echo "<script> alert('Datos Almacenados con Exito'); </script>";
                                         }else{

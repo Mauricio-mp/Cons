@@ -71,50 +71,6 @@ $(document).ready(function(){
 
 
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Seguridad<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-submenu">
-                 <a class="test" tabindex="-1" href="#">Usuario<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="Porcentaje.php">Nuevo Usuario</a></li>
-                 <li><a tabindex="-1" href="index.php">Modificar Usuario</a></li>
-                  </ul>
-                 </li>
-                <li><a tabindex="-1" href="Porcentaje.php">Crear Roll</a></li>
-                 <li><a tabindex="-1" href="Porcentaje.php">Cambiar Clave</a></li>
-          </ul>
-        </li>
-
-
-
-
-        
-        <li><a href="#"   data-toggle="modal" data-target="#miModal">Cerra Session</a></li>
-        
-        
-<!-- Modal -->
-<div class="modal fade" id="nuevoPorcentaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SICORE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1> ¿Desea cerrar session?</h1>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button onclick="location.href='cerrarSesion.php'" type="button" class="btn btn-primary">si</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-
 
 
 

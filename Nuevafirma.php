@@ -389,11 +389,9 @@ $(document).ready(function(){
                               <h4 align="center" ><b>Seleccione Las Constancias que esta Autorizado a Firmar</b></h4>
                              <h4 align="center" ><b></b></h4>
                           <input type="checkbox" name="CTSD" value="1"> Constancia de Trabajo sin Deducciones<br>
-                          <input type="checkbox" name="CTCDN" value="1">  Constancia de Trabajo con Deducciones Normal<br>
-                          <input type="checkbox" name="CTCDCP" value="1"> Constancia de Trabajo con Deducciones con Plus<br>
-                          <input type="checkbox" name="CTCDSP" value="1"> Constancia de Trabajo con Deducciones sin Plus<br>
-                          <input type="checkbox" name="TRECE_AVO" value="1">  Constancia para Bono de 13AVO<br>
-                          <input type="checkbox" name="CATORCE_AVO" value="1"> Constancia para Bono de 14AVO<br>
+                          <input type="checkbox" name="CTCD" value="1">  Constancia de Trabajo con Deducciones Normal<br>
+                          <input type="checkbox" name="1314_AVO" value="1">  Constancia para Bono de 13AVO/14AVO<br>
+                         
                           <input type="checkbox" name="VAC" value="1"> Constancia para Bono de Vacaciones<br>
                           <input type="checkbox" name="UNIVERSIDADES" value="1">  Constancia para Universidades<br>
                           <input type="checkbox" name="EMBAJADAS" value="1"> Constancia para Embajadas/Consulados<br>
@@ -422,31 +420,19 @@ $(document).ready(function(){
                                             } else {
                                                $CTSD=0;
                                                 }
-                                         if (isset($_POST["CTCDN"])) {
-                                             $CTCDN=1;
+                                         if (isset($_POST["CTCD"])) {
+                                             $CTCD=1;
                                             } else {
-                                               $CTCDN=0;
+                                               $CTCD=0;
                                                 }
-                                          if (isset($_POST["CTCDCP"])) {
-                                             $CTCDCP=1;
-                                            } else {
-                                               $CTCDCP=0;
-                                                }
-                                                  if (isset($_POST["CTCDSP"])) {
-                                             $CTCDSP=1;
-                                            } else {
-                                               $CTCDSP=0;
-                                                }
-                                                  if (isset($_POST["TRECE_AVO"])) {
+                                     
+                                              
+                                                  if (isset($_POST["1314_AVO"])) {
                                              $TRECE_AVO=1;
                                             } else {
                                                $TRECE_AVO=0;
                                                 }
-                                                  if (isset($_POST["CATORCE_AVO"])) {
-                                             $CATORCE_AVO=1;
-                                            } else {
-                                               $CATORCE_AVO=0;
-                                                }
+                                                  
                                                   if (isset($_POST["VAC"])) {
                                              $VAC=1;
                                             } else {
@@ -473,9 +459,9 @@ $(document).ready(function(){
                                                $CANCELADOS=0;
                                                 }
 
+                                                    $code= $_SESSION['CodEmpleado'];
 
-
-                                       $res=mssql_query("INSERT INTO FIRMA_CONSTANCIAS (CODIGO_EMPLEADO, NOMBRE_EMPLEADO, PUESTO_EMPLEADO, CTSD, CTCDN, CTCDCP, CTCDSP, TRECE_AVO, CATORCE_AVO, VAC, UNIVERSIDADES, EMBAJADAS, TSC, CANCELADOS, USUARIO_CREACION, FECHA_CREACION, ESTATUS) VALUES ('$cEmpleado','$Nombre','$Puesto','$CTSD','$CTCDN','$CTCDCP','$CTCDSP','$TRECE_AVO','$CATORCE_AVO','$VAC','$UNIVERSIDADES','$EMBAJADAS', '$TSC','$CANCELADOS','006351',Getdate(),'1')");
+                                       $res=mssql_query("INSERT INTO FIRMA_CONSTANCIAS (CODIGO_EMPLEADO, NOMBRE_EMPLEADO, PUESTO_EMPLEADO, CTSD, CTCDN, CTCDCP, CTCDSP, TRECE_AVO, CATORCE_AVO, VAC, UNIVERSIDADES, EMBAJADAS, TSC, CANCELADOS, USUARIO_CREACION, FECHA_CREACION, ESTATUS) VALUES ('$cEmpleado','$Nombre','$Puesto','$CTSD','$CTCD',0,0,'$1314_AVO',0,'$VAC','$UNIVERSIDADES','$EMBAJADAS', '$TSC','$CANCELADOS','$code',Getdate(),'1')");
                                         if ($res==true) {
                                           echo "<script> alert('Datos Almacenados con Exito'); </script>";
                                         }else{

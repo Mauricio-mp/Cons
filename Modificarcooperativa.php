@@ -5,6 +5,7 @@ include('crearConexionGECOMP.php');
 include('Permisos.php');
  $varsession= $_SESSION['username'];
  $val= $_SESSION['CodEmpleado'];
+ 
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -438,8 +439,8 @@ $(document).ready(function(){
                                      if (isset($_POST['Activar1'])) {
                                 
                                   
-
-                                       $res2=mssql_query("UPDATE COOPERATIVAS SET ESTATUS='$valor' WHERE Id_Cooperativa='$id'");
+                                            $cod= $_SESSION['CodEmpleado'];
+                                       $res2=mssql_query("UPDATE COOPERATIVAS SET ESTATUS='$valor', USUARIO_MODIFICACION='$cod', FECHA_MODIFICACION=Getdate() WHERE Id_Cooperativa='$id'");
                                         if ($res2==true) {
                                           echo "<script> alert('Datos Almacenados con Exito'); </script>";
                                         }else{

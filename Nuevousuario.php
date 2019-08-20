@@ -375,62 +375,28 @@ $(document).ready(function(){
 
                           <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Nombre del usuario</label>
-                        <input class="form-control" type="text" Id="nombre" name="nombre" onkeypress="return soloLetras(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Usuario">
-                                 <script language="javascript"> 
-                                    function soloLetras(e){
-                     var key = window.event ? e.which : e.keyCode;
-                     if (key < 91  || key > 64) {
-                     e.preventDefault();
-                         }
-                          } function soloLetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
-
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
-        }
-    }
-                                  </script>  
+                        <input class="form-control" type="text" Id="nombre" name="nombre" onkeypress="return soloLetras1(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Usuario">
+                                  <script language="javascript"> 
+                                    function soloLetras1(e, field) {
+                                     key = e.keyCode ? e.keyCode : e.which
+                                     if (key == 8) return true
+                                        if (key == 32) return true
+                                     if (key > 64 && key < 91) {
+                                       if (field.value == "") return true
+                                       regexp = /.[A-Z]{5}$/
+                                       return !(regexp.test(field.value))
+                                                                      }
+                                    
+                                    
+                                     return false
+                                   }
+                                  </script>   
                         </div>
 
                          <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Apellido del usuario</label>
-                        <input class="form-control" type="text" Id="apellido" name="apellido" onkeypress="return soloLetras(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Apellido del Nuevo Usuario">
-                                 <script language="javascript"> 
-                                    function soloLetras(e){
-                     var key = window.event ? e.which : e.keyCode;
-                     if (key < 91  || key > 64) {
-                     e.preventDefault();
-                         }
-                          } function soloLetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
-
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
-        }
-    }
-                                  </script>  
+                        <input class="form-control" type="text" Id="apellido" name="apellido" onkeypress="return soloLetras1(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Apellido del Nuevo Usuario">
+                                
                         </div>
 
 
@@ -487,14 +453,29 @@ $(document).ready(function(){
 
                                      <?php
                                      if (isset($_POST['guardar'])) {
-                                    
+                                       $control=0;
                                        $codigo=$_POST['codigo'];
                                        $contrasenia=$_POST['contrasena1'];
                                        $nombre= $_POST['nombre'];
                                        $apellido= $_POST['apellido'];
                                        $rol=$_POST['rol'];
 
-                                      $insertar=mssql_query("INSERT INTO SEIngreso_Login(CodEmpleado,Contrasenia,Nombre,Apellido,Id_Rol,Estado,UsarioCreacion,FechaCreacion) VALUES ('$codigo','$contrasenia','$nombre','$apellido','$rol',1,6352,getdate())");
+
+                                              $validar=mssql_query("SELECT * FROM SEIngreso_Login");
+                                     while($ejecutar= mssql_fetch_array($validar)) {
+                                      if ($codigo== $ejecutar['CodEmpleado']) {
+                                        $control=1;
+                                      }
+
+                                       }
+                                         if ($control==1) {
+                                      echo "<script> alert('EL Usuario \t ".$codigo."\t YA EXISTE, POR FAVOR ESCRIBA OTRO. '); </script>";
+                                                    }
+
+
+                                                         if ($control==0) {
+                                                             $us= $_SESSION['CodEmpleado'];
+                                      $insertar=mssql_query("INSERT INTO SEIngreso_Login(CodEmpleado,Contrasenia,Nombre,Apellido,Id_Rol,Estado,UsarioCreacion,FechaCreacion) VALUES ('$codigo','$contrasenia','$nombre','$apellido','$rol',1,'$us',getdate())");
                                     
                                     if ($insertar) {
                                     echo "<script>alert('datos insertados Correctamente')</script>";
@@ -502,7 +483,7 @@ $(document).ready(function(){
                                     }  
 
                                     }
-                                        
+                                        }
                                      
                                      ?>
 

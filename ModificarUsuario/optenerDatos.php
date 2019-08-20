@@ -262,62 +262,28 @@ $(document).ready(function(){
 
                           <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Nombre del usuario</label>
-                        <input class="form-control" type="text" Id="nombre" name="nombre" value="<?php echo $datos['Nombre']; ?>" onkeypress="return soloLetras(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Usuario">
-                                 <script language="javascript"> 
-                                    function soloLetras(e){
-                     var key = window.event ? e.which : e.keyCode;
-                     if (key < 91  || key > 64) {
-                     e.preventDefault();
-                         }
-                          } function soloLetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
-
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
-        }
-    }
-                                  </script>  
+                        <input class="form-control" type="text" Id="nombre" name="nombre" value="<?php echo $datos['Nombre']; ?>" onkeypress="return soloLetras1(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Nombre del Nuevo Usuario">
+                           <script language="javascript"> 
+                                    function soloLetras1(e, field) {
+                                     key = e.keyCode ? e.keyCode : e.which
+                                     if (key == 8) return true
+                                        if (key == 32) return true
+                                     if (key > 64 && key < 91) {
+                                       if (field.value == "") return true
+                                       regexp = /.[A-Z]{5}$/
+                                       return !(regexp.test(field.value))
+                                                                      }
+                                    
+                                    
+                                     return false
+                                   }
+                                  </script>   
                         </div>
 
                          <div class="form-group label-floating">
                         <label class="control-label">Ingrese El Apellido del usuario</label>
-                        <input class="form-control" type="text" Id="apellido" name="apellido" value="<?php echo $datos['Apellido']; ?>" onkeypress="return soloLetras(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Apellido del Nuevo Usuario">
-                                 <script language="javascript"> 
-                                    function soloLetras(e){
-                     var key = window.event ? e.which : e.keyCode;
-                     if (key < 91  || key > 64) {
-                     e.preventDefault();
-                         }
-                          } function soloLetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
-
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
-        }
-    }
-                                  </script>  
+                        <input class="form-control" type="text" Id="apellido" name="apellido" value="<?php echo $datos['Apellido']; ?>" onkeypress="return soloLetras1(event)" pattern="[A-Z ]{2,50}" title="Unicamente Letras Mayusculas, Minimo 2 y Maximo 50" placeholder="Ingrese El Apellido del Nuevo Usuario">
+                               
                         </div>
 
 
@@ -386,12 +352,12 @@ $(document).ready(function(){
 
 
                                        
-                                         
+                                    $cod= $_SESSION['CodEmpleado'];      
                                     
-        $actualizar=mssql_query("UPDATE SEIngreso_Login SET Contrasenia = '$contrasenia', Nombre = '$nombre', Apellido='$apellido',Id_Rol='$id',Estado=0,UsuarioModificacion=006353,FechaModificacion=getdate() WHERE Id_Usuario='$Id'");
+        $actualizar=mssql_query("UPDATE SEIngreso_Login SET Contrasenia = '$contrasenia', Nombre = '$nombre', Apellido='$apellido',Id_Rol='$id',Estado=0,UsuarioModificacion='$cod',FechaModificacion=getdate() WHERE Id_Usuario='$Id'");
                                     
         if ($actualizar) {
-        $insertar=mssql_query("INSERT INTO SEIngreso_Login(CodEmpleado,Contrasenia,Nombre,Apellido,Id_Rol,Estado,UsarioCreacion,FechaCreacion) VALUES('$CodigoEmpleado','$contrasenia','$nombre','$apellido','$id',1,006352,GETDATE())");
+        $insertar=mssql_query("INSERT INTO SEIngreso_Login(CodEmpleado,Contrasenia,Nombre,Apellido,Id_Rol,Estado,UsarioCreacion,FechaCreacion) VALUES('$CodigoEmpleado','$contrasenia','$nombre','$apellido','$id',1,'$cod',GETDATE())");
         if ($insertar) {
           echo "<script>";
     echo "alert('DATOS INSERTADOS CON EXITO!');";

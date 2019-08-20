@@ -319,7 +319,8 @@ include('../cerraConexionVam.php');
 <?php 
 if (isset($_POST['Imprimir'])) {
  include('../crearConexionGECOMP.php'); 
-$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion) VALUES (7,'$concatenada','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,6352,getdate())");
+  $us= $_SESSION['CodEmpleado'];
+$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion) VALUES (7,'$concatenada','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us' ,getdate())");
                                     
                                     if ($insertar) {
                                    

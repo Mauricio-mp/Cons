@@ -75,7 +75,7 @@ $(document).ready(function(){
     </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="Home.php">Inicio</a></li>
-            <li class="dropdown">
+             <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Constancias <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
          <li class="dropdown-submenu">
@@ -95,7 +95,7 @@ $(document).ready(function(){
         <li><a tabindex="-1" href="./Cons_Uni">Universidades</a></li>
           <li><a tabindex="-1" href="./Cons_Emb">Embajadas y Consulados</a></li>
             <li><a tabindex="-1" href="./TSC">T.S.C.</a></li>
-             <li><a tabindex="-1" href="Cons_Cancelados">Cancelados</a></li>
+              <li><a tabindex="-1" href="Cons_Cancelados">Cancelados</a></li>
 
 
 
@@ -379,9 +379,9 @@ $(document).ready(function(){
                                    $siglas=utf8_decode($_POST['siglas']);
                                    $nombre=utf8_decode($_POST['nombrec']);
                               
-                                   //$usuario=$_SESSION['logeo'];
-
-                                       $res=mssql_query("INSERT INTO EMBAJADAS_CONSULADOS (SIGLAS_EMBAJADA, NOMBRE_EMBAJADA, USUARIO_CREACION, FECHA_CREACION) VALUES ('$siglas','$nombre','006351',Getdate())");
+                                   
+                                                $val= $_SESSION['CodEmpleado'];
+                                       $res=mssql_query("INSERT INTO EMBAJADAS_CONSULADOS (SIGLAS_EMBAJADA, NOMBRE_EMBAJADA, USUARIO_CREACION, FECHA_CREACION) VALUES ('$siglas','$nombre','$val',Getdate())");
                                         if ($res==true) {
                                           echo "<script> alert('Datos Almacenados con Exito'); </script>";
                                         }else{
