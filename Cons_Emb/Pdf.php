@@ -132,14 +132,13 @@ function Footer()
 
 $pdf=new PDF();
 $pdf->AddPage();
-<<<<<<< HEAD
 
 
 
 //marca de agua
 
 
-$pdf->SetAlpha(0.2);
+//$pdf->SetAlpha(0.2);
 
 
  //$pdf->Image('../img/9.png',0,85,225);
@@ -147,13 +146,9 @@ $pdf->SetAlpha(0.2);
 $pdf->SetAlpha(1);
 
 
-
-=======
 $pdf->SetFont('arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
->>>>>>> f46fec812efc509eb82be384e91b11bef6654ebf
-
 
 // Stylesheet
 $pdf->SetStyle("p","arial","",13,"0,0,0",0);
@@ -178,7 +173,7 @@ $txt2="
 ";
 
 $txt3=" 
-<p>El (a) suscrito(a), ".strtolower($puestoFirma).", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion.", devengando un salario mensual de ".$var." (L. ".$formato.").</p>
+<p>El(la) suscrito(a), ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion.", devengando un salario mensual de ".ucfirst($var)." (L. ".$formato.").</p>
 ";
 
 
@@ -197,19 +192,10 @@ $txtembajada="<negrta>".ucwords($nombreEmbajada)."</negrta>";
 $pdf->Ln(0);
 $pdf->WriteTag(0,10,utf8_decode($txt1),0,"R",0,0);
 $pdf->Ln(10);
-<<<<<<< HEAD
- $pdf->SetX(76);
-$pdf->WriteTag(0,5,utf8_decode($txt1),0,"J",0,0);
-$pdf->Ln(10);
- $pdf->SetX(24);
-$pdf->Cell(0,0,utf8_decode('Señores'),0,0,'L'); 
-$pdf->Ln(4);
-$pdf->WriteTag(0,5,ucwords(strtolower(utf8_decode($txtembajada))),0,"J",0,0);
-$pdf->Ln(1);
-$pdf->WriteTag(0,5,utf8_decode($txt2),0,"J",0,0);
-$pdf->Ln(8);
-$pdf->WriteTag(0,5,utf8_decode($txt3),0,"J",0,0);
-=======
+
+ $pdf->SetX(17);
+
+
 $pdf->Cell(0,0,utf8_decode('Señores'),0,0,'L'); 
 $pdf->Ln(4);
 $pdf->WriteTag(0,2,utf8_decode($txtembajada),0,"L",0,0);
@@ -217,7 +203,6 @@ $pdf->Ln(4);
 $pdf->WriteTag(0,2,utf8_decode($txt2),0,"L",0,0);
 $pdf->Ln(14);
 $pdf->WriteTag(0,7,utf8_decode($txt3),0,"J",0,0);
->>>>>>> f46fec812efc509eb82be384e91b11bef6654ebf
 
 $pdf->Ln(8);
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
