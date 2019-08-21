@@ -49,10 +49,10 @@ $fechacon=date("Y-m-d", strtotime($row['dhire']));
 
 
 if ($fechacon == $fechaac) {
-$msg="ha laborado por acuerdo en esta institucion a partir del ".strtolower($fechaAcuerdo)."";
+$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaAcuerdo)."";
    }
  if ($fechacon<$fechaac) {
-    $msg="ha laborado por contrato en esta institucion a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
 
 
@@ -78,23 +78,23 @@ if ($row1=mssql_fetch_array($mostrarDatos1)) {
 
                             if (is_null($dato1)) {
                               
-                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagara el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
+                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagará el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
                                }else{
                                   $opnetersueldo=($opnetersueldo-$dato1);
                          $embargo_letras=convertir($dato1);
                         
 
-                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagara el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
+                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagará el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
                                }
                       }else{
                           
-                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagara el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
+                          $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagará el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
                         }
 
 
 } else{
                  $mesletras=fecha3($mesmostrar);
-                           $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagara el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
+                           $mensaje_embargos="No tiene comprometido su bono de ".$leyenda.", el cual se pagará el mes de ".strtolower($mesmostrar)." del año ".$aniomostrar.".";
 
   }
 
@@ -193,7 +193,7 @@ $pdf->Ln(3);
 $txt="<vb>".ucwords(strtolower(utf8_encode($nombre)))." ".ucwords(strtolower(utf8_encode($apellido)))."</vb>";
 
 
-$texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Publico hace constar que ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
+$texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
 
 
 
@@ -202,7 +202,7 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 $pdf->Cell(10,10,'',0,1,'C'); 
 
-$texto1="Constancia que se expide a peticion de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central a ".strtolower($fechaActual).".";
+$texto1="Constancia que se expide a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central a ".strtolower($fechaActual).".";
 
 $pdf->WriteTag(0,7,utf8_decode($mensaje_embargos),0,"J",0,0);
 $pdf->Cell(10,10,'',0,1,'C'); 
