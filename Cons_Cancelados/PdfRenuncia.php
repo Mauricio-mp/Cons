@@ -176,7 +176,7 @@ function Footer()
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
     $this->SetTextColor(0,0,0);
-    $this->Cell(185,0,'G.E.C.O.M.P',0,0,'R');
+    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
 }
 
 }
