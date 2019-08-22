@@ -22,7 +22,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   $nombreCompleto=ucwords($cambiarLetra);
     //echo "<script>alert('".$DESC."');</script>";
 
-   $dia1 = date("d", strtotime($row['dhire']));
+    $dia1 = date("d", strtotime($row['dhire']));
    $mes1 = date("m", strtotime($row['dhire']));
    $anio1 = date("Y", strtotime($row['dhire']));
 
@@ -32,6 +32,21 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
  
    $fechaContrato=fecha($dia1,$mes1,$anio1); 
    $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
+
+$fechaAactual=  date("Y-m-d");
+   
+   //$DateNum= Optenerfecha($mes,$anio);
+$fechacon=date("Y-m-d", strtotime($row['dhire']));
+  $fechaac=date("Y-m-d", strtotime($row['dcntrct']));
+//inicio de validaciones importantes
+
+
+if ($fechacon == $fechaac) {
+$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaContrato)."";
+   }
+ if ($fechacon<$fechaac) {
+    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+  }
 
 
 //$var=convertir($opnetersueldo);
@@ -135,7 +150,7 @@ $pdf->Ln(5);
 
 // Text
 $txt=" 
-<p>El (a) suscrito ".$puestoFirma." del Ministerio Público hace constar que <vb>".$nombreCompleto."</vb> ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo." actualmente se desempeña como: ".trim($desempenio)." "."asignado a: ".$asignacion.".</p>
+<p>El (la) suscrito(a) ".$puestoFirma." del Ministerio Público hace constar que <vb>".$nombreCompleto."</vb>, ".strtolower($msg).", actualmente se desempeña como ".strtolower(trim($desempenio))." "."asignado a ".strtolower($asignacion).".</p>
 ";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
