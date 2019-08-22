@@ -92,15 +92,20 @@ class PDF extends PDF_WriteTag
 // Page header
 function Header()
 {
-    // Logo
-    $this->Image('../img/9.png',70,10,90);
+     // Logo
+    $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
-    $this->SetFont('Times','B',14);
+     $this->SetFont('Times','B',14);
+    $this->SetTextColor(194,8,8);
+    $this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
-    $this->Ln(25);
+     $this->SetFont('Times','B',14);
+     $this->SetTextColor(0,0,0);
+    $this->Ln(40);
     $this->Cell(72);
     // Title
-    //$this->Cell(45,0,'CONSTANCIA',0,0,'C');
+
+    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
     $this->Ln(20);
 }
@@ -108,7 +113,7 @@ function Header()
 // Page footer
 function Footer()
 {
-      // Position at 1.5 cm from bottom
+         // Position at 1.5 cm from bottom
     $this->SetY(-15);
     // Arial italic 8
     $this->SetFont('Arial','I',8);
@@ -118,6 +123,9 @@ function Footer()
     $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1',0,0,'C');
     $this->Ln();
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
+    $this->Ln();
+    $this->SetTextColor(0,0,0);
+    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
 }
 
 }

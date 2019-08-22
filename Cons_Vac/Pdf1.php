@@ -77,11 +77,15 @@ class PDF extends PDF_WriteTag
 // Page header
 function Header()
 {
-    // Logo
-    $this->Image('../img/9.png',10,6,75);
+     // Logo
+    $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
-    $this->SetFont('Times','B',14);
+     $this->SetFont('Times','B',14);
+    $this->SetTextColor(194,8,8);
+    $this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
+     $this->SetFont('Times','B',14);
+     $this->SetTextColor(0,0,0);
     $this->Ln(40);
     $this->Cell(72);
     // Title
