@@ -226,14 +226,14 @@ $(window).load(function() {
 
 
                               //$EliminarTabla=mssql_query("DELETE FROM DeduccionesEnero1");
-   	                          	$actualizar=mssql_query("UPDATE Base_Constancia SET Estado=0 WHERE Estado=1");
+   	                          	
 
                                 for ($i = 1; $i <=$filas; $i++) {
                                   $Contador=$Contador+1;
                                    $Color="";
                             
-                            $_DATOS_EXCEL[$i]['No. Empleado'] = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
-                            $empleado=$_DATOS_EXCEL[$i]['No. Empleado'];
+                            $_DATOS_EXCEL[$i]['Empleado'] = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
+                            $empleado=$_DATOS_EXCEL[$i]['Empleado'];
 
 
                              $_DATOS_EXCEL[$i]['NOmbre'] = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
@@ -341,7 +341,28 @@ $(window).load(function() {
                              
                                 }
 
-                                
+                                if ($val==0) {
+                                  include('../crearConexionGECOMP.php');
+                                  $actualizar=mssql_query("UPDATE Base_Constancia SET Estado=0 WHERE Estado=1");
+                                  foreach ($_DATOS_EXCEL as $valor) {
+                                    $empleado= $valor['Empleado'];
+                                    $Salario= $valor['NOmbre'];
+                                    $Caja_Chica= $valor['Identidad'];
+                                    $Plus= $valor['DeduccionCodigo'];
+                                    $Zonaje_Plus= $valor['Puesto'];
+                                    $Zonaje= $valor['Departamento'];
+                                    $Fondo_Reint= $valor['Salario'];
+                                    $Fondo_Combus= $valor['CajaChica'];
+
+                                    $insertar=mssql_query("INSERT INTO Base_Constancia(Base_Empledo,Salario,Caja_Chica,Plus,Zonaje_Plus,Zonaje,Fondo_Reint,Fondo_Combus,Estado)VALUES('$empleado','$Salario','$Caja_Chica','$Plus','$Zonaje_Plus','$Zonaje','$Fondo_Reint','$Fondo_Combus',1)");
+                                    
+
+                                  }
+                                  if ($insertar==true) {
+                                    echo "<script>alert('Datos insertados con exito');</script>";
+                                  }
+                                 
+                                }
                             
 
 

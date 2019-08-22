@@ -189,7 +189,7 @@ $nombreEmp=strtolower($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
 
 
-$texto = "El(a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con numero de identidad ".$Identidad.", labora por contrato en esta institución a partir del ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por Costo de Vida, siendo efectivo a partir del ".$Fecha_Efectivo." con un sueldo mensual de: \t".$var."\t"." (L.  ".$formato.").";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con numero de identidad ".$Identidad.", labora por contrato en esta institución a partir del ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por costo de vida, siendo efectivo a partir del ".$Fecha_Efectivo.", con un sueldo mensual de: \t".ucfirst($var)."\t"." (L.  ".$formato.").";
 
 
 
@@ -203,32 +203,32 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 $pdf->Cell(140,10,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Maneja fondos de caja Chica'),0,1,'L'); 
 $pdf->Cell(170,0,'-----------',0,1,'C'); 
-$pdf->Cell(270,0,$formato_Chaja_Chica,0,1,'C'); 
+$pdf->Cell(150,0,'L.  '.$formato_Chaja_Chica,0,1,'R'); 
 
 $pdf->Cell(140,5,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Recibe pago plus'),0,1,'L'); 
 $pdf->Cell(170,0,'------------',0,1,'C'); 
-$pdf->Cell(270,0,$formato_Plus_Sueldo,0,1,'C'); 
+$pdf->Cell(150,0,$formato_Plus_Sueldo,0,1,'R'); 
 
 $pdf->Cell(140,5,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Maneja Zonaje Plus'),0,1,'L'); 
 $pdf->Cell(170,0,'------------',0,1,'C'); 
-$pdf->Cell(270,0,$Formato_Zonaje_Plus,0,1,'C'); 
+$pdf->Cell(150,0,$Formato_Zonaje_Plus,0,1,'R'); 
 
 $pdf->Cell(140,5,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Zonaje'),0,1,'L'); 
 $pdf->Cell(170,0,'------------',0,1,'C'); 
-$pdf->Cell(270,0,$Formato_Zonaje,0,1,'C'); 
+$pdf->Cell(150,0,$Formato_Zonaje,0,1,'R'); 
 
 $pdf->Cell(140,5,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Maneja Fondos Rotatorios'),0,1,'L'); 
 $pdf->Cell(170,0,'------------',0,1,'C'); 
-$pdf->Cell(270,0,$formato_Fondo_Reint,0,1,'C'); 
+$pdf->Cell(150,0,$formato_Fondo_Reint,0,1,'R'); 
 
 $pdf->Cell(140,5,'',0,1,'L'); 
 $pdf->Cell(90,0,utf8_decode('Maneja fondos de combustibles'),0,1,'L'); 
 $pdf->Cell(170,0,'------------',0,1,'C'); 
-$pdf->Cell(270,0,$formato_Fondo_Combus,0,1,'C'); 
+$pdf->Cell(150,0,$formato_Fondo_Combus,0,1,'R'); 
 
 
 

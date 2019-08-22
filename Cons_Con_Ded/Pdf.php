@@ -2,6 +2,7 @@
 $idFirma=$_GET['firma'];
 $numeroEmpleado=$_GET['numero'];
 $opcion=$_GET['opcion'];
+$contador=1;
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -136,11 +137,11 @@ $pdf->Ln(5);
 // Text   ñ  í   ó   ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $ConvertirNombre=strtolower($txt);
-$txt="<vb>".ucwords($ConvertirNombre)."</vb>";
+$txt="<vb>".ucwords('jose andres gomez maradiaga')."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 
-$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt." ha laborado en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato."). Teniendo:";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt." ha laborado en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). Teniendo:";
 
 
  
@@ -149,7 +150,7 @@ $texto2="Constancia que se expide a petición de parte interesada, en la ciudad 
 
 $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 $pdf->Ln(5);
-$pdf->SetFont('Arial','B',12);
+$pdf->SetFont('Arial','B',10);
 $pdf->Cell(175,5,'INGRESOS',0,1,'C'); 
 $pdf->SetFont('Arial','',12);
 $pdf->Ln(5);
@@ -159,6 +160,7 @@ $pdf->SetFont('Arial','',12);
 
 //Consulta para Ingresos Permanentes
  $cont=0;
+ $positivo1="";
     $sumadorDeduccionesPermanentes=0;
     include('../crearConexionVam.php');
     $sql=mssql_query("SELECT * FROM prmisc WHERE cempno = '$numeroEmpleado' and cpayno='$opcion' and cpaycode !='IHSS' and cpaycode!='INJUPEMP'");
@@ -167,16 +169,28 @@ $pdf->SetFont('Arial','',12);
 include('../crearConexionGECOMP.php');
 $verconsulta=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$codigoVam' and PERMANENTE='1'");
 while($verconsulta1=mssql_fetch_array($verconsulta)){
-  $IngresoPermanente=$verconsulta1['DESCRIPCION'];
+  $contador=$contador++;
+ // $monto1=$optenerDatos['nothtax'];
+  $monto=$optenerDatos['nothtax'];
+  if ($contador==1) {
+    $monto1="L. ".number_format($monto,2);
+    
+  }else{
+    $monto=$optenerDatos['nothtax'];
+    $monto1=number_format($monto,2);
+  }
+
+
+    $IngresoPermanente=$verconsulta1['DESCRIPCION'];
   $ConvertirIngresoPer=strtolower($IngresoPermanente);
   $IngresoPermanente=ucwords($ConvertirIngresoPer);
 
 
-  $monto1=$optenerDatos['nothtax'];
-  $cont=$cont+$monto1;
+  
+  $cont=$cont+$monto;
   $pdf->Ln(3);
 $pdf->Cell(30,5,$IngresoPermanente,0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($monto1,2),0,1,'R'); 
+$pdf->Cell(100,-5,$monto1,0,1,'R'); 
 $pdf->Ln(8);
 
 
@@ -204,7 +218,7 @@ while($verconsulta=mssql_fetch_array($ConsultaGECOMP)){
   $cont=$cont+$monto2;
   $pdf->Ln(3);
 $pdf->Cell(30,5,$IngresoTemporal,0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($monto2,2),0,1,'R'); 
+$pdf->Cell(100,-5,number_format($monto2,2),0,1,'R'); 
 $pdf->Ln(8);
 
 }
@@ -212,12 +226,12 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(3);
 $pdf->Cell(30,5,'Total Ingresos',0,1,'L'); 
-$pdf->Cell(175,-5,"L.".number_format($cont,2),0,1,'R'); 
+$pdf->Cell(175,-5,number_format($cont,2),0,1,'R'); 
 $pdf->Ln(8);
 $pdf->SetFont('Arial','',12);
 
 $pdf->Ln(5);
-$pdf->SetFont('Arial','B',12);
+$pdf->SetFont('Arial','B',10);
 $pdf->Cell(175,5,'DEDUCCIONES',0,1,'C'); 
 $pdf->SetFont('Arial','',12);
 
@@ -240,7 +254,7 @@ $sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo1;
 
 $pdf->Ln(3);
 $pdf->Cell(30,5,$verDatos['cref'] ,0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($positivo1,2),0,1,'R'); 
+$pdf->Cell(100,-5,"L. ".number_format($positivo1,2),0,1,'R'); 
 $pdf->Ln(8);
 
 }
@@ -256,9 +270,15 @@ include('../crearConexionVam.php');
          $positivo2=$verDatosIHSS['nothntax']*-1;
         $sumadorDeduccionesPermanentes= $sumadorDeduccionesPermanentes+$positivo2;
 
+        if ($positivo1=="") {
+          $positivo2="L. ".number_format($positivo2,2);
+        }else{
+          $positivo2=number_format($positivo2,2);
+        }
+
 $pdf->Ln(3);
 $pdf->Cell(30,5,$verDatosIHSS['cref'],0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($positivo2,2),0,1,'R'); 
+$pdf->Cell(100,-5,$positivo2,0,1,'R'); 
 $pdf->Ln(8);
       
 }
@@ -281,7 +301,7 @@ while($verconsulta3=mssql_fetch_array($VerConsultaPermanentes)){
   $sumadorDeduccionesPermanentes=$sumadorDeduccionesPermanentes+$monto;
   $pdf->Ln(3);
 $pdf->Cell(30,5,$DeduccionesPermanentes,0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($monto,2),0,1,'R'); 
+$pdf->Cell(100,-5,number_format($monto,2),0,1,'R'); 
 $pdf->Ln(8);
 
 }
@@ -322,7 +342,7 @@ while($verconsulta4=mssql_fetch_array($VaerDeduccionesTemporales)){
 
   $pdf->Ln(3);
 $pdf->Cell(30,5,$DeduccionesTemporales,0,1,'L'); 
-$pdf->Cell(100,-5,"L.".number_format($MOntoTempral,2),0,1,'R'); 
+$pdf->Cell(100,-5,number_format($MOntoTempral,2),0,1,'R'); 
 $pdf->Ln(8);
   }
 }
@@ -331,7 +351,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(3);
 $pdf->Cell(30,5,'Total Deducciones Temporales',0,1,'L'); 
-$pdf->Cell(175,-5,"L.".number_format($sumadorDeduccionesTemporales,2),0,1,'R'); 
+$pdf->Cell(175,-5,number_format($sumadorDeduccionesTemporales,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 $Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
@@ -339,7 +359,7 @@ $Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(10);
 $pdf->Cell(30,5,'Total Deducciones ',0,1,'L'); 
-$pdf->Cell(175,-5,"L.".number_format($Total_Deduccines,2),0,1,'R'); 
+$pdf->Cell(175,-5,number_format($Total_Deduccines,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 $Total_neto=$cont-$Total_Deduccines;
@@ -347,7 +367,7 @@ $Total_neto=$cont-$Total_Deduccines;
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(10);
 $pdf->Cell(30,5,'Total Neto ',0,1,'L'); 
-$pdf->Cell(175,-5,"L.".number_format($Total_neto,2),0,1,'R'); 
+$pdf->Cell(175,-5,number_format($Total_neto,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 
