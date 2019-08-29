@@ -105,7 +105,7 @@ function Header()
     $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
+   // $this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
     $this->Ln(20);
 }
@@ -181,7 +181,7 @@ $txt2="
 ";
 
 $txt3=" 
-<p>El(la) suscrito(a), ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion.", devengando un salario mensual de ".ucfirst($var)." (L. ".$formato.").</p>
+<p>El(la) suscrito(a), ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".ucwords(utf8_encode(trim($desempenio))).", asignada a ".ucwords(utf8_encode($asignacion)).", devengando un salario mensual de ".ucfirst($var)." (L. ".$formato.").</p>
 ";
 
 

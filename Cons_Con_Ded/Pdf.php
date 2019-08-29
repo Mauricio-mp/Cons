@@ -143,7 +143,7 @@ $pdf->Ln(5);
 // Text   ñ  í   ó   ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $ConvertirNombre=strtolower($txt);
-$txt="<vb>".ucwords('jose andres gomez maradiaga')."</vb>";
+$txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 

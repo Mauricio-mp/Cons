@@ -166,6 +166,7 @@ while($ejecutar=mssql_fetch_array($query)){
   </div>
 </div> 
 <?php
+date_default_timezone_set('America/New_York');
  $variable_validador= 0;
 	if (isset($_POST['enviarDato'])) {
  $variable_validador= 0;
@@ -174,6 +175,7 @@ $NOMBRE_COOPERATIVA= $_POST['NOMBRE_COOPERATIVA'];
 //echo $NOMBRE_COOPERATIVA;
 if ($NOMBRE_COOPERATIVA=="") {
 $message = "Debe Seleccionar Una Cooperativa";
+
 echo "<script type='text/javascript'>alert('$message');</script>";
  }else{
 
@@ -183,11 +185,20 @@ if($valor=="13avo")
 {
   $bono = "13AVO"; 
 $mesbono=12;
+  $aniox = gmdate("Y"); 
+                            
+ $fechabono=gmdate("Y-m-d", strtotime('01'.'-12-'.$aniox));
+   echo  $fechabono; 
 }
-elseif($valor=="14avo")
+if($valor=="14avo")
 {
    $bono = "14AVO"; 
 $mesbono=06;
+
+  $aniox = gmdate("Y"); 
+                           
+$fechabono=gmdate("Y-m-d", strtotime('01'.'-06-'.$aniox));
+  echo  $fechabono; 
 }
 if($valor=="")
 {
@@ -202,16 +213,16 @@ $message =  "Debe seleccionar el tipo de bono.";
                         $meses = $row44[0];
                             }
 
-                             $aniox = date("Y");
-                            $fechabono=date("Y-m-d", strtotime('01'.'-'.$mesbono.'-'.$aniox));
+                           
+                             
                             
-                           $fechahoy = date("Y-m-d"); // Fecha de hoy, es lo mismo que:  date("d/m/Y")
-                         
+                           $fechahoy =  (gmdate("Y-m-d"));  // Fecha de hoy, es lo mismo que:  date("d/m/Y")
+                        
 
-                              if (strtotime($fechahoy) > strtotime($fechabono))
+                              if (($fechahoy) > ($fechabono))
                               {
                                   //El dia ya ha pasado
-                              $fechabono = date("Y-m-d",strtotime($fechabono."+ 1 year"));
+                              $fechabono = gmdate("Y-m-d",($fechabono."+ 1 year"));
                           
                             } else {
                                   //Aun no ha llegado el dia o bien estamos en él
@@ -226,7 +237,7 @@ $message =  "Debe seleccionar el tipo de bono.";
                                     $intervalMeses=$interval->format("%m");
                                       # obtenemos la diferencia en años y la multiplicamos por 12 para tener los meses
                                       $intervalAnos = $interval->format("%y")*12;
-                                       $valor =$intervalMeses+$intervalAnos;
+                                       $valor =$intervalMeses;
                                        if ($valor > $meses) {
                                           $message =  "Meses que faltan"." ".$valor."    "."Meses de Cooperativa"." ".$meses." "."Aun no puede solicitar este bono para este periodo, ";
                                           $variable_validador= 1;
@@ -295,8 +306,8 @@ if ($comprara < $fechaAactual) {
 
                                 include('../cerrarConexionRRHH.php');
                       include('../crearConexionGECOMP.php');
-                      $mostrarDatos22=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado=1 AND cPeriodo='$fechaAcuerdo_anioactual2'");
-                        if ($row22=mssql_fetch_array($mostrarDatos22)) {
+                      $mostrarDatos222=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado=1 AND cPeriodo='$fechaAcuerdo_anioactual2'");
+                        if ($row222=mssql_fetch_array($mostrarDatos222)) {
                           $message = $fechaAcuerdo_anioactual2." "."Ya solicitó esta constancia para este Periodo, En el Sistema de GECOMP";
                           $variable_validador= 1;
                             }
@@ -317,7 +328,7 @@ if ($comprara < $fechaAactual) {
    $anio = date("Y", strtotime($row['dcntrct']));  
 
 
-   header('Location: Mostrarmodal.php?x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'.&b='.$bono.'');
+   header('Location: Mostrarmodal.php?x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
 
            }
 

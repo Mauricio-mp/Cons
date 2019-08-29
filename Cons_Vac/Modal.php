@@ -147,7 +147,7 @@ while($ejecutar=mssql_fetch_array($query)){
   </div>
 </div> 
 <?php
-
+date_default_timezone_set('America/New_York');
 	if (isset($_POST['enviarDato'])) {
  $variable_validador= 0;
 

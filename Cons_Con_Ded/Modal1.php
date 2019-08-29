@@ -62,8 +62,8 @@ $(document).ready(function(){
          ?>
          <label>Seleccione mes a Generar</label>
 <select class="form-control" name="opcionMes" id="opcionMes"><option  disabled selected>Seleccionar Opcion</option>
-  <?php
-  $formato=date('Y-m',strtotime('2019-05-06'));
+ <?php
+  $formato=date('Y-m');
 $nuevafecha = strtotime ( '-1 month' , strtotime ( $formato ) ) ;
 $nuevafecha = date ( 'Y-m' , $nuevafecha );
 // echo $nuevafecha;
@@ -78,7 +78,15 @@ while($Fechas=mssql_fetch_array($optenerFechas)){
   echo "<option>".$Fechas['cpayno']."</option>";
 }
   ?>
-  
+  <?php
+  $NuevaFecha2 = strtotime ( '-2 month' , strtotime ( $formato ) ) ;
+$NuevaFecha2 = date ( 'Y-m' , $NuevaFecha2 );
+$optenerFechas2=mssql_query("SELECT DISTINCT cpayno  FROM prmisd  WHERE CONVERT(VARCHAR(25), tmodrec, 126) LIKE '$NuevaFecha2%' ORDER BY cpayno");
+while($fecha2=mssql_fetch_array($optenerFechas2)){
+  echo "<option>".$fecha2['cpayno']."</option>";
+}
+  ?>
+
 </select>
 
       </div>

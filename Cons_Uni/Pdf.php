@@ -157,7 +157,7 @@ $pdf->Ln(5);
 
 // Text
 $txt=" 
-<p>El (la) suscrito(a) ".$puestoFirma." del Ministerio Público hace constar que <vb>".$nombreCompleto."</vb>, ".strtolower($msg).", actualmente se desempeña como ".strtolower(trim($desempenio))." "."asignado a ".strtolower($asignacion).".</p>
+<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode($nombreCompleto)."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>
 ";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
@@ -174,9 +174,9 @@ $pdf->line();
 $pdf->Cell(10,50,'',0,1,'C'); 
 $pdf->Cell(172,5,'_________________________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+$pdf->Cell(172,5,utf8_encode($nombreFirma),0,1,'C');
 $pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,5,$puestoFirma,0,1,'C');
+$pdf->Cell(172,5,utf8_encode($puestoFirma),0,1,'C');
 
 // Signature
 
