@@ -100,6 +100,8 @@ $varsession= $_SESSION['username'];
                 
                  <li><a tabindex="-1" href="../Nuevaembajada.php">Nueva Embajada o Consulado</a></li>
                   <li><a tabindex="-1" href="../Anular_Cons">Anular Constancias</a></li>
+                  <li><a tabindex="-1" href="../Entrega_cons">Entregar Constancias</a></li>
+
 
                    <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Constancia T.S.C<span class="caret"></span></a>

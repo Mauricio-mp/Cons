@@ -2,6 +2,8 @@
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
 $idembajada=$_GET['y'];
+$conca=$_GET['ido'];
+
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 
@@ -33,15 +35,22 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $mes2 = date("m", strtotime($row['dcntrct']));
    $anio2 = date("Y", strtotime($row['dcntrct']));
  
-   $fechaContrato=fecha2($dia1,$mes1,$anio1); 
-   $fechaAcuerdo=fecha2($dia2,$mes2,$anio2); 
+   $fechaContrato=fecha1($dia1,$mes1,$anio1); 
+   $fechaAcuerdo=fecha1($dia2,$mes2,$anio2); 
+$fechacon=date("Y-m-d", strtotime($row['dhire']));
+  $fechaac=date("Y-m-d", strtotime($row['dcntrct']));
+//inicio de validaciones importantes
 
-  if ($row['dhire']==$row['dcntrct']) {
-    $msg="labora en esta Institución desde los ".$fechaContrato.", ";
+
+if ($fechacon == $fechaac) {
+$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaAcuerdo)."";
+   }
+ if ($fechacon<$fechaac) {
+    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
-  if ($row['dhire']>$row['dcntrct']) {
-    $msg="labora en esta Institución desde los ".$fechaContrato.", ";
-  }
+
+
+
 $var=convertir($opnetersueldo);
 $formato=number_format($opnetersueldo,2);
 
@@ -105,7 +114,7 @@ function Header()
     $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
+   // $this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
     $this->Ln(20);
 }
@@ -113,6 +122,7 @@ function Header()
 // Page footer
 function Footer()
 {
+   global $conca;
          // Position at 1.5 cm from bottom
     $this->SetY(-15);
     // Arial italic 8
@@ -125,7 +135,7 @@ function Footer()
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
     $this->SetTextColor(0,0,0);
-    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
+       $this->Cell(185,0,$conca.'/'.'G.E.C.O.M.P.',0,0,'R');
 }
 
 }
@@ -172,20 +182,18 @@ $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 // Text
-$txt1=" 
-<p>Tegucigalpa, M.D.C., ".$fechaActual."</p>
-";
+//$txt1="<p>Tegucigalpa, M.D.C., ".$fechaActual."</p>";
 
 $txt2=" 
-<p>Presente.-</p>
+<p>Presente.</p>
 ";
 
 $txt3=" 
-<p>El(la) suscrito(a), ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".trim($desempenio).", asignada a ".$asignacion.", devengando un salario mensual de ".ucfirst($var)." (L. ".$formato.").</p>
+<p>El(la) suscrito(a) ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".strtoupper($nombreCompleto)."</vb>, con número de identidad ".$identidad.", ".$msg." en el cargo de ".ucwords(utf8_encode(trim($desempenio))).", asignada a ".ucwords(utf8_encode($asignacion)).", devengando un salario mensual de ".strtolower($var)." (L. ".$formato.").</p>
 ";
 
 
-$texto1=" <p>Constancia que se expide a parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, a los ".$fechaActual.".
+$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
 </p>";
 
 
@@ -197,9 +205,9 @@ $nombreEmbajada=strtolower($txtembajada);
 $txtembajada="<negrta>".ucwords($nombreEmbajada)."</negrta>";
 
 
-$pdf->Ln(0);
-$pdf->WriteTag(0,10,utf8_decode($txt1),0,"R",0,0);
-$pdf->Ln(10);
+$pdf->Ln(-20);
+//$pdf->WriteTag(0,10,utf8_decode($txt1),0,"R",0,0);
+//$pdf->Ln(10);
 
  $pdf->SetX(17);
 
@@ -218,11 +226,11 @@ $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'_______________________________',0,1,'C');
+//$pdf->Cell(172,5,'_______________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,7,utf8_encode($nombreFirma),0,1,'C');
-$pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,7,$puestoFirma,0,1,'C');
+$pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
+$pdf->Cell(20,3,'',0,1,'C');
+$pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);
 
 // Signature
 

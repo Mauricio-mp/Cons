@@ -325,7 +325,7 @@ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,
                                     if ($insertar) {
                                    
                                               $id=$_POST['id_firma'];
-                                            echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&y='.$aniomostrar.'&z='.$mesmostrar.'"</script>';
+                                            echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&y='.$aniomostrar.'&z='.$mesmostrar.'&ido='.$concatenada.'"</script>';
                                     }  else{
                                        echo "<script>alert('error')</script>";
                                       }

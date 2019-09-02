@@ -1,7 +1,7 @@
 <?php 
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
-
+$conca=$_GET['ido'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
@@ -75,7 +75,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio); 
+$fechaActual=fecha2($dia,$mes,$anio); 
 
 
 include('../crearConexionGECOMP.php');
@@ -91,6 +91,8 @@ if ($firma=mssql_fetch_array($mostrarDato)) {
 
 class PDF extends PDF_WriteTag
 {
+
+
 // Page header
 function Header()
 {
@@ -115,6 +117,8 @@ function Header()
 // Page footer
 function Footer()
 {
+
+  global $conca;
     // Position at 1.5 cm from bottom
     $this->SetY(-15);
     // Arial italic 8
@@ -127,7 +131,7 @@ function Footer()
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
     $this->SetTextColor(0,0,0);
-    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
+    $this->Cell(185,0,$conca.'/'.'G.E.C.O.M.P.',0,0,'R');
 }
 
 }
@@ -149,7 +153,7 @@ $pdf->SetStyle("a","arial","BU",13,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",0,"0,0,0");
-
+$pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 $pdf->Ln(5);
@@ -157,11 +161,11 @@ $pdf->Ln(5);
 
 // Text
 $txt=" 
-<p>El (la) suscrito(a) ".$puestoFirma." del Ministerio Público hace constar que <vb>".$nombreCompleto."</vb>, ".strtolower($msg).", actualmente se desempeña como ".strtolower(trim($desempenio))." "."asignado a ".strtolower($asignacion).".</p>
+<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode(strtoupper($nombreCompleto))."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>
 ";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
-$texto1=" <p>Constancia que se expide a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del distrito Central, a ".$fechaActual.".
+$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
 </p>";
 
 
@@ -172,15 +176,15 @@ $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'_________________________________________',0,1,'C');
+//$pdf->Cell(172,5,'_______________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
-$pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,5,$puestoFirma,0,1,'C');
-
+$pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
+$pdf->Cell(20,3,'',0,1,'C');
+$pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);
+$pdf->SetY(270);
 // Signature
 
-
+ 
  
 
 //$pdf->line(40, 10, 80, 10);
