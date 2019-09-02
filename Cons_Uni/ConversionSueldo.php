@@ -345,6 +345,7 @@ if ($cen=='') {
 
 
 
+<<<<<<< HEAD
 function convertir1($numero){ 
 $num = str_replace(",","",$numero); 
 $num = number_format($num,2,'.',''); 
@@ -363,5 +364,7 @@ if ($cen=='') {
 } 
 
 
+=======
+>>>>>>> bf9f526243062c9b27adff3a096ef2f88e212825
 
 ?> 

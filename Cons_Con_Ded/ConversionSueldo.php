@@ -342,6 +342,23 @@ if ($cen=='') {
 
 } 
 
+function convertir2($numero){ 
+$num = str_replace(",","",$numero); 
+$num = number_format($num,2,'.',''); 
+$cents = substr($num,strlen($num)-2,strlen($num)-1); 
+$num = (int)$num; 
+
+$numf = milmillon($num); 
+$cen=milmillon($cents); 
+
+if ($cen=='') {
+	return $numf;
+}else{
+	return $numf." lempiras con ".$cen." centavos";
+}
+
+} 
+
 
 
 ?> 

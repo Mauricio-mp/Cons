@@ -2,7 +2,7 @@
 $idFirma=$_GET['firma'];
 $numeroEmpleado=$_GET['numero'];
 $opcion=$_GET['opcion'];
-$contador=1;
+$contador=0;
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -62,11 +62,15 @@ $anio=date("Y");
 $DateNum= Optenerfecha($mes,$anio);
 $fechaActual=fecha1($dia,$mes,$anio); 
 
+$dia_actual=convertir2($dia); 
+$mes_actual= fecha2($mes);
+$anio_actual=convertir2($anio); 
+
 include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
-  $convertirFirma=strtolower($nombreFirma);
+  $convertirFirma=strtoupper($nombreFirma);
   $nombreFirma=ucwords($convertirFirma);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
@@ -79,6 +83,7 @@ class PDF extends PDF_WriteTag
 function Header()
 {
 
+    
     // Logo
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
@@ -88,13 +93,13 @@ function Header()
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
-    $this->Ln(40);
-    $this->Cell(72);
+    $this->Ln(30);
+   // $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
+    //$this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
-    $this->Ln(20);
+    //$this->Ln(20);
 }
 
 // Page footer
@@ -143,16 +148,18 @@ $pdf->Ln(5);
 // Text   ñ  í   ó   ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $ConvertirNombre=strtolower($txt);
-$txt="<vb>".ucwords('jose andres gomez maradiaga')."</vb>";
+$txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
+$nombresFirma="<vb>".utf8_encode($nombreFirma)."</vb>";
 
-$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt." ha laborado en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). Teniendo:";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a) ".$txt." ha laborado en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato."). Teniendo:";
 
-
+$pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
+$pdf->Cell(10,20,'',0,1,'C'); 
  
 
-$texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio Central, a ".$fechaActual."";
+$texto2="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
 
 $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 $pdf->Ln(5);
@@ -175,7 +182,7 @@ $pdf->SetFont('Arial','',12);
 include('../crearConexionGECOMP.php');
 $verconsulta=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$codigoVam' and PERMANENTE='1'");
 while($verconsulta1=mssql_fetch_array($verconsulta)){
-  $contador=$contador++;
+  $contador=$contador+1;
  // $monto1=$optenerDatos['nothtax'];
   $monto=$optenerDatos['nothtax'];
   if ($contador==1) {
@@ -232,7 +239,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(3);
 $pdf->Cell(30,5,'Total Ingresos',0,1,'L'); 
-$pdf->Cell(175,-5,number_format($cont,2),0,1,'R'); 
+$pdf->Cell(175,-5,"L. ".number_format($cont,2),0,1,'R'); 
 $pdf->Ln(8);
 $pdf->SetFont('Arial','',12);
 
@@ -314,6 +321,7 @@ $pdf->Ln(8);
 }
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(3);
+//$pdf->WriteTag(0,5,utf8_decode('Total Deducciones Permanentes'),0,"J",0,0);
 $pdf->Cell(30,5,'Total Deducciones Permanentes',0,1,'L'); 
 $pdf->Cell(175,-5,"L.".number_format($sumadorDeduccionesPermanentes,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
@@ -357,7 +365,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(3);
 $pdf->Cell(30,5,'Total Deducciones Temporales',0,1,'L'); 
-$pdf->Cell(175,-5,number_format($sumadorDeduccionesTemporales,2),0,1,'R'); 
+$pdf->Cell(175,-5,"L. ".number_format($sumadorDeduccionesTemporales,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 $Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
@@ -365,7 +373,7 @@ $Total_Deduccines=$sumadorDeduccionesPermanentes+ $sumadorDeduccionesTemporales;
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(10);
 $pdf->Cell(30,5,'Total Deducciones ',0,1,'L'); 
-$pdf->Cell(175,-5,number_format($Total_Deduccines,2),0,1,'R'); 
+$pdf->Cell(175,-5,"L. ".number_format($Total_Deduccines,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 $Total_neto=$cont-$Total_Deduccines;
@@ -373,7 +381,7 @@ $Total_neto=$cont-$Total_Deduccines;
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(10);
 $pdf->Cell(30,5,'Total Neto ',0,1,'L'); 
-$pdf->Cell(175,-5,number_format($Total_neto,2),0,1,'R'); 
+$pdf->Cell(175,-5,"L. ".number_format($Total_neto,2),0,1,'R'); 
 $pdf->SetFont('Arial','',12);
 
 
@@ -390,9 +398,10 @@ $pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'________________________________________________',0,1,'C');
+$pdf->Cell(172,5,'',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+//$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+$pdf->WriteTag(0,7,utf8_decode($nombresFirma),0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,$puestoFirma,0,1,'C');
 

@@ -87,6 +87,8 @@ $(document).ready(function(){
 
     <form method="POST" >
     <div style="background-color:#FFF;">
+
+
     	<table id="" class="table table-striped table-bordered" style="width:100%">
       <thead class="bg-gray">
        <tr role="row">
@@ -105,38 +107,21 @@ $(document).ready(function(){
      </thead>
      
      <tbody>
-       <?php 
+      <?php 
        include('../crearConexionVam.php');
-       $conslutaIngreso=mssql_query("SELECT *  FROM  prpayc order by cdesc");
-       while($fila=mssql_fetch_array($conslutaIngreso)){
-       	$ConversionMin=strtolower($fila['cdesc']);
-       	$fila['cdesc']=ucwords($ConversionMin);
-       	$numerodeingreso=$fila['cpaycode'];
+      $ConsultarIngresoVa=mssql_query("SELECT *  FROM  prpayc WHERE cstatus='OP'");
+      while($ver=mssql_fetch_array($ConsultarIngresoVa)){
+          $optenerCodigos=trim($ver['cpaycode']);
+          $descripcion=trim($ver['cdesc']);
+          //echo $optenerCodigos;
 
-
-
-	   include('../crearConexionGECOMP.php');
-       	$Checkear=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$numerodeingreso' and PERMANENTE=1");
-       	if ($checkear1=mssql_fetch_array($Checkear)) {
-       		$checkear1['CODIGO_INGRESO'];
-       	}
-
-       	if ($checkear1['CODIGO_INGRESO']==$numerodeingreso) {
-       		$checked="checked";
-       	}else{
-       		$checked="";
-       	}
-
-       		$Vertemporal=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$numerodeingreso' and TEMPORAL=1");
-       	if ($ejeucutar=mssql_fetch_array($Vertemporal)) {
-       		$ejeucutar['CODIGO_INGRESO'];
-       	}
-
-       	if ($ejeucutar['CODIGO_INGRESO']==$numerodeingreso) {
-       		$Checked="checked";
-       	}else{
-       		$Checked="";
-       	}
+          include('../crearConexionGECOMP.php');
+          $ConsultarDediGE=mssql_query("SELECT * FROM DEDUCCION_INGRESO WHERE CODIGO_INGRESO ='$optenerCodigos'");
+          if ($vervalore=mssql_fetch_array($ConsultarDediGE)) {
+            //Todos los que existen en la tabla de Deducciones
+          }else{
+            //echo $optenerCodigos." ".$descripcion;
+          
 
        
        
@@ -144,14 +129,15 @@ $(document).ready(function(){
 
        
           <tr>
-          <td style="text-align: left; background-color:"><?php echo utf8_encode($fila['cpaycode']); ?></td>
-            <td style="text-align: left; background-color:"><?php echo utf8_encode($fila['cdesc']); ?></td>
-            <td style="text-align: center; background-color:"><input type="checkbox" value="<?php echo utf8_encode($fila['cpaycode']); ?>" name="prmanentes[]" <?php echo $checked;?>  ></td>
-            <td style="text-align: center; background-color:"><input type="checkbox" value="<?php echo utf8_encode($fila['cpaycode']); ?>" name="Temporales[]" <?php echo $Checked;?> ></td>
+          <td style="text-align: left; background-color:"><?php echo utf8_encode($optenerCodigos); ?></td>
+            <td style="text-align: left; background-color:"><?php echo utf8_encode($descripcion); ?></td>
+            <td style="text-align: center; background-color:"><input type="checkbox" value="<?php echo utf8_encode($optenerCodigos); ?>" name="prmanentes[]"  ></td>
+            <td style="text-align: center; background-color:"><input type="checkbox" value="<?php echo utf8_encode($optenerCodigos); ?>" name="Temporales[]" ></td>
 
 
           </tr>
 <?php
+}
 }
 ?>
           
@@ -182,7 +168,7 @@ $PER = count($_POST["prmanentes"]);
 $TEMP = count($_POST["Temporales"]);
 
 include('../crearConexionGECOMP.php');
-$borraTabla=mssql_query("DELETE FROM DEDUCCION_INGRESO");
+//$borraTabla=mssql_query("DELETE FROM DEDUCCION_INGRESO");
 if($TEMP >0)
 {
 	for($i=0; $i<$TEMP; $i++)
@@ -274,8 +260,6 @@ if($PER >0)
  
 
   
-}else{
-	echo "<script>alert('Campos Vacios');</script>";
 }
 
 if($val==1){

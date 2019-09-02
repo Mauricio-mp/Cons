@@ -189,7 +189,11 @@ $txt2="
 ";
 
 $txt3=" 
+<<<<<<< HEAD
 <p>El(la) suscrito(a) ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".strtoupper($nombreCompleto)."</vb>, con número de identidad ".$identidad.", ".$msg." en el cargo de ".ucwords(utf8_encode(trim($desempenio))).", asignada a ".ucwords(utf8_encode($asignacion)).", devengando un salario mensual de ".strtolower($var)." (L. ".$formato.").</p>
+=======
+<p>El(la) suscrito(a), ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".$nombreCompleto."</vb>, con número de identidad ".$identidad.", labora en esta Institución desde los ".$fechaContrato." en el cargo de ".ucwords(utf8_encode(trim($desempenio))).", asignada a ".ucwords(utf8_encode($asignacion)).", devengando un salario mensual de ".ucfirst($var)." (L. ".$formato.").</p>
+>>>>>>> bf9f526243062c9b27adff3a096ef2f88e212825
 ";
 
 

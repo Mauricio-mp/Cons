@@ -12,6 +12,14 @@ include('../crearConexionVam.php');
 
   die();
  }
+
+ $estado=$_GET['Status'];
+
+ if ($estado=='A' || $estado=='I') {
+   echo "<script>";
+    echo "alert('SOLO EMPLEADOS CANCELADOS');";
+    echo "window.location = 'index.php';";
+    echo "</script>";}
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,57 +78,56 @@ $(document).ready(function(){
  <?php 
  $validar=0;
  include('ConversionFecha.php');
- $firma=$_GET['firma'];
- $codigo=$_GET['codigo'];
- $fechaIncioAcuerdo=$_GET['f_I_A'];
- $fechaFinalAcuerdo=$_GET['f_F_A'];
+ $codigo=$_GET['x'];
+//  $fechaIncioAcuerdo=$_GET['f_I_A'];
+//  $fechaFinalAcuerdo=$_GET['f_F_A'];
 
- $fechaIncioContrato=$_GET['f_I_C'];
- $fechaFinalContrato=$_GET['f_F_C'];
-
-
- $Dia_Inicio_Contrato=(date('d',strtotime($fechaIncioContrato)));
- $mes_Inicio_Contrato=(date('m',strtotime($fechaIncioContrato)));
- $anio_Inicio_Contrato=(date('Y',strtotime($fechaIncioContrato)));
-
- $Dia_Final_Contrato=(date('d',strtotime($fechaFinalContrato)));
- $mes_Final_Contrato=(date('m',strtotime($fechaFinalContrato)));
- $anio_Final_Contrato=(date('Y',strtotime($fechaFinalContrato)));
-
-$Dia_Inicio_Acuerdo=(date('d',strtotime($fechaIncioAcuerdo)));
- $mes_Inicio_Acuerdo=(date('m',strtotime($fechaIncioAcuerdo)));
- $anio_Inicio_Acuerdo=(date('Y',strtotime($fechaIncioAcuerdo)));
-
- $Dia_Final_Acuerdo=(date('d',strtotime($fechaFinalAcuerdo)));
- $mes_Final_Acuerdo=(date('m',strtotime($fechaFinalAcuerdo)));
- $anio_Final_Acuerdo=(date('Y',strtotime($fechaFinalAcuerdo)));
+//  $fechaIncioContrato=$_GET['f_I_C'];
+//  $fechaFinalContrato=$_GET['f_F_C'];
 
 
-$FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
-$FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
-$FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
-$FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
+//  $Dia_Inicio_Contrato=(date('d',strtotime($fechaIncioContrato)));
+//  $mes_Inicio_Contrato=(date('m',strtotime($fechaIncioContrato)));
+//  $anio_Inicio_Contrato=(date('Y',strtotime($fechaIncioContrato)));
+
+//  $Dia_Final_Contrato=(date('d',strtotime($fechaFinalContrato)));
+//  $mes_Final_Contrato=(date('m',strtotime($fechaFinalContrato)));
+//  $anio_Final_Contrato=(date('Y',strtotime($fechaFinalContrato)));
+
+// $Dia_Inicio_Acuerdo=(date('d',strtotime($fechaIncioAcuerdo)));
+//  $mes_Inicio_Acuerdo=(date('m',strtotime($fechaIncioAcuerdo)));
+//  $anio_Inicio_Acuerdo=(date('Y',strtotime($fechaIncioAcuerdo)));
+
+//  $Dia_Final_Acuerdo=(date('d',strtotime($fechaFinalAcuerdo)));
+//  $mes_Final_Acuerdo=(date('m',strtotime($fechaFinalAcuerdo)));
+//  $anio_Final_Acuerdo=(date('Y',strtotime($fechaFinalAcuerdo)));
 
 
-$dia=date("d");
-$mes=date("m");
-$anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio);
+// $FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
+// $FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
+// $FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+// $FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
-if ($fechaIncioAcuerdo=='' && $fechaFinalAcuerdo=='') {
-	$validar=1;
 
-	$mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato;
-}
+// $dia=date("d");
+// $mes=date("m");
+// $anio=date("Y");
+// $fechaActual=fecha1($dia,$mes,$anio);
 
-if ($fechaIncioContrato=='' && $fechaFinalContrato=='') {
-	$validar=1;
-	$mensaje1="bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
-}
+// if ($fechaIncioAcuerdo=='' && $fechaFinalAcuerdo=='') {
+// 	$validar=1;
 
-if ($validar==0) {
-	$mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato." y bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
-}
+// 	$mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato;
+// }
+
+// if ($fechaIncioContrato=='' && $fechaFinalContrato=='') {
+// 	$validar=1;
+// 	$mensaje1="bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
+// }
+
+// if ($validar==0) {
+// 	$mensaje1="bajo la modalidad de contrato a partir del ".$FechaIncioContrato." al ".$FechaFinalContrato." y bajo la modalidad de Acuerdo ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
+// }
 
 
 include('../crearConexionGECOMP.php');
@@ -144,11 +151,45 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
+    $fechaIncioContrato=$row['dhire'];
+    $fechaFinalContrato=$row['dterminate'];
+    // $date_future = strtotime('-1 day', strtotime($fechaFinalContrato));
+    // $fechaFinalContrato = date('d-m-Y', $date_future);
+    $fechaInicioAcuerdo=$row['dcntrct'];
+
+    $date_future = strtotime('-1 day', strtotime($fechaInicioAcuerdo));
+    $date_future = date('d-m-Y', $date_future);
+
+     $Dia_Inicio_Contrato=(date('d',strtotime($fechaIncioContrato)));
+     $mes_Inicio_Contrato=(date('m',strtotime($fechaIncioContrato)));
+     $anio_Inicio_Contrato=(date('Y',strtotime($fechaIncioContrato)));
+
+     $Dia_Final_Contrato=(date('d',strtotime($date_future)));
+     $mes_Final_Contrato=(date('m',strtotime($date_future)));
+     $anio_Final_Contrato=(date('Y',strtotime($date_future)));
+
+     $Dia_Inicio_Acuerdo=(date('d',strtotime($fechaInicioAcuerdo)));
+     $mes_Inicio_Acuerdo=(date('m',strtotime($fechaInicioAcuerdo)));
+     $anio_Inicio_Acuerdo=(date('Y',strtotime($fechaInicioAcuerdo)));
+
+     $FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
+     $FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
+     $FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+
+    if ($fechaIncioContrato!=$fechaInicioAcuerdo) {
+      $mensaje1="por la modalidad de Contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." y Acuerdo el ".$FechaincioAcuerdo;
+    }
+     if ($fechaIncioContrato==$fechaInicioAcuerdo) {
+      $mensaje1="por la modalidad de Acuerdo el ".$FechaincioAcuerdo;
+    }
+
+
+    
 
 
     $NombreCompleto=utf8_encode($nombre)." ".utf8_encode($apellido);
     $NombresCompletos=$NombreCompleto;
-    $convertirNombre=strtolower($NombreCompleto);
+    $convertirNombre=strtoupper($NombreCompleto);
     $NombreCompleto="<strong>".ucwords($convertirNombre)."</strong>";
 
  }
@@ -169,7 +210,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 }
 
 // Text   ñ  í   ó   ú
-$texto1="El (a) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad." ha laborado en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".$asignacion;
+$texto1="El (la) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad.", laboró en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".utf8_encode($asignacion);
 
 $texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
   ?>

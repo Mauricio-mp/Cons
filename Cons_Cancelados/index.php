@@ -152,7 +152,7 @@ $(document).ready(function(){
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
                     <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='Form_constancia.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
+                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='DetalleConstancia.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
                     
                   </tr>";
                    

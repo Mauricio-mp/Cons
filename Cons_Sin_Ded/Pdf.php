@@ -70,15 +70,18 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio); 
+
+$dia_actual=convertir2($dia); 
+$mes_actual= fecha2($mes);
+$anio_actual=convertir2($anio); 
 
 include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
 
-  $FrimaCons=strtolower($nombreFirma);
-  $nombreFirma=ucwords($FrimaCons);
+  $FrimaCons=strtoupper($nombreFirma);
+  $nombreFirma=$FrimaCons;
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
 
@@ -98,13 +101,13 @@ function Header()
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
-    $this->Ln(40);
-    $this->Cell(72);
+    $this->Ln(30);
+   // $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
+    //$this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
-    $this->Ln(20);
+    //$this->Ln(20);
 }
 
 // Page footer
@@ -139,12 +142,12 @@ $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha:
 
 
 // Stylesheet
-$pdf->SetStyle("p","Arial","",12,"0,0,0",0);
-$pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
-$pdf->SetStyle("a","arial","BU",12,"0,0,0");
+$pdf->SetStyle("p","Arial","",13,"0,0,0",0);
+$pdf->SetStyle("h1","arial","N",13,"0,0,0",0);
+$pdf->SetStyle("a","arial","BU",13,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
-$pdf->SetStyle("vb","arial","B",0,"0,0,0");
+$pdf->SetStyle("vb","arial","B",13,"0,0,0");
 
 
 
@@ -152,35 +155,36 @@ $pdf->Ln(5);
 
 //  Ñ  ñ  ó  ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
-$nombreEmp=strtolower($txt);
+$nombreEmp=strtoupper($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
+$NombreFirmas="<vb>".$nombreFirma."</vb>";
 
 
 
 
 
-$texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
+$texto = "<p>El (la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a) ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".strtolower($var).""." (L. ".$formato.").</p>";
 //$texto = "El(La) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como \t".trim($desempenio)."\t"." asignado a ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato.").";
 
 //$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
 
-
-
-
+//$pdf->Cell(10,10,'',0,1,'C'); 
+$pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
+$pdf->Cell(10,20,'',0,1,'C'); 
 $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
 
 
 $pdf->Cell(10,10,'',0,1,'C'); 
-$texto1="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio Central, a ".$fechaActual.".";
+$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'_______________________________',0,1,'C');
+$pdf->Cell(172,5,'',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,7,utf8_encode($nombreFirma),0,1,'C');
+$pdf->WriteTag(0,7,utf8_decode($NombreFirmas),0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,$puestoFirma,0,1,'C');
 
