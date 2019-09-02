@@ -112,8 +112,8 @@ $varsession= $_SESSION['username'];
                    <li class="dropdown-submenu">
                  <a class="test" tabindex="-1" href="#">Constancia Deducciones<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="../Man_Cons_Con">Ingresos</a></li>
-                 <li><a tabindex="-1" href="../Man_Cons_Con/deducciones.php">Deducciones</a></li>
+                   <li><a tabindex="-1" href="../Man_Cons_Con">Nuevo Ingresos</a></li>
+                 <li><a tabindex="-1" href="../Man_Cons_Con/deducciones.php">Nueva Deducciones</a></li>
                   </ul>
                  </li>                  
           </ul>

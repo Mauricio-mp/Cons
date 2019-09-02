@@ -75,6 +75,10 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
+
+
+
+
 $fechaActual=fecha1($dia,$mes,$anio); 
 
 
