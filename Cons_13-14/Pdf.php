@@ -29,6 +29,12 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
     //echo "<script>alert('".$DESC."');</script>";
+    $nombreCompleto=$Nombre." ".$Apellido;
+  $cambiarLetra=strtolower($nombreCompleto);
+
+  $nombreCompleto=ucwords($cambiarLetra);
+
+
 
    $dia1 = date("d", strtotime($row['dhire']));
    $mes1 = date("m", strtotime($row['dhire']));
@@ -123,7 +129,7 @@ include('../cerraConexionVam.php');
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio); 
+$fechaActual=fecha2($dia,$mes,$anio); 
 
 include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFirma'");
@@ -195,14 +201,13 @@ $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",0,"0,0,0");
-
+$pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 $pdf->Ln(3);
 
 // Text
-$txt="<vb>".ucwords(strtolower(utf8_encode($nombre)))." ".ucwords(strtolower(utf8_encode($apellido)))."</vb>";
-
+$txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
 
 $texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
 
@@ -213,19 +218,23 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 $pdf->Cell(10,10,'',0,1,'C'); 
 
-$texto1="Constancia que se expide a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central a ".strtolower($fechaActual).".";
+$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
+</p>";
 
 $pdf->WriteTag(0,7,utf8_decode($mensaje_embargos),0,"J",0,0);
 $pdf->Cell(10,10,'',0,1,'C'); 
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
+
+
+
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'________________________________________________',0,1,'C');
-$pdf->Cell(10,4,'',0,1,'C');
-$pdf->Cell(172,7,ucwords(strtolower(utf8_encode($nombreFirma))),0,1,'C');
-$pdf->Cell(10,2,'',0,1,'C');
-$pdf->Cell(172,5,$puestoFirma,0,1,'C');
+//$pdf->Cell(172,5,'_______________________________',0,1,'C');
+$pdf->Cell(10,3,'',0,1,'C');
+$pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
+$pdf->Cell(20,3,'',0,1,'C');
+$pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);
 
 // Signature
 
