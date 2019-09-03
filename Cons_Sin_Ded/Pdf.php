@@ -3,6 +3,8 @@ $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
 $conca=$_GET['ido'];
 
+
+
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');

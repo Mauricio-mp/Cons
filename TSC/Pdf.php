@@ -1,6 +1,7 @@
 <?php 
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
+$conca=$_GET['ido'];
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -65,7 +66,7 @@ $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$idFir
 if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=$firma['NOMBRE_EMPLEADO'];
 
-  $FrimaCons=strtolower($nombreFirma);
+  $FrimaCons=strtoupper($nombreFirma);
   $nombreFirma=ucwords($FrimaCons);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
@@ -121,7 +122,9 @@ if ($fondos=mssql_fetch_array($consultarfondos)) {
  $formato_Fondo_Combus=number_format($fondos['Fondo_Combus'],2);
 
 }
-
+$dia_actual=convertir2($dia); 
+$mes_actual= fecha2($mes);
+$anio_actual=convertir2($anio); 
 
 
 class PDF extends PDF_WriteTag
@@ -139,18 +142,20 @@ function Header()
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
-    $this->Ln(40);
+    $this->Ln(25);
     $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
+    //$this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
-    $this->Ln(20);
+    //$this->Ln(20);
 }
 
 // Page footer
 function Footer()
 {
+
+    global $conca;
       // Position at 1.5 cm from bottom
     $this->SetY(-15);
     // Arial italic 8
@@ -163,7 +168,7 @@ function Footer()
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
     $this->SetTextColor(0,0,0);
-    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
+    $this->Cell(185,0,$conca.'/'.'G.E.C.O.M.P.',0,0,'R');
 }
 
 }
@@ -176,7 +181,8 @@ $pdf->AddPage();
 $pdf->SetFont('arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
-
+$pdf->Cell(170,10,'',0,1,'C'); 
+$pdf->Cell(170,0,'CONSTANCIA',0,0,'C');
 
 // Stylesheet
 $pdf->SetStyle("p","arial","",12,"0,0,0",0);
@@ -195,13 +201,13 @@ $pdf->Ln(5);
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $nombreEmp=strtolower($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
-
+$NombreFirmas="<vb>".utf8_encode($nombreFirma)."</vb>";
 
 $texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con numero de identidad ".$Identidad.", labora por contrato en esta institución a partir del ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por costo de vida, siendo efectivo a partir del ".$Fecha_Efectivo.", con un sueldo mensual de: \t".ucfirst($var)."\t"." (L.  ".$formato.").";
 
 
 
-
+$pdf->Cell(170,10,'',0,1,'C'); 
 $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
@@ -243,16 +249,16 @@ $pdf->Cell(150,0,$formato_Fondo_Combus,0,1,'R');
 
 
 $pdf->Cell(10,20,'',0,1,'C'); 
-$texto1="Constancia que se expide a petición de parte del interesado(a), en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual."";
+$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
 $pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'_________________________________________',0,1,'C');
+//$pdf->Cell(172,5,'_________________________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+$pdf->WriteTag(0,7,$NombreFirmas,0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,5,$puestoFirma,0,1,'C');
+$pdf->Cell(172,5,utf8_encode($puestoFirma),0,1,'C');
 
 // Signature
 
