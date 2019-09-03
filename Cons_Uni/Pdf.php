@@ -75,15 +75,13 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
-<<<<<<< HEAD
+
+//$fechaActual=fecha2($dia,$mes,$anio); 
+
+
+
+
 $fechaActual=fecha2($dia,$mes,$anio); 
-=======
-
-
-
-
-$fechaActual=fecha1($dia,$mes,$anio); 
->>>>>>> bf9f526243062c9b27adff3a096ef2f88e212825
 
 
 include('../crearConexionGECOMP.php');
@@ -169,12 +167,8 @@ $pdf->Ln(5);
 
 // Text
 $txt=" 
-<<<<<<< HEAD
-<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode(strtoupper($nombreCompleto))."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>
-=======
-<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode($nombreCompleto)."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>
->>>>>>> bf9f526243062c9b27adff3a096ef2f88e212825
-";
+
+<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode(strtoupper($nombreCompleto))."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
 $texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
@@ -190,17 +184,10 @@ $pdf->line();
 $pdf->Cell(10,50,'',0,1,'C'); 
 //$pdf->Cell(172,5,'_______________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-<<<<<<< HEAD
 $pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
 $pdf->Cell(20,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);
-$pdf->SetY(270);
-=======
-$pdf->Cell(172,5,utf8_encode($nombreFirma),0,1,'C');
-$pdf->Cell(10,0,'',0,1,'C');
-$pdf->Cell(172,5,utf8_encode($puestoFirma),0,1,'C');
 
->>>>>>> bf9f526243062c9b27adff3a096ef2f88e212825
 // Signature
 
  

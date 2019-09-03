@@ -8,41 +8,46 @@ include('ConversionFecha.php');
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Inicio</title>
+  <title></title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
-           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
            
             
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="../css/Estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../css/Estilos.css">
 
-<?php  
-
-$Status=$_GET['Status'];
-if ($Status=="T") {
-   echo "<script>";
-    echo "alert('EL EMPLEADO SELECCIONADO ESTA SUSPENDIDO');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
-
+  <style>
+.dropdown-submenu {
+  position: relative;
 }
 
-if ($Status=="I") {
-  //header('location:index.php');
-   echo "<script>";
-    echo "alert('EL EMPLEADO SELECCIONADO ESTA INACTIVO');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
 }
-
-?>
+</style>
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
 </head>
 
+<section id="loadgif">
+ 
+  <?php include '../Menu.php'; ?>
+</section>
 	<!-- SideBar -->
 </section>
 
@@ -137,10 +142,40 @@ include('../cerrarConexionGECOMP.php');
 
  </div>
 <?php 
+if (isset($_POST['Imprimir'])) {
+	$id=$_POST['id_firma'];
+	//echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$ido.'"</script>';
 
 
-//echo "<script>alert('".$id."');</script>";
-//echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
+
+  $Codigo= $_SESSION['CodEmpleado'];
+
+  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
+
+      $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
+        while($fila=mssql_fetch_array($sqa)){
+            $maximo = $fila['Id_constancia']; 
+            }
+
+               $Codigo_cons = 'CU'.$maximo.$numero;
+
+
+
+              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+
+
+ if ($insertar==true) {
+ 
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$Codigo_cons.'"</script>';
+ }else{
+  echo "<script>alert('Error al Guardar Datos')</script>";
+ }
+}
+
+
+
+
  ?>
 
 
@@ -180,39 +215,7 @@ include('../cerrarConexionGECOMP.php');
         <button name="Imprimir" id="Imprimir" type="submit" class="btn btn-primary">Aceptar</button>
       </div>
      <?php 
-if (isset($_POST['Imprimir'])) {
-$id=$_POST['id_firma'];
-  //echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$ido.'"</script>';
 
-
-
-  $Codigo= $_SESSION['CodEmpleado'];
-
-  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
-
-      $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
-        while($fila=mssql_fetch_array($sqa)){
-            $maximo = $fila['Id_constancia']; 
-            }
-
-               $Codigo_cons = 'CU'.$maximo.$numero;
-
-
-
-              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
-
-
- if ($insertar==true) {
- 
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$Codigo_cons.'"</script>';
- }else{
-  echo "<script>alert('Error al Guardar Datos')</script>";
- }
-
-//echo "<script>alert('".$id."');</script>";
-//echo '<script>location.href="ingresopresupuestario.php?proced="+ c + "&proce="+d;</script>';
-}
  ?>
     </div>
   </div>
