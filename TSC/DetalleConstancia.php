@@ -422,16 +422,27 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   $id=$_POST['id_firma'];
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'"</script>';
+  //echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'"</script>';
 
-
+include('../crearConexionGECOMP.php');
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
    $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (10,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$CodigoEmpleado')");
 
   $id=$_POST['id_firma'];
 
+  $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$CodigoEmpleado' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$CodigoEmpleado')");
+        while($fila=mssql_fetch_array($sqa)){
+            $maximo = $fila['Id_constancia']; 
+            }
+
+               $Codigo_cons = 'TSC'.$maximo.$CodigoEmpleado;
+
+
+
+              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'"</script>';
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'&ido='.$Codigo_cons.'"</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

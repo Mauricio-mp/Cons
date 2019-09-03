@@ -1,7 +1,8 @@
 <?php 
 $validar=0;
  $Firma=$_GET['firma'];
- $Codigo=$_GET['codigo'];
+ $conca=$_GET['ido'];
+ $Codigo=$_GET['CodigoEmpleado'];
  $FechaIncioAcuerdo=$_GET['f_I_A'];
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
@@ -12,38 +13,20 @@ require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
+include('../crearConexionGECOMP.php');
+$Consultafirma=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$Firma'");
+if ($filaFirma=mssql_fetch_array($Consultafirma)) {
+  $optenerFirma=$filaFirma['PUESTO_EMPLEADO'];
+  $NombreFirma=$filaFirma['NOMBRE_EMPLEADO'];
 
-$Dia_Inicio_Contrato=(date('d',strtotime($FechaIncioContrato)));
- $mes_Inicio_Contrato=(date('m',strtotime($FechaIncioContrato)));
- $anio_Inicio_Contrato=(date('Y',strtotime($FechaIncioContrato)));
-
- $Dia_Final_Contrato=(date('d',strtotime($FechaFinalContrato)));
- $mes_Final_Contrato=(date('m',strtotime($FechaFinalContrato)));
- $anio_Final_Contrato=(date('Y',strtotime($FechaFinalContrato)));
-
-$Dia_Inicio_Acuerdo=(date('d',strtotime($FechaIncioAcuerdo)));
- $mes_Inicio_Acuerdo=(date('m',strtotime($FechaIncioAcuerdo)));
- $anio_Inicio_Acuerdo=(date('Y',strtotime($FechaIncioAcuerdo)));
-
- $Dia_Final_Acuerdo=(date('d',strtotime($FechaFinalAcuerdo)));
- $mes_Final_Acuerdo=(date('m',strtotime($FechaFinalAcuerdo)));
- $anio_Final_Acuerdo=(date('Y',strtotime($FechaFinalAcuerdo)));
-
-
-$fechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
-$fechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
-$fechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
-$fechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
-
-
-$dia=date("d");
-$mes=date("m");
-$anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio);
-
-
-$mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$Codigo'");
-if ($row=mssql_fetch_array($mostrarDatos)) {
+  $ConvertirNombre=strtolower($NombreFirma);
+  $NombreFirma=ucwords($ConvertirNombre);
+  $convFirma=strtolower($optenerFirma);
+  $optenerFirma=ucwords($convFirma);
+}
+include('../crearConexionVam.php');
+$ConsultaNombre=mssql_query("SELECT * FROM prempy  WHERE cempno='$Codigo'");
+if ($row=mssql_fetch_array($ConsultaNombre)) {
     $DESC=$row['cfedid'];
     $codigoPuesto=$row['cjobtitle'];
     $codigoAsignado=$row['cdeptno'];
@@ -51,60 +34,75 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $nombre=trim($row['cfname']);
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
-    //echo "<script>alert('".$DESC."');</script>";
+    $fechaIncioContrato=$row['dhire'];
+    $fechaFinalAcuerdo=$row['dterminate'];
+    $terminado=$row['ctaxstate'];
+    // $date_future = strtotime('-1 day', strtotime($fechaFinalContrato));
+    // $fechaFinalContrato = date('d-m-Y', $date_future);
+    $fechaInicioAcuerdo=$row['dcntrct'];
 
-   $dia1 = date("d", strtotime($row['dhire']));
-   $mes1 = date("m", strtotime($row['dhire']));
-   $anio1 = date("Y", strtotime($row['dhire']));
+    $date_future = strtotime('-1 day', strtotime($fechaInicioAcuerdo));
+    $date_future = date('d-m-Y', $date_future);
 
-   $dia2 = date("d", strtotime($row['dcntrct']));
-   $mes2 = date("m", strtotime($row['dcntrct']));
-   $anio2 = date("Y", strtotime($row['dcntrct']));
- 
-   $fechaContrato=fecha($dia1,$mes1,$anio1); 
-   $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
+     $Dia_Inicio_Contrato=(date('d',strtotime($fechaIncioContrato)));
+     $mes_Inicio_Contrato=(date('m',strtotime($fechaIncioContrato)));
+     $anio_Inicio_Contrato=(date('Y',strtotime($fechaIncioContrato)));
 
- if ($FechaIncioAcuerdo=='' && $FechaFinalAcuerdo=='') {
-  $validar=1;
+     $Dia_Final_Contrato=(date('d',strtotime($date_future)));
+     $mes_Final_Contrato=(date('m',strtotime($date_future)));
+     $anio_Final_Contrato=(date('Y',strtotime($date_future)));
 
-  $mensaje1="bajo la modalidad de contrato a partir del ".$fechaIncioContrato." al ".$fechaFinalContrato;
-}
+     $Dia_Inicio_Acuerdo=(date('d',strtotime($fechaInicioAcuerdo)));
+     $mes_Inicio_Acuerdo=(date('m',strtotime($fechaInicioAcuerdo)));
+     $anio_Inicio_Acuerdo=(date('Y',strtotime($fechaInicioAcuerdo)));
 
-if ($FechaIncioContrato=='' && $FechaFinalContrato=='') {
-  $validar=1;
-  $mensaje1="bajo la modalidad de Acuerdo ".$fechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
-}
+      $Dia_Final_Acuerdo=(date('d',strtotime($fechaFinalAcuerdo)));
+      $mes_Final_Acuerdo=(date('m',strtotime($fechaFinalAcuerdo)));
+      $anio_Final_Acuerdo=(date('Y',strtotime($fechaFinalAcuerdo)));
 
-if ($validar==0) {
-  $mensaje1="bajo la modalidad de contrato a partir del ".$fechaIncioContrato." al ".$fechaFinalContrato." y bajo la modalidad de Acuerdo ".$fechaincioAcuerdo." hasta el ".$fechaFinalAcuerdo;
-}
+     $FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
+     $FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
+     $FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+     $FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
+
+  if ($terminado=='TA') {
+      $mensaje1="por la modalidad de Contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." y Acuerdo el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
+    }
+    //  if ($fechaIncioContrato==$fechaInicioAcuerdo) {
+    //   $mensaje1="por la modalidad de Contrato el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
+    // }
+
+    if ($terminado=='TC') {
+       $mensaje1="por la modalidad de Contrato el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
+    }
 
 
-$var=convertir($opnetersueldo);
-$formato=number_format($opnetersueldo,2);
+    
 
 
-$mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
+    $NombreCompleto=utf8_encode($nombre)." ".utf8_encode($apellido);
+    $NombresCompletos=$NombreCompleto;
+    
+    
+
+ }
+
+ $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
     $desempenio=trim($ejecutar['cDesc']);
+    $cargo=$desempenio;
     $ConvertirDesen=strtolower($desempenio);
     $desempenio=ucwords($ConvertirDesen);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
     $asignacion=trim($asignado['cdeptname']);
+    $Asignados=$asignacion;
     $ConvertiAsignacion=strtolower($asignacion);
     $asignacion=ucwords($ConvertiAsignacion);
 }
 
 
-    
-}
-$dia=date("d");
-$mes=date("m");
-$anio=date("Y");
-
-$fechaActual=fecha1($dia,$mes,$anio); 
 
 include('../crearConexionGECOMP.php');
 $mostrarDato=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE Id_FIRMA='$Firma'");
@@ -114,7 +112,10 @@ if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=ucwords($convertirFirma);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
-
+$dia=date("d");
+$mes=date("m");
+$anio=date("Y");
+$fechaActual=fecha1($dia,$mes,$anio);
 
 
 class PDF extends PDF_WriteTag
@@ -138,12 +139,13 @@ function Header()
 
     $this->Cell(45,0,'CONSTANCIA',0,0,'C');
     // Line break
-    $this->Ln(20);
+    $this->Ln(5);
 }
 
 // Page footer
 function Footer()
 {
+     global $conca;
       // Position at 1.5 cm from bottom
     $this->SetY(-15);
     // Arial italic 8
@@ -156,7 +158,7 @@ function Footer()
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
     $this->SetTextColor(0,0,0);
-    $this->Cell(185,0,'G.E.C.O.M.P.',0,0,'R');
+     $this->Cell(185,0,$conca.'/'.'G.E.C.O.M.P.',0,0,'R');
 }
 
 }
@@ -189,12 +191,17 @@ $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $ConvertirNombre=strtolower($txt);
 $txt="<vb>".ucwords($ConvertirNombre)."</vb>";
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
-$monto="<vb>".utf8_encode('Monto')."</vb>";
+$NombreCompleto="<vb>".strtoupper($NombresCompletos)."</vb>";
+$nombreFirmas="<vb>".strtoupper($nombreFirma)."</vb>";
 
-$texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución ".$mensaje1.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
+// $texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución ".$mensaje1.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
+
+$texto="El (la) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad.", laboró en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".utf8_encode($asignacion);
 
 
  
+
+// $texto2="Constancia que se extiende a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
 
 $texto2="Constancia que se extiende a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
 
@@ -214,9 +221,10 @@ $pdf->WriteTag(0,7,utf8_decode($texto2),0,"J",0,0);
 
 $pdf->line();  
 $pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'________________________________________________',0,1,'C');
+//$pdf->Cell(172,5,'________________________________________________',0,1,'C');
 $pdf->Cell(10,3,'',0,1,'C');
-$pdf->Cell(172,7,$nombreFirma,0,1,'C');
+
+$pdf->WriteTag(0,7,utf8_decode($nombreFirmas),0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,7,$puestoFirma,0,1,'C');
 

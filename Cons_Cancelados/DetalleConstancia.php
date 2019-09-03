@@ -109,10 +109,10 @@ $(document).ready(function(){
 // $FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
 
-// $dia=date("d");
-// $mes=date("m");
-// $anio=date("Y");
-// $fechaActual=fecha1($dia,$mes,$anio);
+$dia=date("d");
+$mes=date("m");
+$anio=date("Y");
+$fechaActual=fecha1($dia,$mes,$anio);
 
 // if ($fechaIncioAcuerdo=='' && $fechaFinalAcuerdo=='') {
 // 	$validar=1;
@@ -152,7 +152,8 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
     $fechaIncioContrato=$row['dhire'];
-    $fechaFinalContrato=$row['dterminate'];
+    $fechaFinalAcuerdo=$row['dterminate'];
+    $terminado=$row['ctaxstate'];
     // $date_future = strtotime('-1 day', strtotime($fechaFinalContrato));
     // $fechaFinalContrato = date('d-m-Y', $date_future);
     $fechaInicioAcuerdo=$row['dcntrct'];
@@ -172,15 +173,24 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
      $mes_Inicio_Acuerdo=(date('m',strtotime($fechaInicioAcuerdo)));
      $anio_Inicio_Acuerdo=(date('Y',strtotime($fechaInicioAcuerdo)));
 
+      $Dia_Final_Acuerdo=(date('d',strtotime($fechaFinalAcuerdo)));
+      $mes_Final_Acuerdo=(date('m',strtotime($fechaFinalAcuerdo)));
+      $anio_Final_Acuerdo=(date('Y',strtotime($fechaFinalAcuerdo)));
+
      $FechaIncioContrato= fecha($Dia_Inicio_Contrato,$mes_Inicio_Contrato,$anio_Inicio_Contrato);
      $FechaFinalContrato= fecha($Dia_Final_Contrato,$mes_Final_Contrato,$anio_Final_Contrato);
      $FechaincioAcuerdo= fecha($Dia_Inicio_Acuerdo,$mes_Inicio_Acuerdo,$anio_Inicio_Acuerdo);
+     $FechaFinalAcuerdo= fecha($Dia_Final_Acuerdo,$mes_Final_Acuerdo,$anio_Final_Acuerdo);
 
-    if ($fechaIncioContrato!=$fechaInicioAcuerdo) {
-      $mensaje1="por la modalidad de Contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." y Acuerdo el ".$FechaincioAcuerdo;
+    if ($terminado=='TA') {
+      $mensaje1="por la modalidad de Contrato en el periodo comprendido del ".$FechaIncioContrato." al ".$FechaFinalContrato." y Acuerdo el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
     }
-     if ($fechaIncioContrato==$fechaInicioAcuerdo) {
-      $mensaje1="por la modalidad de Acuerdo el ".$FechaincioAcuerdo;
+    //  if ($fechaIncioContrato==$fechaInicioAcuerdo) {
+    //   $mensaje1="por la modalidad de Contrato el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
+    // }
+
+    if ($terminado=='TC') {
+       $mensaje1="por la modalidad de Contrato el ".$FechaincioAcuerdo." al ".$FechaFinalAcuerdo;
     }
 
 
@@ -212,7 +222,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 // Text   ñ  í   ó   ú
 $texto1="El (la) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad.", laboró en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".utf8_encode($asignacion);
 
-$texto2="Constancia que se expide a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
+$texto2="Constancia que se extiende a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
   ?>
  <p class="parrafoCancelados">
  	<?php echo $texto1; ?> 
@@ -228,8 +238,34 @@ $texto2="Constancia que se expide a petición de parte interesada, en la ciudad 
 
  <div align="center">
  	<h4>_______________________________</h4>
- 	<h4><?php echo $NombreFirma; ?></h4>
- 	<h4><?php echo $optenerFirma; ?></h4>
+<form method="POST">
+   <div class="alinearCombobox">
+  <label class="control-label">Seleccione firma</label>
+ 
+<select class="form-control" name="id_firma" id="id_firma">
+    <?php
+     include('../crearConexionGECOMP.php'); 
+  $sql=mssql_query("SELECT * FROM FIRMA_CONSTANCIAS WHERE ESTATUS=1 ");
+  while($fila=mssql_fetch_array($sql)){
+     echo "<option value='".$fila['Id_FIRMA']."'>";
+     echo utf8_encode($fila['NOMBRE_EMPLEADO']); 
+    echo "</option>";
+}
+
+include('../cerrarConexionGECOMP.php');
+ 
+  ?>
+
+</select>
+
+ </div>
+
+
+
+
+<br></br>
+<br></br>
+<br></br>
  </div>
  <br></br>
   <br></br>
@@ -256,7 +292,7 @@ $texto2="Constancia que se expide a petición de parte interesada, en la ciudad 
           <span aria-hidden="true">&times;</span>
         </button>
       </div>Asignado
-      <form method="POST">
+     
       <div class="modal-body">
         <h1> ¿Desea imprimir esta pagina?</h1>
       </div>
@@ -264,19 +300,30 @@ $texto2="Constancia que se expide a petición de parte interesada, en la ciudad 
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button name="Imprimir" id="Imprimir" type="submit" class="btn btn-primary">Aceptar</button>
       </div>
-  </form>
+ 
      <?php 
 if (isset($_POST['Imprimir'])) {
- $Firma=$_GET['firma'];
- $Codigo=$_GET['codigo'];
- $FechaIncioAcuerdo=$_GET['f_I_A'];
- $FechaFinalAcuerdo=$_GET['f_F_A'];
- $FechaIncioContrato=$_GET['f_I_C'];
- $FechaFinalContrato=$_GET['f_F_C'];
  include('../crearConexionGECOMP.php');
+ $firma=$_POST['id_firma'];
  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion) VALUES(11,'$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion')");
+
+  $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo')");
+        while($fila=mssql_fetch_array($sqa)){
+            $maximo = $fila['Id_constancia']; 
+            }
+
+
+               $Codigo_cons = 'CANS'.$maximo.$codigo;
+
+
+
+              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+
+
  if ($insertar==true) {
- 	 header("Location: Pdf.php?f_I_A=$FechaIncioAcuerdo&f_F_A=$FechaFinalAcuerdo&f_I_C=$FechaIncioContrato&f_F_C=$FechaFinalContrato&codigo=$Codigo&firma=$Firma"); 
+ 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$Codigo_cons"); 
+ }else{
+  echo "<script>alert('Error al Guardar Datos')</script>";
  }
 
 
@@ -285,7 +332,7 @@ if (isset($_POST['Imprimir'])) {
     </div>
   </div>
 </div> 
-
+</form>
 
 	<!-- Content page-->
 

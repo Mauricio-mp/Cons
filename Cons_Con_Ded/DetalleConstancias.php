@@ -475,8 +475,19 @@ if (isset($_POST['Imprimir'])) {
 
   $id=$_POST['id_firma'];
 
+    $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
+        while($fila=mssql_fetch_array($sqa)){
+            $maximo = $fila['Id_constancia']; 
+            }
+
+               $Codigo_cons = 'CCD'.$maximo.$numero;
+
+
+
+              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'"</script>';
+  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'&ido='.$Codigo_cons.'"</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }
