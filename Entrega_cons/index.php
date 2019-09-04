@@ -164,7 +164,7 @@ $(document).ready(function(){
 
 
            $control=0;
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado_Entrega=1 and Estado=1 and Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado_Entrega<>0 and Estado=1 and Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {

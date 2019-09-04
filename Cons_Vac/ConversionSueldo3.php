@@ -5,47 +5,47 @@ switch ($numuero)
 { 
 case 9: 
 { 
-$numu = "nueve"; 
+$numu = "NUEVE"; 
 break; 
 } 
 case 8: 
 { 
-$numu = "ocho"; 
+$numu = "OCHO"; 
 break; 
 } 
 case 7: 
 { 
-$numu = "siete"; 
+$numu = "SIETE"; 
 break; 
 }	
 case 6: 
 { 
-$numu = "seis"; 
+$numu = "SEIS"; 
 break; 
 }	
 case 5: 
 { 
-$numu = "cinco"; 
+$numu = "CINCO"; 
 break; 
 }	
 case 4: 
 { 
-$numu = "cuatro"; 
+$numu = "CUATRO"; 
 break; 
 }	
 case 3: 
 { 
-$numu = "tres"; 
+$numu = "TRES"; 
 break; 
 }	
 case 2: 
 { 
-$numu = "dos"; 
+$numu = "DOS"; 
 break; 
 }	
 case 1: 
 { 
-$numu = "uno"; 
+$numu = "UNO"; 
 break; 
 }	
 case 0: 
@@ -61,104 +61,104 @@ function decena($numdero){
 
 if ($numdero >= 90 && $numdero <= 99) 
 { 
-$numd = "Noventa "; 
+$numd = "NOVENTA "; 
 if ($numdero > 90) 
-$numd = $numd."y ".(unidad($numdero - 90)); 
+$numd = $numd."Y ".(unidad($numdero - 90)); 
 } 
 else if ($numdero >= 80 && $numdero <= 89) 
 { 
-$numd = "Ochenta "; 
+$numd = "OCHENTA "; 
 if ($numdero > 80) 
-$numd = $numd."y ".(unidad($numdero - 80)); 
+$numd = $numd."Y ".(unidad($numdero - 80)); 
 } 
 else if ($numdero >= 70 && $numdero <= 79) 
 { 
-$numd = "Oetenta "; 
+$numd = "SETENTA "; 
 if ($numdero > 70) 
-$numd = $numd."y ".(unidad($numdero - 70)); 
+$numd = $numd."Y ".(unidad($numdero - 70)); 
 } 
 else if ($numdero >= 60 && $numdero <= 69) 
 { 
-$numd = "Sesenta "; 
+$numd = "SESENTA "; 
 if ($numdero > 60) 
-$numd = $numd."y ".(unidad($numdero - 60)); 
+$numd = $numd."Y ".(unidad($numdero - 60)); 
 } 
 else if ($numdero >= 50 && $numdero <= 59) 
 { 
-$numd = "Cincuenta "; 
+$numd = "CINCUENTA "; 
 if ($numdero > 50) 
-$numd = $numd."y ".(unidad($numdero - 50)); 
+$numd = $numd."Y ".(unidad($numdero - 50)); 
 } 
 else if ($numdero >= 40 && $numdero <= 49) 
 { 
-$numd = "Cuarenta "; 
+$numd = "CUARENTA "; 
 if ($numdero > 40) 
-$numd = $numd."y ".(unidad($numdero - 40)); 
+$numd = $numd."Y ".(unidad($numdero - 40)); 
 } 
 else if ($numdero >= 30 && $numdero <= 39) 
 { 
-$numd = "Treinta "; 
+$numd = "TREINTA "; 
 if ($numdero > 30) 
-$numd = $numd."y ".(unidad($numdero - 30)); 
+$numd = $numd."Y ".(unidad($numdero - 30)); 
 } 
 else if ($numdero >= 20 && $numdero <= 29) 
 { 
 if ($numdero == 20) 
-$numd = "Veinte "; 
+$numd = "VEINTE "; 
 else 
-$numd = "Veinti".(unidad($numdero - 20)); 
+$numd = "VEINTI".(unidad($numdero - 20)); 
 } 
 else if ($numdero >= 10 && $numdero <= 19) 
 { 
 switch ($numdero){ 
 case 10: 
 { 
-$numd = "Diez "; 
+$numd = "DIEZ "; 
 break; 
 } 
 case 11: 
 {	
-$numd = "Once "; 
+$numd = "ONCE "; 
 break; 
 } 
 case 12: 
 { 
-$numd = "Doce "; 
+$numd = "DOCE "; 
 break; 
 } 
 case 13: 
 { 
-$numd = "Trece "; 
+$numd = "TRECE "; 
 break; 
 } 
 case 14: 
 { 
-$numd = "Catorce "; 
+$numd = "CATORCE "; 
 break; 
 } 
 case 15: 
 { 
-$numd = "Quince "; 
+$numd = "QUINCE "; 
 break; 
 } 
 case 16: 
 { 
-$numd = "Dieciseis "; 
+$numd = "DIECISEIS "; 
 break; 
 } 
 case 17: 
 { 
-$numd = "Diecisiete "; 
+$numd = "DIECISIETE "; 
 break; 
 } 
 case 18: 
 { 
-$numd = "Dieciocho "; 
+$numd = "DIECIOCHO "; 
 break; 
 } 
 case 19: 
 { 
-$numd = "Diecinueve "; 
+$numd = "DIECINUEVE "; 
 break; 
 } 
 }	
@@ -173,58 +173,58 @@ if ($numc >= 100)
 { 
 if ($numc >= 900 && $numc <= 999) 
 { 
-$numce = "Novecientos "; 
+$numce = "NOVECIENTOS "; 
 if ($numc > 900) 
 $numce = $numce.(decena($numc - 900)); 
 } 
 else if ($numc >= 800 && $numc <= 899) 
 { 
-$numce = "Ochocientos "; 
+$numce = "OCHOCIENTOS "; 
 if ($numc > 800) 
 $numce = $numce.(decena($numc - 800)); 
 } 
 else if ($numc >= 700 && $numc <= 799) 
 { 
-$numce = "Setesientos "; 
+$numce = "SETECIENTOS "; 
 if ($numc > 700) 
 $numce = $numce.(decena($numc - 700)); 
 } 
 else if ($numc >= 600 && $numc <= 699) 
 { 
-$numce = "Seiscientos "; 
+$numce = "SEISCIENTOS "; 
 if ($numc > 600) 
 $numce = $numce.(decena($numc - 600)); 
 } 
 else if ($numc >= 500 && $numc <= 599) 
 { 
-$numce = "Quinientos "; 
+$numce = "QUINIENTOS "; 
 if ($numc > 500) 
 $numce = $numce.(decena($numc - 500)); 
 } 
 else if ($numc >= 400 && $numc <= 499) 
 { 
-$numce = "Cuatrocientos "; 
+$numce = "CUATROCIENTOS "; 
 if ($numc > 400) 
 $numce = $numce.(decena($numc - 400)); 
 } 
 else if ($numc >= 300 && $numc <= 399) 
 { 
-$numce = "Trescientos "; 
+$numce = "TRESCIENTOS "; 
 if ($numc > 300) 
 $numce = $numce.(decena($numc - 300)); 
 } 
 else if ($numc >= 200 && $numc <= 299) 
 { 
-$numce = "Doscientos "; 
+$numce = "DOSCIENTOS "; 
 if ($numc > 200) 
 $numce = $numce.(decena($numc - 200)); 
 } 
 else if ($numc >= 100 && $numc <= 199) 
 { 
 if ($numc == 100) 
-$numce = "Cien "; 
+$numce = "CIEN "; 
 else 
-$numce = "Ciento ".(decena($numc - 100)); 
+$numce = "CIENTO ".(decena($numc - 100)); 
 } 
 } 
 else 
@@ -248,12 +248,12 @@ return $numm;
 
 function decmiles($numdmero){ 
 if ($numdmero == 10000) 
-$numde = "Diez mil"; 
+$numde = "DIEZ MIL"; 
 if ($numdmero > 10000 && $numdmero <20000){ 
-$numde = decena(Floor($numdmero/1000))."mil ".(centena($numdmero%1000));	
+$numde = decena(Floor($numdmero/1000))."MIL ".(centena($numdmero%1000));	
 } 
 if ($numdmero >= 20000 && $numdmero <100000){ 
-$numde = decena(Floor($numdmero/1000))." mil ".(miles($numdmero%1000));	
+$numde = decena(Floor($numdmero/1000))." MIL ".(miles($numdmero%1000));	
 }	
 if ($numdmero < 10000) 
 $numde = miles($numdmero); 
@@ -263,9 +263,9 @@ return $numde;
 
 function cienmiles($numcmero){ 
 if ($numcmero == 100000) 
-$num_letracm = "Cien mil"; 
+$num_letracm = "CIEN MIL"; 
 if ($numcmero >= 100000 && $numcmero <1000000){ 
-$num_letracm = centena(Floor($numcmero/1000))." mil ".(centena($numcmero%1000));	
+$num_letracm = centena(Floor($numcmero/1000))." MIL ".(centena($numcmero%1000));	
 } 
 if ($numcmero < 100000) 
 $num_letracm = decmiles($numcmero); 
@@ -277,7 +277,7 @@ if ($nummiero >= 1000000 && $nummiero <2000000){
 $num_letramm = "UN MILLON ".(cienmiles($nummiero%1000000)); 
 } 
 if ($nummiero >= 2000000 && $nummiero <10000000){ 
-$num_letramm = unidad(Floor($nummiero/1000000))." millones ".(cienmiles($nummiero%1000000)); 
+$num_letramm = unidad(Floor($nummiero/1000000))." MILLONES ".(cienmiles($nummiero%1000000)); 
 } 
 if ($nummiero < 1000000) 
 $num_letramm = cienmiles($nummiero); 
@@ -287,12 +287,12 @@ return $num_letramm;
 
 function decmillon($numerodm){ 
 if ($numerodm == 10000000) 
-$num_letradmm = "Diez millones"; 
+$num_letradmm = "DIEZ MILLONES"; 
 if ($numerodm > 10000000 && $numerodm <20000000){ 
-$num_letradmm = decena(Floor($numerodm/1000000))." millones ".(cienmiles($numerodm%1000000));	
+$num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(cienmiles($numerodm%1000000));	
 } 
 if ($numerodm >= 20000000 && $numerodm <100000000){ 
-$num_letradmm = decena(Floor($numerodm/1000000))." millones ".(millon($numerodm%1000000));	
+$num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(millon($numerodm%1000000));	
 } 
 if ($numerodm < 10000000) 
 $num_letradmm = millon($numerodm); 
@@ -302,9 +302,9 @@ return $num_letradmm;
 
 function cienmillon($numcmeros){ 
 if ($numcmeros == 100000000) 
-$num_letracms = "Cien millones"; 
+$num_letracms = "CIEN MILLONES"; 
 if ($numcmeros >= 100000000 && $numcmeros <1000000000){ 
-$num_letracms = centena(Floor($numcmeros/1000000))." millones ".(millon($numcmeros%1000000));	
+$num_letracms = centena(Floor($numcmeros/1000000))." MILLONES ".(millon($numcmeros%1000000));	
 } 
 if ($numcmeros < 100000000) 
 $num_letracms = decmillon($numcmeros); 
@@ -313,10 +313,10 @@ return $num_letracms;
 
 function milmillon($nummierod){ 
 if ($nummierod >= 1000000000 && $nummierod <2000000000){ 
-$num_letrammd = "mil ".(cienmillon($nummierod%1000000000)); 
+$num_letrammd = "MIL ".(cienmillon($nummierod%1000000000)); 
 } 
 if ($nummierod >= 2000000000 && $nummierod <10000000000){ 
-$num_letrammd = unidad(Floor($nummierod/1000000000))." mil ".(cienmillon($nummierod%1000000000)); 
+$num_letrammd = unidad(Floor($nummierod/1000000000))." MIL ".(cienmillon($nummierod%1000000000)); 
 } 
 if ($nummierod < 1000000000) 
 $num_letrammd = cienmillon($nummierod); 
@@ -337,27 +337,7 @@ $cen=milmillon($cents);
 if ($cen=='') {
 	return $numf;
 }else{
-	return $numf." con ".$cen." centavos";
-}
-
-} 
-
-
-
-
-function convertir1($numero){ 
-$num = str_replace(",","",$numero); 
-$num = number_format($num,2,'.',''); 
-$cents = substr($num,strlen($num)-2,strlen($num)-1); 
-$num = (int)$num; 
-
-$numf = milmillon($num); 
-$cen=milmillon($cents); 
-
-if ($cen=='') {
-	return $numf;
-}else{
-	return $numf;
+	return $numf." LEMPIRAS CON ".$cen." CENTAVOS";
 }
 
 } 

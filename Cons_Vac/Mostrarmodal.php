@@ -2,8 +2,8 @@
  session_start();
 ob_start();
 
-include('ConversionSueldo.php');
-include('ConversionFecha.php');
+include('ConversionSueldo3.php');
+include('ConversionFecha3.php');
  ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -5,148 +5,142 @@ function fecha($dia,$mes,$anio)
 switch ($mes){ 
 case 1: 
 { 
-$numd = "Enero"; 
+$numd = "ENERO"; 
 break; 
 } 
 case 2: 
 {	
-$numd = "Febrero"; 
+$numd = "FEBRERO"; 
 break; 
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "MARZO "; 
 break; 
 } 
 case 4: 
 { 
-$numd = "Abril"; 
+$numd = "ABRIL"; 
 break; 
 } 
 case 5: 
 { 
-$numd = "Mayo"; 
+$numd = "MAYO"; 
 break; 
 } 
 case 6: 
 { 
-$numd = "Junio"; 
+$numd = "JUNIO"; 
 break; 
 } 
 case 7: 
 { 
-$numd = "Julio"; 
+$numd = "JULIO"; 
 break; 
 } 
 case 8: 
 { 
-$numd = "Agosto"; 
+$numd = "AGOSTO"; 
 break; 
 } 
 case 9: 
 { 
-$numd = "Septiembre"; 
+$numd = "SEPTIEMBRE"; 
 break; 
 } 
 case 10: 
 { 
-$numd = "Octubre"; 
+$numd = "OCTUBRE"; 
 break; 
 } 
 case 11: 
 { 
-$numd = "Noviembre"; 
+$numd = "NOVIEMBRE"; 
 break; 
 } 
 case 12: 
 { 
-$numd = "Diciembre"; 
+$numd = "DICIEMBRE"; 
 break; 
 } 
 }
 
-return $dia." de ".$numd." del ".$anio;
+return $dia." DE ".$numd." DEL ".$anio;
 } 
-
-
-
 function fecha1($dia,$mes,$anio)
 {
 switch ($mes){ 
 case 1: 
 { 
-$numd = "Enero"; 
+$numd = "ENERO"; 
 break; 
 } 
 case 2: 
 {	
-$numd = "Febrero"; 
+$numd = "FEBRERO"; 
 break; 
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "MARZO "; 
 break; 
 } 
 case 4: 
 { 
-$numd = "Abril"; 
+$numd = "ABRIL"; 
 break; 
 } 
 case 5: 
 { 
-$numd = "Mayo"; 
+$numd = "MAYO"; 
 break; 
 } 
 case 6: 
 { 
-$numd = "Junio"; 
+$numd = "JUNIO"; 
 break; 
 } 
 case 7: 
 { 
-$numd = "Julio"; 
+$numd = "JULIO"; 
 break; 
 } 
 case 8: 
 { 
-$numd = "Agosto"; 
+$numd = "AGOSTO"; 
 break; 
 } 
 case 9: 
 { 
-$numd = "Septiembre"; 
+$numd = "SEPTIEMBRE"; 
 break; 
 } 
 case 10: 
 { 
-$numd = "Octubre"; 
+$numd = "OCTUBRE"; 
 break; 
 } 
 case 11: 
 { 
-$numd = "Noviembre"; 
+$numd = "NOVIEMBRE"; 
 break; 
 } 
 case 12: 
 { 
-$numd = "Diciembre"; 
+$numd = "DICIEMBRE"; 
 break; 
 } 
 }
 if ($dia==1) {
-	return "".$dia." del mes de ".$numd." del ".$anio;
+	return "LOS ".$dia." DIAS DEL MES DE ".$numd." DEL ".$anio;
 }else{
-	return "los ".$dia." dias del mes de ".$numd." del ".$anio;
+	return "LOS ".$dia." DIAS DEL MES DE ".$numd." DEL ".$anio;
 }
 
 } 
 
 
-
-
-
-function fecha2($dia,$mes,$anio)
+function fecha3($mes)
 {
 switch ($mes){ 
 case 1: 
@@ -161,7 +155,7 @@ break;
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "Marzo"; 
 break; 
 } 
 case 4: 
@@ -181,7 +175,7 @@ break;
 } 
 case 7: 
 { 
-$numd = "Julio"; 
+$numd = "Junio"; 
 break; 
 } 
 case 8: 
@@ -210,19 +204,11 @@ $numd = "Diciembre";
 break; 
 } 
 }
-if ($dia==1) {
-		$dialetra=convertir($dia);
-$anioletra=convertir($anio);
-	return "el ".$dialetra." dia del mes de ".$numd." del ".$anioletra;
-}else{
 
-	$dialetra=convertir($dia);
-$anioletra=convertir($anio);
-
-	return "a los ".$dialetra." dias del mes de ".$numd." del ".$anioletra;
-}
-
+return $numd;
 } 
+
+
 
 
 //echo fecha('24','06','1994'); 

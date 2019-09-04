@@ -2,8 +2,8 @@
  session_start();
 ob_start();
 
-include('ConversionSueldo.php');
-include('ConversionFecha.php');
+include('ConversionSueldo2.php');
+include('ConversionFecha2.php');
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -351,7 +351,6 @@ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,
                                     }  else{
                                        echo "<script>alert('error')</script>";
                                       }
-                                      
 
 include('../cerraConexionVam.php'); 
 
