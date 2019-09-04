@@ -305,7 +305,7 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
  include('../crearConexionGECOMP.php');
  $firma=$_POST['id_firma'];
- $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion) VALUES(11,'$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion')");
+ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion,Estado_Entrega) VALUES(11,'$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion',1)");
 
   $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo')");
         while($fila=mssql_fetch_array($sqa)){
