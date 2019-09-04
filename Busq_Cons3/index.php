@@ -105,6 +105,14 @@ $(document).ready(function(){
       $fechaminima=$_POST['fechaMinima'];
       $fechaMaxima=$_POST['fechaMaxima'];
 
+       echo '<div class="row">
+        <div class="col text-center">
+          <a href="excel.php?fecha1='.$fechaminima.'&fecha2='.$fechaMaxima.'">
+            Generar XLS
+          </a>
+        </div>
+      </div>';
+
       $dia1 = date("d", strtotime($fechaminima));
       $mes1 = date("m", strtotime($fechaminima));
       $year1 = date("Y", strtotime($fechaminima));

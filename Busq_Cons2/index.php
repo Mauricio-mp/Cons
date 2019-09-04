@@ -27,7 +27,7 @@ include('../crearConexionVam.php');
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Inicio</title>
+	<title>Reportes</title>
 
 
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
@@ -111,11 +111,9 @@ $(document).ready(function(){
       <thead class="bg-gray">
         <tr role="row">
             <th style="text-align: center">Tipo de Constancia</th>
-            <th style="text-align: center">Codigo de Empleado</th>
-            <th style="text-align: center;padding-left: 50px;padding-right: 50px ">Nombre</th>
-            <th style="text-align: center;padding-left: 50px;padding-right: 50px">Apellido</th>
-            <th style="text-align: center;padding-left: 60px;padding-right: 60px ">Cargo</th>
-            <th style="text-align: center;padding-left: 60px;padding-right: 60px ">Asignado</th>
+            <th style="text-align: center">Codigo del Empleado</th>
+            <th style="text-align: center">Estado de Entrega</th>
+            <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
             <th style="text-align: center">Estado</th>
             <th style="text-align: center">Observacion</th>
@@ -123,6 +121,9 @@ $(document).ready(function(){
             <th style="text-align: center">Usuario de Creacion</th>
             <th style="text-align: center">Fecha de Modificacion</th>
             <th style="text-align: center">Usuario de Modificacion</th>
+            <th style="text-align: center">Usuario de Entrega</th>
+            <th style="text-align: center">Fecha de Entrega</th>
+            <th style="text-align: center">Comentario de entrega</th>
 
          </tr>
       </thead>
@@ -136,7 +137,13 @@ $(document).ready(function(){
           $fechamaxima=$_POST['fechaMaxima'];
           $nombre=$_POST['nombre'];
           
-
+          echo '<div class="row">
+        <div class="col text-center">
+          <a href="excel.php?x='.$nombre.'&fecha1='.$fechaminima.'&fecha2='.$fechamaxima.'">
+            Generar XLS
+          </a>
+        </div>
+      </div>';
           
 
           if (strtotime($fechamaxima) < strtotime($fechaminima)) {
@@ -211,23 +218,45 @@ $(document).ready(function(){
               
             }
 
+            if ($fila['Estado_Entrega']==1) {
+              $fila['Estado_Entrega']="Pendiente";
+            }else{
+              $fila['Estado_Entrega']="ENttegado";
+            }
+            
+
+             if ( $fila['Fecha_Entrega']=='') {
+              $fila['Fecha_Entrega']="No hay fecha de entrega";
+            }else{
+              $fila['Fecha_Entrega']=date('d/m/Y', strtotime($fila['Fecha_Entrega']));
+            }
+
+            if ( $fila['Usuario_Entrega']=='') {
+              $fila['Usuario_Entrega']="No hay Usuario de entrega";
+            }
+
+            if ( $fila['Comentario_Entrega']=='') {
+              $fila['Comentario_Entrega']="Sin comentario de entrega";
+            }
+
             $fecha=date("Y/m/d", strtotime($fila['Fecha_Creacion']));
   
            ?>
            <tr>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Nombre'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Apellido'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Cargo'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Asignado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado_Entrega'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Observacion'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Observacion']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fecha;?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Creacion'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Fecha_Modificacion'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Modifcacion'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Entrega'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Fecha_Entrega'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Comentario_Entrega'];?></td>
 
            </tr>
 
