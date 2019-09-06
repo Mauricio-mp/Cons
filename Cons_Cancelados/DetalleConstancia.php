@@ -303,25 +303,81 @@ include('../cerrarConexionGECOMP.php');
  
      <?php 
 if (isset($_POST['Imprimir'])) {
+  $firma=$_POST['id_firma'];
  include('../crearConexionGECOMP.php');
- $firma=$_POST['id_firma'];
- $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion,Estado_Entrega) VALUES(11,'$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion',1)");
 
-  $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo')");
-        while($fila=mssql_fetch_array($sqa)){
-            $maximo = $fila['Id_constancia']; 
-            }
+  $fechaActual= date('Y-m-d');
+  $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
+  
+  $contador=0;
+  $fechaAInsertar="";
+  $codigoGnerado="";
+ 
+ //OPTENER FECHA
+ $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ if ($ver=mssql_fetch_array($CompararFecha)) {
+   $Comparafecha1= date('Y-m-d', strtotime($ver['fecha']));
+   $optenerAnioFecha1=date('Y', strtotime($Comparafecha1));
+ }
+
+   if ($optenerAnioFechaActual > $optenerAnioFecha1) {
+   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaActual')");
+   $fechaAInsertar=substr($optenerAnioFechaActual, -2);
+ }else{
+  $fechaAInsertar=substr($optenerAnioFecha1, -2);
+ }
 
 
-               $Codigo_cons = 'CANS'.$maximo.$codigo;
+ 
+ //NUMERO_CORRELATIVO
+ $validarexisteNumero=mssql_query("SELECT NUMERO_CORRELATIVO FROM CONSTANCIA_GENERADA WHERE  Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA)");
+ if($Dato=mssql_fetch_array($validarexisteNumero)){
+  $totalFilas = $Dato['NUMERO_CORRELATIVO']; 
+  echo $totalFilas;
+  }
+if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
+  $contador=1;
+}else{
+  $contador=$totalFilas+1;
+}
+
+$codigoGnerado="CAN".$contador.$fechaAInsertar;
 
 
 
-              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+
+ $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion,Estado_Entrega,NUMERO_CORRELATIVO) VALUES(11,'$codigoGnerado','$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion',1,'$contador')");
+
+ // $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ // if ($ver=mssql_fetch_array($CompararFecha)) {
+ //   $Comparafecha1= date('Y', strtotime($ver['fecha']));
+
+ // }
+
+ // if ($fechaActual> $Comparafecha1) {
+ //  $fechaInsersion=date('Y-m-d');
+ //   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaInsersion')");
+   
+
+
+ // }else{
+
+ // }
+
+ //  $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$codigo')");
+ //        if($fila=mssql_fetch_array($sqa)){
+ //            $maximo = $fila['Id_constancia']; 
+ //            }
+
+
+ //               $Codigo_cons = 'CAN'.$maximo.$codigo;
+
+
+ //              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
 
 
  if ($insertar==true) {
- 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$Codigo_cons"); 
+ 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$codigoGnerado"); 
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

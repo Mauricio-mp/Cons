@@ -1,7 +1,7 @@
 <?php 
 
 header('Content-type:application/xls');
-	header('Content-Disposition: attachment; filename=usuarios.xls');
+	header('Content-Disposition: attachment; filename=Reporte1.xls');
 
 	include('../crearConexionGECOMP.php');
 	//$query=mssql_query("SELECT * FROM CONSTANCIA_GENERADA");
@@ -25,6 +25,7 @@ $fechamaxima=$_GET['fecha2'];
             <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
             <th style="text-align: center">Estado</th>
+            <th style="text-align: center">Dirigida a:</th>
             <th style="text-align: center">Observacion</th>
             <th style="text-align: center">Fecha de Creacion</th>
             <th style="text-align: center">Usuario de Creacion</th>
@@ -127,6 +128,16 @@ $fechamaxima=$_GET['fecha2'];
             if ( $fila['Comentario_Entrega']=='') {
               $fila['Comentario_Entrega']="Sin comentario de entrega";
             }
+
+             $bono=$fila['Id_Constancia_Dirigida'];
+
+            $optenerNombre=mssql_query("SELECT NOMBRE_COOPERATIVA FROM COOPERATIVAS WHERE Id_Cooperativa='$bono'");
+            if ($Datos=mssql_fetch_array($optenerNombre)) {
+              $fila['Id_Constancia_Dirigida']=$Datos['NOMBRE_COOPERATIVA'];
+            }
+            if ($fila['Id_Constancia_Dirigida']=='') {
+               $fila['Id_Constancia_Dirigida']="Constancia sin dirigir ";
+            }
             
   
            ?>
@@ -137,6 +148,7 @@ $fechamaxima=$_GET['fecha2'];
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Id_Constancia_Dirigida'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Observacion']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fecha;?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Creacion'];?></td>

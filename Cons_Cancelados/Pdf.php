@@ -112,10 +112,15 @@ if ($firma=mssql_fetch_array($mostrarDato)) {
   $nombreFirma=ucwords($convertirFirma);
   $puestoFirma=$firma['PUESTO_EMPLEADO'];
 }
+
+
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
-$fechaActual=fecha1($dia,$mes,$anio);
+
+$dia_actual=convertir2($dia); 
+$mes_actual= fecha2($mes);
+$anio_actual=convertir2($anio); 
 
 
 class PDF extends PDF_WriteTag
@@ -128,8 +133,8 @@ function Header()
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
      $this->SetFont('Times','B',14);
-    $this->SetTextColor(194,8,8);
-    $this->Cell(45,0,'Prueba',0,0,'C');
+    //$this->SetTextColor(194,8,8);
+    //$this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
@@ -153,7 +158,7 @@ function Footer()
     // Page number
     $this->SetLineWidth(0);
     //$this->Line(20,280,190,280);
-    $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1',0,0,'C');
+    $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa M.D.C, Honduras C.A.',0,0,'C');
     $this->Ln();
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
@@ -196,14 +201,14 @@ $nombreFirmas="<vb>".strtoupper($nombreFirma)."</vb>";
 
 // $texto = "El (a) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con tarjeta de identidad No. ".$identidad." ha laborado en esta institución ".$mensaje1.", desempeñando el cargo de ".trim($desempenio)." asignado a ".utf8_encode($asignacion).".";
 
-$texto="El (la) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad.", laboró en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".utf8_encode($asignacion);
+$texto="El (la) sucrito ".$optenerFirma." del Ministerio Público hace constar que ".$NombreCompleto.", con tarjeta de identidad numero ".$identidad.", laboró en esta institución ".$mensaje1.", desempeñando el cargo de ".$desempenio.", asignado a ".utf8_encode($asignacion).".";
 
 
  
 
 // $texto2="Constancia que se extiende a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
 
-$texto2="Constancia que se extiende a petición de parte interesada, en la ciudad de Tegucigalpa, Municipio del Distrito Central, a ".$fechaActual;
+$texto2="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual.".";
 
 
 

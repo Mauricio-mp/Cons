@@ -262,7 +262,7 @@ if ($comprara < $fechaAactual) {
    $anio = date("Y", strtotime($row['dcntrct']));  
 
 
-   header('Location: Mostrarmodal.php?x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'');
+   header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'');
 
            }
 

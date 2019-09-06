@@ -77,23 +77,7 @@ $(document).ready(function(){
 <section style="background-color: #F9FAFA;">
   <div class="center container">
     <form method="POST" >
-      <div  class="form-group">
-        <label>Elija el tipo de Constancia</label>
-        <select class="form-control" name="opcion">
-          <option selected="selected">Seleccione su opcion.....</option> 
-          <option value="1">Constancia de trabajo Sin deducciones</option>
-          <option value="2">Constancia de trabajo con deducciones normal</option>
-          <option value="3">Constancia de Trabajo con Deducciones con Plus</option>
-          <option value="4">Constancia de Trabajo con Deducciones sin Plus</option>
-          <option value="5">Constancia para Bono de 13AVO</option>
-          <option value="6">Constancia para Bono de 14AVO</option>
-          <option value="7">Constancia para Bono de Vacaciones</option>
-          <option value="8">Constancia para Universidades</option>
-          <option value="9">Constancia para Embajadas/Consulados</option>
-          <option value="10">Constancia para T.S.C.</option>
-          <option value="11">Constancia de Cancelados</option>
-        </select>
-      </div>
+
 
       <div  class="form-group">
         <label>Seleccione fecha Minima</label>
@@ -150,23 +134,18 @@ $(document).ready(function(){
      include('../crearConexionGECOMP.php');
           $fechaminima=$_POST['fechaMinima'];
           $fechamaxima=$_POST['fechaMaxima'];
-          $opcion=$_POST['opcion'];
+  
 
 
           echo '<div class="row">
         <div class="col text-center">
-          <a href="excel.php?x='.$opcion.'&fecha1='.$fechaminima.'&fecha2='.$fechamaxima.'">
+          <a href="excel.php?fecha1='.$fechaminima.'&fecha2='.$fechamaxima.'">
             Generar XLS
           </a>
         </div>
       </div>';          
 
-          if ($opcion=="Seleccione su opcion....." || $opcion =="") {
-             echo "<script>";
-    echo "alert('Seleccione una Opcion');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
-          }
+        
 
           if (strtotime($fechamaxima) < strtotime($fechaminima)) {
              echo "<script>";
@@ -179,10 +158,10 @@ $(document).ready(function(){
           }
 
           
-
+//select * from category_stage except select * from category;
 
           
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA  WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND  Tipo_Constancia !='11' and Tipo_Constancia !='10'");
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {

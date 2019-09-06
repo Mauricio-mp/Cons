@@ -111,6 +111,7 @@ $(document).ready(function(){
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="Busq_Cons1">ver constancias Emitidas</a></li>
+            <li><a href="Busq_Cons4">constancias Emitidas (T.S.C, Cancelados)</a></li>
             <li><a href="Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
@@ -145,7 +146,7 @@ $(document).ready(function(){
                  <a class="test" tabindex="-1" href="#">Constancia T.S.C<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                    <li><a tabindex="-1" href="./Mant_Acuerdo">Acuerdo</a></li>
-                 <li><a tabindex="-1" href="./Mant_Acuerdo/excel.php">Modificar</a></li>
+                 <li><a tabindex="-1" href="./Mant_Acuerdo/excel.php">Excel</a></li>
                   </ul>
                  </li>
 
@@ -180,7 +181,7 @@ $(document).ready(function(){
 
 
         
-        <li><a href="#"   data-toggle="modal" data-target="#miModal">Cerra Session</a></li>
+        <li><a href="#"   data-toggle="modal" data-target="#miModal">Cerrar sesión</a></li>
         
         
 <!-- Modal -->

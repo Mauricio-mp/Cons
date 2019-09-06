@@ -1,8 +1,8 @@
 <?php 
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
-   $aniomostrar=$_GET['y'];
-    $mesmostrar=$_GET['z'];
+$aniomostrar=$_GET['y'];
+$mesmostrar=$_GET['z'];
 $conca=$_GET['ido'];
 
         if ($mesmostrar == "JUNIO") {
@@ -148,8 +148,8 @@ function Header()
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
      $this->SetFont('Times','B',14);
-    $this->SetTextColor(194,8,8);
-    $this->Cell(45,0,'Prueba',0,0,'C');
+   // $this->SetTextColor(194,8,8);
+    //$this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);

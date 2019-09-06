@@ -70,7 +70,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   $apellidoEmpleado=$row['clname'];
   $conMin=strtolower($apellidoEmpleado);
   $apellidoEmpleado=ucwords($conMin);
-  $nombreCompleto="<strong>".$nombreEmpleado." ".$apellidoEmpleado."</strong>";
+  $nombreCompleto="<strong>".strtoupper($nombreEmpleado)." ".strtoupper($apellidoEmpleado)."</strong>";
   $Nombre=$row['cfname'];
   $Apellido=$row['clname'];
   //echo "<script>alert('".$DESC."');</script>";
@@ -470,24 +470,66 @@ include('../cerrarConexionGECOMP.php');
      <?php 
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
-  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,Apellido) VALUES (2,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$Apellido')");
-
   $id=$_POST['id_firma'];
+include('../crearConexionGECOMP.php');
 
-    $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
-        while($fila=mssql_fetch_array($sqa)){
-            $maximo = $fila['Id_constancia']; 
-            }
+  $fechaActual= date('Y-m-d');
+  $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
+  
+  $contador=0;
+  $fechaAInsertar="";
+  $codigoGnerado="";
+ 
+ //OPTENER FECHA
+ $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ if ($ver=mssql_fetch_array($CompararFecha)) {
+   $Comparafecha1= date('Y-m-d', strtotime($ver['fecha']));
+   $optenerAnioFecha1=date('Y', strtotime($Comparafecha1));
+ }
 
-               $Codigo_cons = 'CCD'.$maximo.$numero;
+   if ($optenerAnioFechaActual > $optenerAnioFecha1) {
+   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaActual')");
+   $fechaAInsertar=substr($optenerAnioFechaActual, -2);
+ }else{
+  $fechaAInsertar=substr($optenerAnioFecha1, -2);
+ }
+
+
+ 
+ //NUMERO_CORRELATIVO
+ $validarexisteNumero=mssql_query("SELECT NUMERO_CORRELATIVO FROM CONSTANCIA_GENERADA WHERE  Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA)");
+ if($Dato=mssql_fetch_array($validarexisteNumero)){
+  $totalFilas = $Dato['NUMERO_CORRELATIVO']; 
+  echo $totalFilas;
+  }
+if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
+  $contador=1;
+}else{
+  $contador=$totalFilas+1;
+}
+
+$codigoGnerado="CCD".$contador.$fechaAInsertar;
 
 
 
-              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+  // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,Apellido,NUMERO_CORRELATIVO) VALUES (2,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$Apellido','$contador' )");
+
+  
+
+    // $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
+    //     while($fila=mssql_fetch_array($sqa)){
+    //         $maximo = $fila['Id_constancia']; 
+    //         }
+
+    //            $Codigo_cons = 'CCD'.$maximo.$numero;
+
+
+
+    //           $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
 
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'&ido='.$Codigo_cons.'"</script>';
+  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'&ido='.$codigoGnerado.'"</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

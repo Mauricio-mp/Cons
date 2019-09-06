@@ -115,6 +115,72 @@ if ($Status=="INACTIVO") {
 
           </div>
 
+          <div>
+            <?php 
+            include('../crearConexionGECOMP.php');
+
+            $DetalledeCons=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Id_constancia='$cod' ");
+            if ($ver=mssql_fetch_array($DetalledeCons)) {
+             
+               if ($ver['Tipo_Constancia']=="1") {
+              $ver['Tipo_Constancia']="Constancia de trabajo Sin deducciones";
+            }
+            if ($ver['Tipo_Constancia']=="2") {
+              $ver['Tipo_Constancia']="Constancia de trabajo con deducciones normal";
+            }
+          
+            if ($ver['Tipo_Constancia']=="5") {
+              $ver['Tipo_Constancia']="Constancia para Bono de 13AVO/14AVO";
+            }
+          
+            if ($ver['Tipo_Constancia']=="7") {
+              $ver['Tipo_Constancia']="Constancia para Bono de Vacaciones";
+            }
+            if ($ver['Tipo_Constancia']=="8") {
+              $ver['Tipo_Constancia']="Constancia para Universidades";
+            }
+            if ($ver['Tipo_Constancia']=="9") {
+              $ver['Tipo_Constancia']="Constancia para Embajadas/Consulados";
+            }
+            if ($ver['Tipo_Constancia']=="10") {
+              $ver['Tipo_Constancia']="Constancia para T.S.C.";
+            }
+            if ($ver['Tipo_Constancia']=="11") {
+              $ver['Tipo_Constancia']="Constancia de Cancelados";
+            }
+            }
+
+            ?>
+
+            <table>
+              <tr>
+                <td>Nombre:</td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Nombre']." ".$ver['Apellido']; ?></td>
+              </tr>
+               <tr>
+                <td>Codigo del Empleado: </td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Codigo_Empleado']; ?></td>
+              </tr>
+              <tr>
+                <td>Tipo de Constancia: </td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Tipo_Constancia']; ?></td>
+              </tr>
+               <tr>
+                <td>Cargo: </td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Cargo']; ?></td>
+              </tr>
+               <tr>
+                <td>Asignado a: </td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Asignado']; ?></td>
+              </tr>
+            </table>
+          </div>
+
 
 <div id="prove"></div>
 

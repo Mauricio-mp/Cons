@@ -44,6 +44,8 @@ if ($Status=="I") {
 </head>
 
 	<!-- SideBar -->
+  <section>
+    <?php include('../Menu.php'); ?>
 </section>
 
 <?php $numero=$_GET['x'];
@@ -204,18 +206,19 @@ if ($insertar=true) {
 <br></br>
 
 
-
+<div class="text-center">
+     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
+</button> 
+    <button type="button"  class="btn btn-primary"style="padding-left:80px;padding-right:80px  " data-toggle="modal" data-target="#modalh">Imprimir</span> 
+</button>   
+ </div>
 <div style="text-align: center">
  <hr />
 <p>Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1</p>	
 <p>apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667</p>	
 </div>
- </div>
-  <div class="text-center">
-     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='index.php' "style="padding-left:80px;padding-right:80px  ">Cancelar</span> 
-</button> 
-    <button type="button"  class="btn btn-primary"style="padding-left:80px;padding-right:80px  " data-toggle="modal" data-target="#modalh">Imprimir</span> 
-</button>   
+
+  
 <div class="modal fade" id="modalh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
 
@@ -238,24 +241,64 @@ if ($insertar=true) {
   $id1=$_POST['id_embajada'];
  $Codigo=$_SESSION['logeo'];
 
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (9,'$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
+  include('../crearConexionGECOMP.php');
+
+  $fechaActual= date('Y-m-d');
+  $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
+  
+  $contador=0;
+  $fechaAInsertar="";
+  $codigoGnerado="";
+ 
+ //OPTENER FECHA
+ $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ if ($ver=mssql_fetch_array($CompararFecha)) {
+   $Comparafecha1= date('Y-m-d', strtotime($ver['fecha']));
+   $optenerAnioFecha1=date('Y', strtotime($Comparafecha1));
+ }
+
+   if ($optenerAnioFechaActual > $optenerAnioFecha1) {
+   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaActual')");
+   $fechaAInsertar=substr($optenerAnioFechaActual, -2);
+ }else{
+  $fechaAInsertar=substr($optenerAnioFecha1, -2);
+ }
 
 
- $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
-        while($fila=mssql_fetch_array($sqa)){
-            $maximo = $fila['Id_constancia']; 
-            }
+ 
+ //NUMERO_CORRELATIVO
+ $validarexisteNumero=mssql_query("SELECT NUMERO_CORRELATIVO FROM CONSTANCIA_GENERADA WHERE  Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA)");
+ if($Dato=mssql_fetch_array($validarexisteNumero)){
+  $totalFilas = $Dato['NUMERO_CORRELATIVO']; 
+  echo $totalFilas;
+  }
+if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
+  $contador=1;
+}else{
+  $contador=$totalFilas+1;
+}
 
-               $Codigo_cons = 'EC'.$maximo.$numero;
+$codigoGnerado="CEM".$contador.$fechaAInsertar;
+
+
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (9,'$codigoGnerado','$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero','$contador')");
+
+
+ // $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
+ //        while($fila=mssql_fetch_array($sqa)){
+ //            $maximo = $fila['Id_constancia']; 
+ //            }
+
+ //               $Codigo_cons = 'EC'.$maximo.$numero;
 
 
 
-              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+ //              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
 
 
 
 if ($insertar=true) {
-  echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'&ido='.$Codigo_cons.'"</script>';
+  echo '<script>location.href="Pdf.php?x='.$id.'&y='.$id1.'&proce='.$numero.'&ido='.$codigoGnerado.'"</script>';
 }else{
   echo "<script>alert('ERROR')</script>";
 }

@@ -44,6 +44,8 @@ if ($Status=="I") {
 </head>
 
 	<!-- SideBar -->
+  <section>
+    <?php include('../Menu.php'); ?>
 </section>
 
 <?php $numero=$_GET['x'];
@@ -105,7 +107,7 @@ if ($asignado=mssql_fetch_array($mostrarDesc)) {
 include('../cerrarConexionVam.php'); 
  ?>
 
- <div class="center">
+ <div class="Disenio" style=" border: 1px solid #555;">
 <div class="full-box text-center" style="padding: 30px 10px;">
       <img src="../img/9.png" alt="user-picture" class="logo">
 
@@ -183,29 +185,56 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
 $id=$_POST['id_firma'];
   //echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$ido.'"</script>';
-
-
-
   $Codigo= $_SESSION['CodEmpleado'];
 
+    $fechaActual= date('Y-m-d');
+  $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
+  
+  $contador=0;
+  $fechaAInsertar="";
+  $codigoGnerado="";
+ 
+ //OPTENER FECHA
+ $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ if ($ver=mssql_fetch_array($CompararFecha)) {
+   $Comparafecha1= date('Y-m-d', strtotime($ver['fecha']));
+   $optenerAnioFecha1=date('Y', strtotime($Comparafecha1));
+ }
+
+   if ($optenerAnioFechaActual > $optenerAnioFecha1) {
+   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaActual')");
+   $fechaAInsertar=substr($optenerAnioFechaActual, -2);
+ }else{
+  $fechaAInsertar=substr($optenerAnioFecha1, -2);
+ }
+
+
+ 
+ //NUMERO_CORRELATIVO
+ $validarexisteNumero=mssql_query("SELECT NUMERO_CORRELATIVO FROM CONSTANCIA_GENERADA WHERE  Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA)");
+ if($Dato=mssql_fetch_array($validarexisteNumero)){
+  $totalFilas = $Dato['NUMERO_CORRELATIVO']; 
+  echo $totalFilas;
+  }
+if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
+  $contador=1;
+}else{
+  $contador=$totalFilas+1;
+}
+
+$codigoGnerado="CU".$contador.$fechaAInsertar;
+
+
+
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado) VALUES (8,'$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (8,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero','$contador' )");
 
-      $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
-        while($fila=mssql_fetch_array($sqa)){
-            $maximo = $fila['Id_constancia']; 
-            }
-
-               $Codigo_cons = 'CU'.$maximo.$numero;
-
-
-
-              $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
+  
 
 
  if ($insertar==true) {
  
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$Codigo_cons.'"</script>';
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$codigoGnerado.'"</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

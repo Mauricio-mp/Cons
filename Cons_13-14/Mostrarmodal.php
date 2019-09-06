@@ -166,6 +166,9 @@ include('ConversionFecha2.php');
     $mesmostrar=$_GET['z'];
     $concatenada=$_GET['a'];
      $bono=$_GET['b'];
+     $idCoop=$_GET['coop'];
+
+
 
 //echo $numero;
 $dia=date("d");
@@ -342,7 +345,46 @@ include('../cerraConexionVam.php');
 if (isset($_POST['Imprimir'])) {
  include('../crearConexionGECOMP.php'); 
   $us= $_SESSION['CodEmpleado'];
-$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion) VALUES (5,'$concatenada','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us',getdate())");
+
+  $fechaActual= date('Y-m-d');
+  $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
+  
+  $contador=0;
+  $fechaAInsertar="";
+  $codigoGnerado="";
+ 
+ //OPTENER FECHA
+ $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
+ if ($ver=mssql_fetch_array($CompararFecha)) {
+   $Comparafecha1= date('Y-m-d', strtotime($ver['fecha']));
+   $optenerAnioFecha1=date('Y', strtotime($Comparafecha1));
+ }
+
+   if ($optenerAnioFechaActual > $optenerAnioFecha1) {
+   $insertarNuevoCorrelativo=mssql_query("INSERT INTO FechaCorrelativa(fecha) VALUES('$fechaActual')");
+   $fechaAInsertar=substr($optenerAnioFechaActual, -2);
+ }else{
+  $fechaAInsertar=substr($optenerAnioFecha1, -2);
+ }
+
+
+ 
+ //NUMERO_CORRELATIVO
+ $validarexisteNumero=mssql_query("SELECT NUMERO_CORRELATIVO FROM CONSTANCIA_GENERADA WHERE  Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA)");
+ if($Dato=mssql_fetch_array($validarexisteNumero)){
+  $totalFilas = $Dato['NUMERO_CORRELATIVO']; 
+  echo $totalFilas;
+  }
+if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
+  $contador=1;
+}else{
+  $contador=$totalFilas+1;
+}
+
+$codigoGnerado=$bono.$contador.$fechaAInsertar;
+
+
+$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos) VALUES (5,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us',getdate(),'$idCoop','$contador','$concatenada' )");
                                     
                                     if ($insertar) {
             

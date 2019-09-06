@@ -1,7 +1,7 @@
 <?php 
 
 header('Content-type:application/xls');
-	header('Content-Disposition: attachment; filename=usuarios.xls');
+	header('Content-Disposition: attachment; filename=Reporte3.xls');
 
 	include('../crearConexionGECOMP.php');
   include('ConversionFecha.php');
@@ -50,11 +50,45 @@ $fechaMaxima=$_GET['fecha2'];
       $cons9 = $optenerCons9['cons9'];
       //echo "Constancia para Embajadas/Consulados:"." ".$cons9;
 
+       $consultarConstancia9=mssql_query("SELECT count(*) AS cons10 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=5 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons10 = $optenerCons9['cons10'];
+
+      //Constancia Para 13: cons10
+
+        $consultarConstancia9=mssql_query("SELECT count(*) AS cons11 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=6 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons11 = $optenerCons9['cons11'];
+
+       //Constancia Para 14: cons11
+
+        $consultarConstancia9=mssql_query("SELECT count(*) AS cons12 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=8 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons12 = $optenerCons9['cons12'];
+
+      //Constancia Para Universidades: cons12
+
+        $consultarConstancia9=mssql_query("SELECT count(*) AS cons13 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=10 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons13 = $optenerCons9['cons13'];
+      //Constancia Para TSC: cons13
+
+        $consultarConstancia9=mssql_query("SELECT count(*) AS cons14 FROM CONSTANCIA_GENERADA   WHERE Tipo_Constancia=11 AND Fecha_Creacion between ' $fechaminima' and '$fechaMaxima'");
+      $optenerCons9 = mssql_fetch_array($consultarConstancia9);
+      $cons14 = $optenerCons9['cons14'];
+
+      //Constancia Para Cancelados: cons14
+
+      //z
+
+
+
+
        //constsncias de Trabajo sin deducciones
 
 
      
-      $suma= $cons1+$cons2+$cons7+$cons9;
+      $suma= $cons1+$cons2+$cons7+$cons9+$cons10+$cons11+$cons12+$cons13+$cons14;
       $cons = $suma;
 
 
@@ -69,7 +103,7 @@ $fechaMaxima=$_GET['fecha2'];
 
          </tr>
       </thead>
-       <tbody>
+     <tbody>
          <tr>
 
 
@@ -105,6 +139,32 @@ $fechaMaxima=$_GET['fecha2'];
 
            </tr>
             <tr>
+             <td >Constancia de 13AVO</td>
+             <td><?php echo $cons10;?></td>
+           </tr>
+           <tr>
+             <td >Constancia de 14AVO</td>
+             <td><?php echo $cons11;?></td>
+
+           </tr>
+             <tr>
+
+             <td >Constancia de Universidades</td>
+             <td><?php echo $cons12;?></td>
+           </tr>
+            <tr>
+
+             <td >Constancia del Tribunal Superior de Cuentas</td>
+             <td><?php echo $cons13;?></td>
+           </tr>
+            <tr>
+
+             <td >Constancia de Cancelados</td>
+             <td><?php echo $cons14;?></td>
+           </tr>
+
+
+            <tr>
 
 
 
@@ -112,6 +172,7 @@ $fechaMaxima=$_GET['fecha2'];
              <td><?php echo $cons;?></td>
 
            </tr>
+
        </tbody>
 
       </table>

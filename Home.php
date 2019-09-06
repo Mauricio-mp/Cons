@@ -100,6 +100,7 @@ $(document).ready(function(){
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="Busq_Cons1">ver constancias Emitidas</a></li>
+            <li><a href="Busq_Cons4">constancias Emitidas (T.S.C, Cancelados)</a></li>
             <li><a href="Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="Busq_Cons3">Detalle de Constancias</a></li>
           </ul>
@@ -169,7 +170,7 @@ $(document).ready(function(){
 
 
         
-        <li><a href="#"   data-toggle="modal" data-target="#miModal">Cerra Session</a></li>
+        <li><a href="#"   data-toggle="modal" data-target="#miModal">Cerrar sesión</a></li>
         
         
 <!-- Modal -->
@@ -183,7 +184,7 @@ $(document).ready(function(){
         </button>
       </div>
       <div class="modal-body">
-        <h1> ¿Desea cerrar session?</h1>
+        <h1> ¿Desea cerrar sesión?</h1>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -301,7 +302,7 @@ $(document).ready(function(){
 	
 <div class="container">
   <div class="center">
-    <h1 class="centrarTexto">Sistema de Generecion de constancias del Ministerio Publico (GECOMP)</h1>
+    <h1 class="centrarTexto">Sistema de Generación de constancias del Ministerio Público (GECOMP)</h1>
     <img src="img/9.png" style=" width:100%;">
 
     

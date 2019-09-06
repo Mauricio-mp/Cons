@@ -98,8 +98,8 @@ function Header()
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
      $this->SetFont('Times','B',14);
-    $this->SetTextColor(194,8,8);
-    $this->Cell(45,0,'Prueba',0,0,'C');
+    //$this->SetTextColor(194,8,8);
+    //$this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
@@ -123,7 +123,7 @@ function Footer()
     // Page number
     $this->SetLineWidth(0);
     //$this->Line(20,280,190,280);
-    $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa D.M.C, Honduras C.A 1',0,0,'C');
+    $this->Cell(0,0,'Edificio Lomas Plaza II, Lomas del guijaro, Avenida Republica Dominicana, Tegucigalpa M.D.C, Honduras C.A.',0,0,'C');
     $this->Ln();
     $this->Cell(0,10,'apartado postal No, 3730, Tel:(504)2221-3099, FAX:(504)2221-5667',0,0,'C');
     $this->Ln();
@@ -179,7 +179,7 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
 $pdf->Cell(10,10,'',0,1,'C'); 
-$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
+$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual."fgs";
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
