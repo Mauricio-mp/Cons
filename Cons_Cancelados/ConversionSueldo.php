@@ -61,50 +61,50 @@ function decena($numdero){
 
 if ($numdero >= 90 && $numdero <= 99) 
 { 
-$numd = "noventa "; 
+$numd = "noventa"; 
 if ($numdero > 90) 
 $numd = $numd."y ".(unidad($numdero - 90)); 
 } 
 else if ($numdero >= 80 && $numdero <= 89) 
 { 
-$numd = "ochenta "; 
+$numd = "ochenta"; 
 if ($numdero > 80) 
 $numd = $numd."y ".(unidad($numdero - 80)); 
 } 
 else if ($numdero >= 70 && $numdero <= 79) 
 { 
-$numd = "setenta "; 
+$numd = "setenta"; 
 if ($numdero > 70) 
 $numd = $numd."y ".(unidad($numdero - 70)); 
 } 
 else if ($numdero >= 60 && $numdero <= 69) 
 { 
-$numd = "sesenta "; 
+$numd = "sesenta"; 
 if ($numdero > 60) 
 $numd = $numd."y ".(unidad($numdero - 60)); 
 } 
 else if ($numdero >= 50 && $numdero <= 59) 
 { 
-$numd = "cincuenta "; 
+$numd = "cincuenta"; 
 if ($numdero > 50) 
 $numd = $numd."y ".(unidad($numdero - 50)); 
 } 
 else if ($numdero >= 40 && $numdero <= 49) 
 { 
-$numd = "cuarenta "; 
+$numd = "cuarenta"; 
 if ($numdero > 40) 
 $numd = $numd."y ".(unidad($numdero - 40)); 
 } 
 else if ($numdero >= 30 && $numdero <= 39) 
 { 
-$numd = "treinta "; 
+$numd = "treinta"; 
 if ($numdero > 30) 
 $numd = $numd."y ".(unidad($numdero - 30)); 
 } 
 else if ($numdero >= 20 && $numdero <= 29) 
 { 
 if ($numdero == 20) 
-$numd = "veinte "; 
+$numd = "veinte"; 
 else 
 $numd = "veinti".(unidad($numdero - 20)); 
 } 
@@ -113,52 +113,52 @@ else if ($numdero >= 10 && $numdero <= 19)
 switch ($numdero){ 
 case 10: 
 { 
-$numd = "diez "; 
+$numd = "diez"; 
 break; 
 } 
 case 11: 
 {	
-$numd = "once "; 
+$numd = "once"; 
 break; 
 } 
 case 12: 
 { 
-$numd = "doce "; 
+$numd = "doce"; 
 break; 
 } 
 case 13: 
 { 
-$numd = "trece "; 
+$numd = "trece"; 
 break; 
 } 
 case 14: 
 { 
-$numd = "Catorce "; 
+$numd = "Catorce"; 
 break; 
 } 
 case 15: 
 { 
-$numd = "quince "; 
+$numd = "quince"; 
 break; 
 } 
 case 16: 
 { 
-$numd = "cieciseis "; 
+$numd = "cieciseis"; 
 break; 
 } 
 case 17: 
 { 
-$numd = "diecisiete "; 
+$numd = "diecisiete"; 
 break; 
 } 
 case 18: 
 { 
-$numd = "dieciocho "; 
+$numd = "dieciocho"; 
 break; 
 } 
 case 19: 
 { 
-$numd = "diecinueve "; 
+$numd = "diecinueve"; 
 break; 
 } 
 }	
@@ -173,49 +173,49 @@ if ($numc >= 100)
 { 
 if ($numc >= 900 && $numc <= 999) 
 { 
-$numce = "novecientos "; 
+$numce = "novecientos"; 
 if ($numc > 900) 
 $numce = $numce.(decena($numc - 900)); 
 } 
 else if ($numc >= 800 && $numc <= 899) 
 { 
-$numce = "ochocientos "; 
+$numce = "ochocientos"; 
 if ($numc > 800) 
 $numce = $numce.(decena($numc - 800)); 
 } 
 else if ($numc >= 700 && $numc <= 799) 
 { 
-$numce = "setecientos "; 
+$numce = "setecientos"; 
 if ($numc > 700) 
 $numce = $numce.(decena($numc - 700)); 
 } 
 else if ($numc >= 600 && $numc <= 699) 
 { 
-$numce = "seiscientos "; 
+$numce = "seiscientos"; 
 if ($numc > 600) 
 $numce = $numce.(decena($numc - 600)); 
 } 
 else if ($numc >= 500 && $numc <= 599) 
 { 
-$numce = "quinientos "; 
+$numce = "quinientos"; 
 if ($numc > 500) 
 $numce = $numce.(decena($numc - 500)); 
 } 
 else if ($numc >= 400 && $numc <= 499) 
 { 
-$numce = "cuatrocientos "; 
+$numce = "cuatrocientos"; 
 if ($numc > 400) 
 $numce = $numce.(decena($numc - 400)); 
 } 
 else if ($numc >= 300 && $numc <= 399) 
 { 
-$numce = "trescientos "; 
+$numce = "trescientos"; 
 if ($numc > 300) 
 $numce = $numce.(decena($numc - 300)); 
 } 
 else if ($numc >= 200 && $numc <= 299) 
 { 
-$numce = "doscientos "; 
+$numce = "doscientos"; 
 if ($numc > 200) 
 $numce = $numce.(decena($numc - 200)); 
 } 

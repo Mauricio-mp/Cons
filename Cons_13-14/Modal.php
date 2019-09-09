@@ -188,7 +188,7 @@ $mesbono=12;
   $aniox = gmdate("Y"); 
                             
  $fechabono=gmdate("Y-m-d", strtotime('01'.'-12-'.$aniox));
-   echo  $fechabono; 
+   //echo  $fechabono; 
 }
 if($valor=="14avo")
 {
@@ -198,7 +198,7 @@ $mesbono=06;
   $aniox = gmdate("Y"); 
                            
 $fechabono=gmdate("Y-m-d", strtotime('01'.'-06-'.$aniox));
-  echo  $fechabono; 
+  //echo  $fechabono; 
 }
 if($valor=="")
 {

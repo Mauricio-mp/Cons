@@ -35,8 +35,10 @@ if ($psw1=='' or $psw2=='' or $psw3=='' or strlen($psw2)<=8 or strlen($psw3)<=8)
 if ($val==1) {
 	$actualizar=mssql_query("UPDATE SEIngreso_Login SET Contrasenia = '$psw3'  WHERE CodEmpleado = '$usuario'");
 	
-	
-echo "<script>alert('Contraseña Actualizada Correctamente');</script>";
+echo "<script>";
+    echo "alert('Contraseña Actualizada Correctamente');";
+    echo "window.location = 'index.php';";
+    echo "</script>";
 	
 
 }

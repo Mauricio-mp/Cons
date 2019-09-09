@@ -174,6 +174,6 @@ $val21=0;
                           <input type="checkbox" name="cbx4" value="25" <?php if ($val25==1) { echo "checked"; }  ?>> Mantenimiento a Deducciones para constancia con Deducciones<br>
                           <input type="checkbox" name="cbx5" value="26" <?php if ($val26==1) { echo "checked"; }  ?>> Reporte de Constancias Emitidas Entre Fechas<br>
                           <input type="checkbox" name="cbx6" value="27" <?php if ($val27==1) { echo "checked"; }  ?>> Reporte de Constancias Emitidas por Empleado<br>
-                          <input type="checkbox" name="cbx7" value="28" <?php if ($val28==1) { echo "checked"; }  ?>> Estadistico de Constancias Generadas entre Fcehas<br>
+                          <input type="checkbox" name="cbx7" value="28" <?php if ($val28==1) { echo "checked"; }  ?>> Reporte de Constancias Generadas entre fechas<br>
 </body>
 </html>
