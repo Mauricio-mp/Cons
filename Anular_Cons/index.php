@@ -123,6 +123,7 @@ $(document).ready(function(){
             <th style="text-align: center">Nombres</th>
             <th style="text-align: center">Apellidos</th>
             <th style="text-align: center">Codigo de Empleado</th>
+            <th style="text-align: center">Dirigido a:</th>
             <th style="text-align: center">Periodo</th>
             <th style="text-align: center">Estado</th>
             <th style="text-align: center">Observacion</th>
@@ -230,6 +231,17 @@ $(document).ready(function(){
               
             }
 
+            
+            $bono=$fila['Id_Constancia_Dirigida'];
+
+            $optenerNombre=mssql_query("SELECT NOMBRE_COOPERATIVA FROM COOPERATIVAS WHERE Id_Cooperativa='$bono'");
+            if ($Datos=mssql_fetch_array($optenerNombre)) {
+              $fila['Id_Constancia_Dirigida']=$Datos['NOMBRE_COOPERATIVA'];
+            }
+            if ($fila['Id_Constancia_Dirigida']=='') {
+               $fila['Id_Constancia_Dirigida']="Sin Consignar ";
+            }
+
             $fecha=date("Y/m/d", strtotime($fila['Fecha_Creacion']));
   
            ?>
@@ -237,6 +249,7 @@ $(document).ready(function(){
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Nombre'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Apellido'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Id_Constancia_Dirigida'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Observacion'];?></td>

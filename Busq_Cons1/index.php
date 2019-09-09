@@ -199,8 +199,6 @@ $(document).ready(function(){
             }
             if ($fila['Tipo_Constancia']=="5") {
               $fila['Tipo_Constancia']="Constancia para BonofechaMinima de 13AVO";
-
-
             }
             if ($fila['Tipo_Constancia']=="6") {
               $fila['Tipo_Constancia']="Constancia para Bono de 14AVO";
@@ -271,7 +269,7 @@ $(document).ready(function(){
               $fila['Id_Constancia_Dirigida']=$Datos['NOMBRE_COOPERATIVA'];
             }
             if ($fila['Id_Constancia_Dirigida']=='') {
-               $fila['Id_Constancia_Dirigida']="Constancia sin dirigir ";
+               $fila['Id_Constancia_Dirigida']="Sin Consignar ";
             }
   
            ?>
