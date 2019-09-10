@@ -1,8 +1,8 @@
 
 <?php
-$server = '172.17.0.170:1433';
+$server = '172.17.0.152:1433';
 $username='sa';
-$password ='ministerio';
+$password ='';
 $conn= mssql_connect ($server,$username,$password);
 
 if (!$conn || !mssql_select_db('GECOMP', $conn)) {

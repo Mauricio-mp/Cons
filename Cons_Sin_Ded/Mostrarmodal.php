@@ -7,7 +7,13 @@ include('ConversionFecha.php');
 
 include('../crearConexionGECOMP.php');
 $Fechaactual=date("m-Y");
+ $estado=$_GET['Status'];
 
+ if ($estado=='T' || $estado=='I') {
+   echo "<script>";
+    echo "alert('SOLO EMPLEADOS ACTIVOS');";
+    echo "window.location = 'index.php';";
+    echo "</script>";}
  ?>
 <!DOCTYPE html>
 <html lang="es">

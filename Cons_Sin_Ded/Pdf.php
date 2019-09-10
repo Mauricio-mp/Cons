@@ -179,7 +179,7 @@ $pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
 
 
 $pdf->Cell(10,10,'',0,1,'C'); 
-$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual."fgs";
+$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual.".";
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
