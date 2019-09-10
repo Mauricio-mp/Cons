@@ -133,7 +133,7 @@ break;
 } 
 case 14: 
 { 
-$numd = "Catorce "; 
+$numd = "catorce "; 
 break; 
 } 
 case 15: 
@@ -143,7 +143,7 @@ break;
 } 
 case 16: 
 { 
-$numd = "cieciseis "; 
+$numd = "dieciseis "; 
 break; 
 } 
 case 17: 

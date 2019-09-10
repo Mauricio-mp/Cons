@@ -73,7 +73,7 @@ $numd = $numd."y ".(unidad($numdero - 80));
 } 
 else if ($numdero >= 70 && $numdero <= 79) 
 { 
-$numd = "Oetenta "; 
+$numd = "Setenta "; 
 if ($numdero > 70) 
 $numd = $numd."y ".(unidad($numdero - 70)); 
 } 
