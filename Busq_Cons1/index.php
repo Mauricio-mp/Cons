@@ -81,6 +81,7 @@ $(document).ready(function(){
         <label>Elija el tipo de Constancia</label>
         <select class="form-control" name="opcion">
           <option selected="selected">Seleccione su opcion.....</option> 
+          <option value="12">Todas</option>
           <option value="1">Constancia de trabajo Sin deducciones</option>
           <option value="2">Constancia de trabajo con deducciones normal</option>
           <option value="3">Constancia de Trabajo con Deducciones con Plus</option>
@@ -92,6 +93,7 @@ $(document).ready(function(){
           <option value="9">Constancia para Embajadas/Consulados</option>
           <option value="10">Constancia para T.S.C.</option>
           <option value="11">Constancia de Cancelados</option>
+
         </select>
       </div>
 
@@ -178,11 +180,14 @@ $(document).ready(function(){
     echo "</script>";
           }
 
-          
 
 
-          
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+          if ($opcion==12) {
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima'");
+             }else{
+              $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+
+             }
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {
