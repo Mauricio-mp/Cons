@@ -97,7 +97,7 @@ if ($Status=="I") {
   <?php
   
 // echo $nuevafecha;
-$query=mssql_query("SELECT *  FROM COOPERATIVAS  WHERE ESTATUS=1 and VAC=1 ORDER BY NOMBRE_COOPERATIVA");
+$query=mssql_query("SELECT *  FROM COOPERATIVAS  WHERE ESTATUS=1 and TRECE_AVO=1 ORDER BY NOMBRE_COOPERATIVA");
 while($ejecutar=mssql_fetch_array($query)){
  
 
