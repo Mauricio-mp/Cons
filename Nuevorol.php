@@ -15,7 +15,7 @@ include('Permisos.php');
  }
 
  //valida permisos
-    if (Verificar_Permisos( $val1,19)== '0'){ 
+    if (Verificar_Permisos( $varsession,19)== '0'){ 
        echo "<script>";
        echo "alert('Usted no Cuenta con el Permiso para Ingresar a esta opcion.');";
        echo "window.location = './Home.php';";
