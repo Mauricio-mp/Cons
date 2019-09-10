@@ -8,7 +8,7 @@ function Verificar_Permisos ($usuario, $idpermiso) {
                               $valor=$usuario;
                               $permiso=$idpermiso;
 
-                                    $consulta= mssql_query("SELECT Id_Rol FROM SEIngreso_Login WHERE CodEmpleado = '$valor'");
+                                    $consulta= mssql_query("SELECT Id_Rol FROM SEIngreso_Login WHERE Estado=1 and CodEmpleado = '$valor'");
                                     while($ejecutar = mssql_fetch_array($consulta)){
                                     $id=$ejecutar['Id_Rol'];
                                         
