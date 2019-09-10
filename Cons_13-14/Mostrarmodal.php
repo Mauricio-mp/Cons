@@ -253,7 +253,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
 $codigoGnerado=$bono.$contador."-".$fechaAInsertar;
 
 
-$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos) VALUES (5,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us',getdate(),'$idCoop','$contador','$concatenada' )");
+$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos,Estado_Entrega) VALUES (5,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us',getdate(),'$idCoop','$contador','$concatenada',1)");
                                     
                                     if ($insertar) {
             

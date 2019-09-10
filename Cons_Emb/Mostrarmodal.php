@@ -296,7 +296,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
 $codigoGnerado="CEM".$contador."-".$fechaAInsertar;
 
 
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (9,'$codigoGnerado','$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero','$contador')");
+   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO,Estado_Entrega) VALUES (9,'$codigoGnerado','$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero','$contador',1)");
 
 
  // $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
