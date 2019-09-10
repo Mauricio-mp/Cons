@@ -43,6 +43,7 @@ $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
 $fechaActual=fecha1($dia,$mes,$anio); 
+
 include('../crearConexionVam.php'); 
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numero'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
@@ -249,7 +250,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
   $contador=$totalFilas+1;
 }
 
-$codigoGnerado=$bono.$contador.$fechaAInsertar;
+$codigoGnerado=$bono.$contador."-".$fechaAInsertar;
 
 
 $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos) VALUES (5,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us',getdate(),'$idCoop','$contador','$concatenada' )");

@@ -4,6 +4,10 @@ ob_start();
 
 include('ConversionSueldo.php');
 include('ConversionFecha.php');
+
+include('../crearConexionGECOMP.php');
+$Fechaactual=date("m-Y");
+
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -52,6 +56,14 @@ $(document).ready(function(){
 
 <?php $numero=$_GET['x'];
 //echo $numero;
+$validarCons=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and convert(varchar(25),Fecha_Creacion , 105) like '%$Fechaactual%' and Tipo_Constancia='1'");
+  $optenerCantidad=mssql_num_rows($validarCons);
+
+
+   if ($optenerCantidad>=2) {
+     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ".$optenerCantidad." VECES ESTA CONSTANCIA EN ESTE MES');</script>";
+   }
+
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
@@ -228,7 +240,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
   $contador=$totalFilas+1;
 }
 
-$codigoGnerado="CSD".$contador.$fechaAInsertar;
+$codigoGnerado="CSD".$contador."-".$fechaAInsertar;
   
  
 

@@ -148,6 +148,17 @@ if ($Status=="INACTIVO") {
             if ($ver['Tipo_Constancia']=="11") {
               $ver['Tipo_Constancia']="Constancia de Cancelados";
             }
+
+           
+
+            $optenerNombre=mssql_query("SELECT NOMBRE_COOPERATIVA FROM COOPERATIVAS WHERE Id_Cooperativa=' ".$ver['Id_Constancia_Dirigida']." '");
+            if ($Datos=mssql_fetch_array($optenerNombre)) {
+              $ver['Id_Constancia_Dirigida']=$Datos['NOMBRE_COOPERATIVA'];
+            }
+
+
+
+            
             }
 
             ?>
@@ -157,6 +168,11 @@ if ($Status=="INACTIVO") {
                 <td>Nombre:</td>
                 <td style="width: 10%"></td>
                 <td><?php echo $ver['Nombre']." ".$ver['Apellido']; ?></td>
+              </tr>
+               <tr>
+                <td>Dirigido a: </td>
+                <td style="width: 10%"></td>
+                <td><?php echo $ver['Id_Constancia_Dirigida']; ?></td>
               </tr>
                <tr>
                 <td>Codigo del Empleado: </td>

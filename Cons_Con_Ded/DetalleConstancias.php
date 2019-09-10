@@ -53,6 +53,19 @@ $(document).ready(function(){
 <?php $numero=$_GET['x'];
 $opcion=$_GET['opcion'];
 
+ $Fechaactual=date("m-Y");
+ include('../crearConexionGECOMP.php');
+
+ $validarCons=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and convert(varchar(25),Fecha_Creacion , 105) like '%$Fechaactual%' and Tipo_Constancia='2'");
+  $optenerCantidad=mssql_num_rows($validarCons);
+
+
+   if ($optenerCantidad>=2) {
+     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ESTA CONSTANCIA ".$optenerCantidad." VECES EN ESTE MES');</script>";
+   }
+
+
+
 $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
@@ -508,7 +521,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
   $contador=$totalFilas+1;
 }
 
-$codigoGnerado="CCD".$contador.$fechaAInsertar;
+$codigoGnerado="CCD".$contador."-".$fechaAInsertar;
 
 
 

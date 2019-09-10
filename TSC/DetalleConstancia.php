@@ -64,6 +64,20 @@ $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
 $fechaActual=fecha1($dia,$mes,$anio); 
+
+ $Fechaactual=date("m-Y");
+ include('../crearConexionGECOMP.php');
+
+ $validarCons=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$CodigoEmpleado' and convert(varchar(25),Fecha_Creacion , 105) like '%$Fechaactual%' and Tipo_Constancia='10'");
+  $optenerCantidad=mssql_num_rows($validarCons);
+
+
+   if ($optenerCantidad>=2) {
+     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ESTA CONSTANCIA ".$optenerCantidad." VECES EN ESTE MES');</script>";
+   }
+
+
+
 include('../crearConexionVam.php'); 
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$CodigoEmpleado'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
@@ -327,7 +341,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
   $contador=$totalFilas+1;
 }
 
-$codigoGnerado="TSC".$contador.$fechaAInsertar;
+$codigoGnerado="TSC".$contador."-".$fechaAInsertar;
 
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
@@ -340,7 +354,7 @@ $codigoGnerado="TSC".$contador.$fechaAInsertar;
             $maximo = $fila['Id_constancia']; 
             }
 
-               $Codigo_cons = 'TSC'.$maximo.$CodigoEmpleado;
+               $Codigo_cons = 'TSC'.$maximo."-".$CodigoEmpleado;
 
 
 

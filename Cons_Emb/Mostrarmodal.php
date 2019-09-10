@@ -54,6 +54,21 @@ $dia=date("d");
 $mes=date("m");
 $anio=date("Y");
 $fechaActual=fecha1($dia,$mes,$anio); 
+
+
+ $Fechaactual=date("m-Y");
+ include('../crearConexionGECOMP.php');
+
+ $validarCons=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and convert(varchar(25),Fecha_Creacion , 105) like '%$Fechaactual%' and Tipo_Constancia='9'");
+  $optenerCantidad=mssql_num_rows($validarCons);
+
+
+   if ($optenerCantidad>=2) {
+     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ESTA CONSTANCIA ".$optenerCantidad." VECES EN ESTE MES');</script>";
+   }
+
+
+
 include('../crearConexionVam.php'); 
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numero'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
@@ -278,7 +293,7 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
   $contador=$totalFilas+1;
 }
 
-$codigoGnerado="CEM".$contador.$fechaAInsertar;
+$codigoGnerado="CEM".$contador."-".$fechaAInsertar;
 
 
    $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (9,'$codigoGnerado','$Nombre','$desempenio','$asignacion','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero','$contador')");

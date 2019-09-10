@@ -306,7 +306,7 @@ if ($comprara < $fechaAactual) {
 
                                 include('../cerrarConexionRRHH.php');
                       include('../crearConexionGECOMP.php');
-                      $mostrarDatos222=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado=1 AND cPeriodo='$fechaAcuerdo_anioactual2'");
+                      $mostrarDatos222=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado=1 AND Codigo_Bonos='$fechaAcuerdo_anioactual2'");
                         if ($row222=mssql_fetch_array($mostrarDatos222)) {
                           $message = $fechaAcuerdo_anioactual2." "."Ya solicitó esta constancia para este Periodo, En el Sistema de GECOMP";
                           $variable_validador= 1;
