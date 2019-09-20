@@ -103,7 +103,7 @@ while($ejecutar=mssql_fetch_array($query)){
 
   ?>
   
-  <option value="<?php echo $ejecutar['Id_Cooperativa'];?>"><?php echo $ejecutar['NOMBRE_COOPERATIVA']; ?></option>
+  <option value="<?php echo $ejecutar['Id_Cooperativa'];?>"><?php echo utf8_encode($ejecutar['NOMBRE_COOPERATIVA']); ?></option>
   <?php 
 }
    ?>

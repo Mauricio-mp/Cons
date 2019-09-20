@@ -52,7 +52,7 @@ include('ConversionFecha.php');
 
 	<!-- SideBar -->
 <section id="loadgif">
-  <?php include('../Menu.php'); ?>
+  <?php include('../Menu1.php'); ?>
 
 
 </section>
@@ -106,7 +106,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   if ($row['dhire']==$row['dcntrct']) {
   	$msg="ha laborado por acuerdo en esta institucion a partir del ".$fechaContrato.", ";
   }
-  if ($row['dhire']>$row['dcntrct']) {
+  if ($row['dhire']<$row['dcntrct']) {
   	$msg="ha laborado por contrato en esta institucion a partir de ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.",";
   }
 $var=convertir($opnetersueldo);

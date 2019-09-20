@@ -10,6 +10,7 @@ require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
+include('ConversionLetras.php');
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numeroEmpleado'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
     $DESC=$row['cfedid'];
@@ -32,26 +33,27 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
 
   if ($row['dhire']==$row['dcntrct']) {
-    $msg="HA LABORADO POR ACURDO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato.", ";
+    $msg="HA LABORADO POR ACURDO EN ESTA INSTITUCION DESDE EL ".$fechaContrato.", ";
   }
   if ($row['dhire']>$row['dcntrct']) {
-    $msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
+    $msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION DESDE EL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
   }
-$var=convertir($opnetersueldo);
+$var=convertir($opnetersueldo); //$opnetersueldo
 $formato=number_format($opnetersueldo,2);
 
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=trim($ejecutar['cDesc']);
-    $ConvertirDesen=strtolower($desempenio);
-    $desempenio=ucwords($ConvertirDesen);
+    $desempenio=titleCase($ejecutar['cDesc']);
+
+    // $ConvertirDesen=strtolower($desempenio);
+    // $desempenio=ucwords($ConvertirDesen);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=trim($asignado['cdeptname']);
-    $ConvertiAsignacion=strtolower($asignacion);
-    $asignacion=ucwords($ConvertiAsignacion);
+    $asignacion=titleCase($asignado['cdeptname']);
+    // $ConvertiAsignacion=strtolower($asignacion);
+    // $asignacion=ucwords($ConvertiAsignacion);
 }
 
 
@@ -62,6 +64,7 @@ $mes=date("m");
 $anio=date("Y");
 $DateNum= Optenerfecha($mes,$anio);
 $fechaActual=fecha1($dia,$mes,$anio); 
+
 
 $dia_actual=convertir2($dia); 
 $mes_actual= fecha2($mes);
@@ -129,23 +132,21 @@ function Footer()
 
 $pdf=new PDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','',13);
+$pdf->SetFont('arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
 
-
 // Stylesheet
-$pdf->SetStyle("p","Arial","",12,"0,0,0",0);
+$pdf->SetStyle("p","arial","",13,"0,0,0",0);
 $pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
 $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
 $pdf->SetStyle("vb","arial","B",12,"0,0,0");
-$pdf->SetStyle("Negritas","arial","B",14,"0,0,0");
+$pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 
-$pdf->Ln(5);
 
 // Text   ñ  í   ó   ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
@@ -155,15 +156,19 @@ $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 $nombresFirma="<vb>".utf8_encode($nombreFirma)."</vb>";
 
-$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a) ".$txt." ha laborado en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato."). Teniendo:";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt." ha laborado en esta institución desde el ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode(trim($asignacion)).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). con el siguiente detalle:";
 
+$pdf->Ln(3);
+$pdf->SetFont('Arial','B',14);
 $pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
-$pdf->Cell(10,20,'',0,1,'C'); 
+$pdf->Cell(10,10,'',0,1,'C'); 
+
  
 
-$texto2="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
+$texto2="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".trim($anio_actual).".";
 
-$pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
+
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto."</p>"),0,"J",0,0);
 $pdf->Ln(5);
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(175,5,'INGRESOS',0,1,'C'); 
@@ -196,15 +201,14 @@ while($verconsulta1=mssql_fetch_array($verconsulta)){
   }
 
 
-    $IngresoPermanente=$verconsulta1['DESCRIPCION'];
-  $ConvertirIngresoPer=strtolower($IngresoPermanente);
-  $IngresoPermanente=ucwords($ConvertirIngresoPer);
+    $IngresoPermanente=titleCase($verconsulta1['DESCRIPCION']);
+  
 
 
   
   $cont=$cont+$monto;
   $pdf->Ln(3);
-$pdf->Cell(30,5,$IngresoPermanente,0,1,'L'); 
+$pdf->Cell(30,5,utf8_encode(trim($IngresoPermanente)),0,1,'L'); 
 $pdf->Cell(100,-5,$monto1,0,1,'R'); 
 $pdf->Ln(8);
 
@@ -223,16 +227,12 @@ $pdf->SetFont('Arial','',12);
 include('../crearConexionGECOMP.php');
 $ConsultaGECOMP=mssql_query("SELECT * FROM  DEDUCCION_INGRESO WHERE CODIGO_INGRESO='$CodigoDatoVam' and TEMPORAL=1");
 while($verconsulta=mssql_fetch_array($ConsultaGECOMP)){
-  $IngresoTemporal=$verconsulta['DESCRIPCION'];
-
-  $ConvertirIngresoTem=strtolower($IngresoTemporal);
-  $IngresoTemporal=ucwords($ConvertirIngresoTem);
-
+  $IngresoTemporal=titleCase($verconsulta['DESCRIPCION']);
 
   $monto2=$optenerDatosTempral['nothtax'];
   $cont=$cont+$monto2;
   $pdf->Ln(3);
-$pdf->Cell(30,5,$IngresoTemporal,0,1,'L'); 
+$pdf->Cell(30,5,utf8_encode(trim($IngresoTemporal)) ,0,1,'L'); 
 $pdf->Cell(100,-5,number_format($monto2,2),0,1,'R'); 
 $pdf->Ln(8);
 
@@ -261,7 +261,7 @@ while($verDatos=mssql_fetch_array($verdeducciones)){
   
 
   $ConvertirDeduccionPer=strtolower($verDatos['cref']);
-  $verDatos['cref']=ucwords($ConvertirDeduccionPer);
+  $verDatos['cref']=titleCase($ConvertirDeduccionPer);
 
 
 $positivo1=$verDatos['nothntax']*-1;
@@ -306,10 +306,9 @@ $pdf->Ln(8);
 include('../crearConexionGECOMP.php');
 $VerConsultaPermanentes=mssql_query("SELECT * FROM  DEDUCCION_DEDUCCIONES WHERE CODIGO_DEDUCCION='$CodigoVam' and PERMANENTE=1");
 while($verconsulta3=mssql_fetch_array($VerConsultaPermanentes)){
-  $DeduccionesPermanentes=$verconsulta3['DESCRIPCION'];
+  $DeduccionesPermanentes=titleCase($verconsulta3['DESCRIPCION']);
  
-      $ConvertirDeduccionPer2=strtolower($DeduccionesPermanentes);
-      $DeduccionesPermanentes=ucwords($ConvertirDeduccionPer2);
+
 
   $monto=$OptenerDatosPer['ndedamt'];
   
@@ -389,7 +388,7 @@ $pdf->SetFont('Arial','',12);
 
 
 $pdf->Ln(15);
-$pdf->WriteTag(0,7,utf8_decode($texto2),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto2."</p>"),0,"J",0,0);
 
 
 
@@ -398,11 +397,10 @@ $pdf->Cell(10,20,'',0,1,'C');
 //$texto1="PARA LOS FINES QUE AL INTERESADO LE CONVENGA SE LE EXTIENDE LA PRESENTE EN LA CIUDAD DE TEGUCIGALPA, MUNICIPIO DEL DISTRITO CENTRAL A ".$fechaActual."";
 $pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
 
-$pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
-//$pdf->Cell(172,5,$nombreFirma,0,1,'C');
+ 
+$pdf->Cell(0,0,'',1,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,7,utf8_decode($nombresFirma),0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,$puestoFirma,0,1,'C');

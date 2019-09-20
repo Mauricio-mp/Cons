@@ -5,47 +5,47 @@ switch ($numuero)
 { 
 case 9: 
 { 
-$numu = "nueve"; 
+$numu = "nueve "; 
 break; 
 } 
 case 8: 
 { 
-$numu = "ocho"; 
+$numu = "ocho "; 
 break; 
 } 
 case 7: 
 { 
-$numu = "siete"; 
+$numu = "siete "; 
 break; 
 }	
 case 6: 
 { 
-$numu = "seis"; 
+$numu = "seis "; 
 break; 
 }	
 case 5: 
 { 
-$numu = "cinco"; 
+$numu = "cinco "; 
 break; 
 }	
 case 4: 
 { 
-$numu = "cuatro"; 
+$numu = "cuatro "; 
 break; 
 }	
 case 3: 
 { 
-$numu = "tres"; 
+$numu = "tres "; 
 break; 
 }	
 case 2: 
 { 
-$numu = "dos"; 
+$numu = "dos "; 
 break; 
 }	
 case 1: 
 { 
-$numu = "uno"; 
+$numu = "uno "; 
 break; 
 }	
 case 0: 

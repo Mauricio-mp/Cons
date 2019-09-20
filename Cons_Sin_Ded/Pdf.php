@@ -8,6 +8,7 @@ $conca=$_GET['ido'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
+include('ConversionLetras.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numeroEmpleado'");
@@ -41,10 +42,10 @@ $fechacon=date("Y-m-d", strtotime($row['dhire']));
 
 
 if ($fechacon == $fechaac) {
-$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaContrato)."";
+$msg="ha laborado por acuerdo en esta institución desde el ".strtolower($fechaContrato)."";
    }
  if ($fechacon<$fechaac) {
-    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+    $msg="ha laborado por contrato en esta institución desde el ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
 
 
@@ -55,15 +56,13 @@ $formato=number_format($opnetersueldo,2);
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=trim($ejecutar['cDesc']);
-    $desemp=strtolower($desempenio);
-    $desempenio=ucwords($desemp);
+    $desempenio=titleCase(utf8_encode($ejecutar['cDesc']));
+    
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=trim($asignado['cdeptname']);
-     $asignacion_minuscula=strtolower($asignacion);
-    $asignacion=ucwords($asignacion_minuscula);
+    $asignacion=titleCase(utf8_encode($asignado['cdeptname']));
+     
 }
 
 
@@ -165,27 +164,28 @@ $NombreFirmas="<vb>".$nombreFirma."</vb>";
 
 
 
-$texto = "<p>El (la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a) ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".strtolower($var).""." (L. ".$formato.").</p>";
+$texto = "<p>El (la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".$asignacion.", devengando un sueldo mensual de: ".ucfirst($var).""." (L. ".$formato.").</p>";
 //$texto = "El(La) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como \t".trim($desempenio)."\t"." asignado a ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato.").";
 
 //$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
 
 //$pdf->Cell(10,10,'',0,1,'C'); 
+$pdf->SetFont('Arial','B',14);
 $pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
 $pdf->Cell(10,20,'',0,1,'C'); 
-$pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto."</p>"),0,"J",0,0);
 
 
 
 
-$pdf->Cell(10,10,'',0,1,'C'); 
+$pdf->Cell(0,0,'',0,1,'C'); 
 $texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual.".";
-$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto1."</p>"),0,"J",0,0);
 
 $pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-$pdf->Cell(172,5,'',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
+$pdf->Cell(10,18,'',0,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,7,utf8_decode($NombreFirmas),0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,$puestoFirma,0,1,'C');

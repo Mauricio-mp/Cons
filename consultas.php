@@ -15,7 +15,7 @@ $password=$_POST['UserPass'];
 
 
 
-	$result= mssql_query("SELECT * FROM SEIngreso_Login WHERE CodEmpleado='$codigo' and Contrasenia='$password'");
+	$result= mssql_query("SELECT * FROM SEIngreso_Login WHERE CodEmpleado='$codigo' and Estado=1 and Contrasenia='$password'");
     $row = mssql_fetch_array($result);
     if ($row) {
     

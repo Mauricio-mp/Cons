@@ -11,6 +11,7 @@ require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
+include('ConversionLetras.php');
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numeroEmpleado'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
     $DESC=$row['cfedid'];
@@ -43,31 +44,28 @@ $fechacon=date("Y-m-d", strtotime($row['dhire']));
 
 
 if ($fechacon == $fechaac) {
-$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaAcuerdo)."";
+$msg="ha laborado por acuerdo en esta institución desde el ".strtolower($fechaAcuerdo)."";
    }
  if ($fechacon<$fechaac) {
-    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+    $msg="ha laborado por contrato en esta institución desde el ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
 
 
 
-$var=convertir($opnetersueldo);
+$var=strtolower(convertir($opnetersueldo));
 $formato=number_format($opnetersueldo,2);
 
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=trim($ejecutar['cDesc']);
+    $desempenio=titleCase(utf8_encode($ejecutar['cDesc']));
 
-    $ConversionMinusculas=strtolower($desempenio);
-    $desempenio=ucwords($ConversionMinusculas);
+
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=trim($asignado['cdeptname']);
+    $asignacion=titleCase(utf8_encode($asignado['cdeptname']));
 
-    $min=strtolower($asignacion);
-    $asignacion=ucwords($min);
 }
 
 
@@ -188,7 +186,7 @@ $txt2="
 <p>Presente.</p>
 ";
 
-$txt3="<p>El(la) suscrito(a) ".$puestoFirma.", hace constar que el(la) Señor(a) <vb>".strtoupper($nombreCompleto)."</vb>, con número de identidad ".$identidad.", ".$msg." en el cargo de ".ucwords(utf8_encode(trim($desempenio))).", asignada a ".ucwords(utf8_encode($asignacion)).", devengando un salario mensual de ".strtolower($var)." (L. ".$formato.").</p>";
+$txt3="<p>El(la) suscrito(a) ".$puestoFirma.", hace constar que el(la) Señor(a): <vb>".strtoupper($nombreCompleto)."</vb>, con número de identidad ".$identidad.", ".$msg." en el cargo de: ".trim($desempenio).", asignado a: ".trim($asignacion).", devengando un salario mensual de: ".ucfirst($var)." (L. ".$formato.").</p>";
 
 
 
@@ -215,18 +213,18 @@ $pdf->Cell(0,0,utf8_decode('Señores'),0,0,'L');
 $pdf->Ln(4);
 $pdf->WriteTag(0,2,utf8_decode($txtembajada),0,"L",0,0);
 $pdf->Ln(4);
-$pdf->WriteTag(0,2,utf8_decode($txt2),0,"L",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$txt2."</p>"),0,"L",0,0);
 $pdf->Ln(14);
 $pdf->WriteTag(0,7,utf8_decode($txt3),0,"J",0,0);
 
 $pdf->Ln(8);
-$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto1."</p>"),0,"J",0,0);
 
 
 $pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-//$pdf->Cell(172,5,'_______________________________',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
+$pdf->Cell(10,10,'',0,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
 $pdf->Cell(20,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);

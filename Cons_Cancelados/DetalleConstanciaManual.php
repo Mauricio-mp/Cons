@@ -5,6 +5,8 @@ include('../crearConexionVam.php');
  $varsession= $_SESSION['username'];
  $usuarioCreacion=$_SESSION['logeo'];
  $codigo=$_GET['x'];
+ $optenerfechaManual=$_GET['fecha'];
+ 
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -169,7 +171,7 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
     $fechaIncioContrato=$row['dhire'];
-    $fechaFinalAcuerdo=$row['dterminate'];
+    $fechaFinalAcuerdo=$optenerfechaManual;
     $terminado=$row['ctaxstate'];
     // $date_future = strtotime('-1 day', strtotime($fechaFinalContrato));
     // $fechaFinalContrato = date('d-m-Y', $date_future);
@@ -417,7 +419,7 @@ $codigoGnerado="CAN".$contador."-".$fechaAInsertar;
 
 
  if ($insertar==true) {
- 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$codigoGnerado"); 
+ 	 header("Location: PdfManual.php?CodigoEmpleado=$codigo&firma=$firma&ido=$codigoGnerado&fecha=$optenerfechaManual"); 
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }

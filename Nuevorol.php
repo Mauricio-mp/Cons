@@ -3,8 +3,18 @@
 ob_start();
 include('crearConexionGECOMP.php');
 include('Permisos.php');
+ 
+ $val1= $_SESSION['username'];
+
+ echo Verificar_Permisos( $val1,19);
+    if (Verificar_Permisos( $val1,19)== '0'){ 
+       echo "<script>";
+       echo "alert('Usted no Cuenta con el Permiso para Ingresar a esta opcion.');";
+       echo "window.location = './Home.php';";
+       echo "</script>";
+    } 
  $varsession= $_SESSION['username'];
- $val1= $_SESSION['CodEmpleado'];
+
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -14,13 +24,8 @@ include('Permisos.php');
   die();
  }
 
- //valida permisos
-    if (Verificar_Permisos( $val1,19)== '0'){ 
-       echo "<script>";
-       echo "alert('Usted no Cuenta con el Permiso para Ingresar a esta opcion.');";
-       echo "window.location = './Home.php';";
-       echo "</script>";
-    } 
+  //valida permisos
+
 
 
  ?>

@@ -7,6 +7,7 @@ require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
 include('../crearConexionVam.php'); 
+include('ConversionLetras.php');
 $mostrarDatos=mssql_query("SELECT * FROM prempy  WHERE cempno='$numeroEmpleado'");
 if ($row=mssql_fetch_array($mostrarDatos)) {
     $DESC=$row['cfedid'];
@@ -42,10 +43,10 @@ $fechacon=date("Y-m-d", strtotime($row['dhire']));
 
 
 if ($fechacon == $fechaac) {
-$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaContrato)."";
+$msg="ha laborado por acuerdo en esta institución desde el ".strtolower($fechaContrato)."";
    }
  if ($fechacon<$fechaac) {
-    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+    $msg="ha laborado por contrato en esta institución desde el ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
 
 
@@ -55,18 +56,14 @@ $msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fe
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=trim($ejecutar['cDesc']);
+    $desempenio=titleCase(utf8_encode($ejecutar['cDesc']));
 
-    $pasarAminuscula=strtolower($desempenio);
-
-    $desempenio=ucwords($pasarAminuscula);
+   
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=trim($asignado['cdeptname']);
+    $asignacion=titleCase(utf8_encode($asignado['cdeptname']));
 
-    $minuscula=strtolower($asignacion);
-    $asignacion=ucwords($minuscula);
 }
 
 
@@ -115,9 +112,6 @@ function Header()
     $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
-    // Line break
-    $this->Ln(20);
 }
 
 // Page footer
@@ -163,15 +157,17 @@ $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 $pdf->Ln(5);
-
+$pdf->SetFont('Arial','B',14);
+$pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
+$pdf->Cell(10,20,'',0,1,'C'); 
 
 // Text
 $txt=" 
 
-<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode(strtoupper($nombreCompleto))."</vb>, ".strtolower($msg).", actualmente se desempeña como ".ucwords(utf8_encode(strtolower(trim($desempenio))))." "."asignado a ".ucwords(utf8_encode(strtolower($asignacion))).".</p>";
+<p>El (la) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que <vb>".utf8_encode(strtoupper($nombreCompleto))."</vb>, ".strtolower($msg).", actualmente se desempeña como: ".trim($desempenio)." "."asignado a: ".trim($asignacion).".</p>";
 //$msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION APARTIR DE ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
 
-$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
+$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".trim(strtolower($fechaActual)).".
 </p>";
 
 
@@ -181,9 +177,9 @@ $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 
 $pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-//$pdf->Cell(172,5,'_______________________________',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
+$pdf->Cell(10,18,'',0,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
 $pdf->Cell(20,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);

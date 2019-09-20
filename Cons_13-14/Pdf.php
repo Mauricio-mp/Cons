@@ -6,10 +6,10 @@ $mesmostrar=$_GET['z'];
 $conca=$_GET['ido'];
 
         if ($mesmostrar == "JUNIO") {
-            $leyenda="decimo cuarto mes ".strtolower($fechaAcuerdo)."";
+            $leyenda="decimo cuarto mes".strtolower($fechaAcuerdo)."";
                 }
                     if ($mesmostrar == "DICIEMBRE") {
-            $leyenda="decimo tercer mes ".strtolower($fechaAcuerdo)."";
+            $leyenda="decimo tercer mes".strtolower($fechaAcuerdo)."";
                 }
 
 
@@ -17,6 +17,7 @@ $conca=$_GET['ido'];
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
 require('ConversionFecha.php');
+include('ConversionLetras.php');
 
 
 include('../crearConexionVam.php'); 
@@ -57,10 +58,10 @@ $fechacon=date("Y-m-d", strtotime($row['dhire']));
 
 
 if ($fechacon == $fechaac) {
-$msg="ha laborado por acuerdo en esta institución a partir del ".strtolower($fechaAcuerdo)."";
+$msg="ha laborado por acuerdo en esta institución  desde el ".strtolower($fechaAcuerdo)."";
    }
  if ($fechacon<$fechaac) {
-    $msg="ha laborado por contrato en esta institución a partir de ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
+    $msg="ha laborado por contrato en esta institución  desde el ".strtolower($fechaContrato)." y por acuerdo desde el ".strtolower($fechaAcuerdo)."";
   }
 
 
@@ -116,11 +117,11 @@ $formato=number_format($opnetersueldo,2);
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=trim($ejecutar['cDesc']);
+    $desempenio=titleCase(utf8_encode( $ejecutar['cDesc']));
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=trim($asignado['cdeptname']);
+    $asignacion=titleCase(utf8_encode($asignado['cdeptname']));
 }
 
 include('../cerraConexionVam.php');
@@ -157,9 +158,7 @@ function Header()
     $this->Cell(72);
     // Title
 
-    $this->Cell(45,0,'CONSTANCIA',0,0,'C');
-    // Line break
-    $this->Ln(20);
+   
 }
 
 // Page footer
@@ -195,7 +194,7 @@ $pdf->SetRightMargin(21); #Establecemos los márgenes Derecha:
 
 
 // Stylesheet
-$pdf->SetStyle("p","Arial","",12,"0,0,0",0);
+$pdf->SetStyle("p","Arial","",13,"0,0,0",0);
 $pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
 $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
@@ -205,23 +204,26 @@ $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
 $pdf->Ln(3);
-
+$pdf->SetFont('Arial','B',14);
+$pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
+$pdf->Cell(10,10,'',0,1,'C'); 
 // Text
 $txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
 
-$texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como ".ucwords(strtolower(utf8_encode($desempenio))).""." asignado a ".ucwords(strtolower(utf8_encode($asignacion))).", devengando un sueldo mensual de ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
+
+$texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";
 
 
 
-$pdf->WriteTag(0,7,utf8_decode($texto),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$texto."</p>"),0,"J",0,0);
 
 
-$pdf->Cell(10,10,'',0,1,'C'); 
+$pdf->Cell(0,0,'',0,1,'C'); 
 
-$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".strtolower($fechaActual).".
+$texto1=" <p>La presente se extiende a petición de parte interesada, en la Ciudad de Tegucigalpa, Municipio del Distrito Central, ".trim(strtolower($fechaActual))  .".
 </p>";
 
-$pdf->WriteTag(0,7,utf8_decode($mensaje_embargos),0,"J",0,0);
+$pdf->WriteTag(0,7,utf8_decode("<p>".$mensaje_embargos."</p>"),0,"J",0,0);
 $pdf->Cell(10,10,'',0,1,'C'); 
 $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
@@ -229,9 +231,9 @@ $pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 
 $pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-//$pdf->Cell(172,5,'_______________________________',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
+$pdf->Cell(10,18,'',0,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".strtoupper(utf8_encode($nombreFirma))."</negrta>",0,'C',0,0);
 $pdf->Cell(20,3,'',0,1,'C');
 $pdf->WriteTag(0,2,"<negrta>".$puestoFirma."</negrta>",0,'C',0,0);

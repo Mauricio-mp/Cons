@@ -7,7 +7,7 @@ $validar=0;
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
  $FechaFinalContrato=$_GET['f_F_C'];
-
+ $optenerfechaManual=$_GET['fecha'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
@@ -36,7 +36,7 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
     $apellido=trim($row['clname']);
     $identidad=$row['cfedid'];
     $fechaIncioContrato=$row['dhire'];
-    $fechaFinalAcuerdo=$row['dterminate'];
+    $fechaFinalAcuerdo=$optenerfechaManual;
     $terminado=$row['ctaxstate'];
     // $date_future = strtotime('-1 day', strtotime($fechaFinalContrato));
     // $fechaFinalContrato = date('d-m-Y', $date_future);
@@ -68,7 +68,7 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
 
   
     if (strtotime($fechaIncioContrato) < strtotime($fechaInicioAcuerdo)) {
-      $mensaje1="por la modalidad de Contrato en el periodo comprendido desde el".$FechaIncioContrato." hasta el ".$FechaFinalContrato." y por Acuerdo desde el".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
+      $mensaje1="por la modalidad de Contrato en el periodo comprendido desde el".$FechaIncioContrato." hasta el ".$FechaFinalContrato." y por Acuerdo desde el ".$FechaincioAcuerdo." hasta el ".$FechaFinalAcuerdo;
     }
      if (strtotime($fechaIncioContrato) > strtotime($fechaInicioAcuerdo)) {
 

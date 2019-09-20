@@ -57,7 +57,7 @@ $(document).ready(function(){
 	<!-- SideBar -->
 <section id="loadgif">
  
-  <?php include '../Menu.php'; ?>
+  <?php include '../Menu1.php'; ?>
 </section>
 
 <?php $numero=$_GET['x'];
@@ -105,7 +105,7 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
   if ($row['dhire']==$row['dcntrct']) {
   	$msg="ha laborado por acuerdo en esta institucion a partir del ".$fechaContrato.", ";
   }
-  if ($row['dhire']>$row['dcntrct']) {
+  if ($row['dhire']<$row['dcntrct']) {
   	$msg="ha laborado por contrato en esta institucion a partir de ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.",";
   }
 $var=convertir($opnetersueldo);
@@ -143,7 +143,7 @@ include('../cerrarConexionVam.php');
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
 </div>
-<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreCompleto);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
+<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreCompleto);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo utf8_encode($ejecutar['cDesc']); ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
 
 <p class="parrafo">para los fines que al interesado le convenga, se le extiende la presente en la ciudad de Tegucigalpa, municipio del ditrito central a <?php echo $fechaActual ?>
 </p>

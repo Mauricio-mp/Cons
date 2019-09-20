@@ -66,7 +66,7 @@ $(document).ready(function(){
   <!-- SideBar -->
 <section id="loadgif">
 
-   <?php include '../Menu.php'; ?>
+   <?php include '../Menu1.php'; ?>
 
 
 

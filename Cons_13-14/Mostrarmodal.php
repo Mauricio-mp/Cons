@@ -24,7 +24,7 @@ include('ConversionFecha2.php');
 
 	<!-- SideBar -->
 <section id="loadgif">
- <?php include('../Menu.php'); ?>
+ <?php include('../Menu1.php'); ?>
 
 
 </section>

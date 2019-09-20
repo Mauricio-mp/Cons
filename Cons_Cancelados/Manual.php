@@ -4,6 +4,7 @@ ob_start();
 
 
  $varsession= $_SESSION['username'];
+ $codigo=$_GET['x'];
  if($varsession== null || $varsession= ''){
    echo "<script>";
     echo "alert('inicie session');";
@@ -73,108 +74,55 @@ $(document).ready(function(){
 
 </section>
 <body class="Fondo">
-  <style type="text/css">
-     .cuadrado{
-     width: 250px; 
-     height: 100px; 
-     border: 3px solid #555;
-     background: #FFFFFFFF;
-}
-
- .rojo{
-     width: 20px; 
-     height: 20px; 
-     border: 1px solid #555;
-     background: rgba(243, 105, 61,0.8);
-     margin-left: 20px;
-     margin-top: 10px;
-}
-
-.verde{
-     width: 20px; 
-     height: 20px; 
-     border: 1px solid #555;
-     background: rgba(51, 255, 144,0.8);
-     margin-left: 20px;
-     margin-top: 10px;
-}
-.blanco{
-     width: 20px; 
-     height: 20px; 
-     border: 1px solid #555;
-     background: #FFF;
-     margin-left: 20px;
-     margin-top: 10px;
-}
-
-.linear{
-  margin-top:1px;
-  margin-left:90px;
-}
- </style>
+ 
 
  <div class="container" style="background-color: #F9FAFA; border: 1px solid #555;">
 
   <h1 style="text-align: center">Constancia de Cancelados</h1>
    
  </div>
-     <div class="cuadrado">
-        <div class="blanco">
-          <p class="linear">ACTIVO</p>
-        </div>
+    
 
-         <div class="verde">
-          <p class="linear">INACTIVO</p>
-        </div>
+<section class="container" style="background-color: #F9FAFA; border: 1px solid #555;">
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">AVISO!</h4>
+  <p>EL empleado seleccionado se encuentra en un estado inactivo, usted debera tener en cuenta que dicho empleado puede estar suspendido por gose de licencias, vacaciones o que ha sido cancelado pero no esta concluido como "Cancelado" .</p>
+  <hr>
+  <p class="mb-0">Para proceder a generar esta constancia usted debe estar consiente que dicho empleado aun no esta cancelado.</p>
+</div
+	 <div style="text-align:center">             
+     <form method="POST" >
+      
+      <div  class="form-group">
+        <label>Ingrese fecha de Cancelacion</label>
+        <input type="date" class="form-control" id="Nombre" placeholder="Ejemplo: FGR-000-0000">
 
-         <div class="rojo">
-          <p class="linear">SUSPENDIDO</p>
-        </div>
-       
       </div>
+      <div class="text-center">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="validar();"style="padding-left:80px;padding-right:80px  ">Aceptar</span> 
+      
+</button> 
 
-<section style="background-color: #F9FAFA;">
-	 <div class="table-responsive">  
-                         <table id="employee_data" class="table table-striped table-bordered">  
-                          <thead>  
-                               <tr>  
-                                    <td style="text-align:center;"><b>CODIGO DE EMPLEADO</b></td>  
-                                    <td style="text-align:center;"><b>NOMBRE </b></td>  
-                                    <td style="text-align:center;"><b>APELLIDO</b></td>  
-                                    <td style="text-align:center;"><b>IDENTIDAD</b></td>
-                                    <td style="text-align:center;"><b>Accion</b></td>  
-
-                               </tr>  
-                          </thead>  
-                         <?php
-         $consultar=mssql_query("SELECT * FROM prempy ");
-		while($mostrar=mssql_fetch_array($consultar)){
-      if ($mostrar['cstatus']=="T") {
-        $Color="rgba(243, 105, 61,0.8)";
-      }
-      if ($mostrar['cstatus']=="I") {
-        $Color="rgba(51, 255, 144,0.8)";
-
-      }
-       if ($mostrar['cstatus']=="A") {
-        $Color="";
-        
-      }
-			echo "
-                  <tr>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cempno'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfname'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['clname'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\">".utf8_encode($mostrar['cfedid'])."</td>
-                    <td style=\"text-align: center; background-color:$Color\" align=\"center\" ><a  class=\"btn btn-primary mr-2\" href='DetalleConstancia.php?x={$mostrar[0]}&Status={$mostrar[6]}'>Ver</a></td>
-                    
-                  </tr>";
-                   
-                }              
-                           ?>
+      
+</div>
+<h2 style="color:red" id="cont1"></h2>
+   
+    </form>
                        
-                            </table>  
-                </div>  
+    </div>  
+    <script>
+        function validar() {
+            var fecha = document.getElementById('Nombre').value;
+            if (fecha==''){
+                document.getElementById('cont1').innerHTML='debe ingresar fecha';
+            }else{
+                window.location = 'DetalleConstanciaManual.php?x=<?php echo $codigo; ?>&fecha='+fecha;
+            }
+           
+}
+    
+    
+    </script>
 </section>
 
 	<!-- Content page-->

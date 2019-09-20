@@ -337,7 +337,7 @@ $cen=milmillon($cents);
 if ($cen=='') {
 	return $numf;
 }else{
-	return $numf." con ".$cen." centavos";
+	return $numf." lempiras con ".$cen." centavos";
 }
 
 } 

@@ -113,52 +113,52 @@ else if ($numdero >= 10 && $numdero <= 19)
 switch ($numdero){ 
 case 10: 
 { 
-$numd = "diez "; 
+$numd = "diez"; 
 break; 
 } 
 case 11: 
 {	
-$numd = "once "; 
+$numd = "once"; 
 break; 
 } 
 case 12: 
 { 
-$numd = "doce "; 
+$numd = "doce"; 
 break; 
 } 
 case 13: 
 { 
-$numd = "trece "; 
+$numd = "trece"; 
 break; 
 } 
 case 14: 
 { 
-$numd = "Catorce "; 
+$numd = "Catorce"; 
 break; 
 } 
 case 15: 
 { 
-$numd = "quince "; 
+$numd = "quince"; 
 break; 
 } 
 case 16: 
 { 
-$numd = "dieciseis "; 
+$numd = "dieciseis"; 
 break; 
 } 
 case 17: 
 { 
-$numd = "diecisiete "; 
+$numd = "diecisiete"; 
 break; 
 } 
 case 18: 
 { 
-$numd = "dieciocho "; 
+$numd = "dieciocho"; 
 break; 
 } 
 case 19: 
 { 
-$numd = "diecinueve "; 
+$numd = "diecinueve"; 
 break; 
 } 
 }	

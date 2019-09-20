@@ -82,7 +82,7 @@ break;
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "Marzo"; 
 break; 
 } 
 case 4: 
@@ -154,7 +154,7 @@ break;
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "Marzo"; 
 break; 
 } 
 case 4: 
@@ -223,7 +223,7 @@ break;
 } 
 case 3: 
 { 
-$numd = "Marzo "; 
+$numd = "Marzo"; 
 break; 
 } 
 case 4: 

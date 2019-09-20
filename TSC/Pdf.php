@@ -137,8 +137,8 @@ function Header()
     $this->Image('../img/9.png',70,6,75);
     // Arial bold 15
      $this->SetFont('Times','B',14);
-    $this->SetTextColor(194,8,8);
-    $this->Cell(45,0,'Prueba',0,0,'C');
+    //$this->SetTextColor(194,8,8);
+    //$this->Cell(45,0,'Prueba',0,0,'C');
     // Move to the right
      $this->SetFont('Times','B',14);
      $this->SetTextColor(0,0,0);
@@ -181,8 +181,7 @@ $pdf->AddPage();
 $pdf->SetFont('arial','',13);
 $pdf->SetLeftMargin(18); #Establecemos los márgenes izquierda: 
 $pdf->SetRightMargin(18); #Establecemos los márgenes Derecha: 
-$pdf->Cell(170,10,'',0,1,'C'); 
-$pdf->Cell(170,0,'CONSTANCIA',0,0,'C');
+
 
 // Stylesheet
 $pdf->SetStyle("p","arial","",12,"0,0,0",0);
@@ -195,7 +194,10 @@ $pdf->SetStyle("vb","arial","B",0,"0,0,0");
 
 
 $pdf->Ln(5);
-
+$pdf->Ln(5);
+$pdf->SetFont('Arial','B',14);
+$pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
+$pdf->Cell(10,20,'',0,1,'C'); 
 // Text   ñ  í   ó   ú
 
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
@@ -203,7 +205,7 @@ $nombreEmp=strtolower($txt);
 $txt="<vb>".ucwords($nombreEmp)."</vb>";
 $NombreFirmas="<vb>".utf8_encode($nombreFirma)."</vb>";
 
-$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con numero de identidad ".$Identidad.", labora por contrato en esta institución a partir del ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", segun acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por costo de vida, siendo efectivo a partir del ".$Fecha_Efectivo.", con un sueldo mensual de: \t".ucfirst($var)."\t"." (L.  ".$formato.").";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con número de identidad ".$Identidad.", labora por contrato en esta institución desde el ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", según acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por costo de vida, siendo efectivo a partir del ".$Fecha_Efectivo.", con un sueldo mensual de: \t".ucfirst($var)."\t"." (L.  ".$formato.").";
 
 
 
@@ -249,13 +251,13 @@ $pdf->Cell(150,0,$formato_Fondo_Combus,0,1,'R');
 
 
 $pdf->Cell(10,20,'',0,1,'C'); 
-$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ".$anio_actual;
-$pdf->WriteTag(0,5,utf8_decode($texto1),0,"J",0,0);
+$texto1="La presente se extiende a petición de parte interasada, en la ciudad de Tegucigalpa, Municipio Central, a los ".$dia_actual." días del mes de ".$mes_actual." del ". trim($anio_actual).".";
+$pdf->WriteTag(0,7,utf8_decode($texto1),0,"J",0,0);
 
 $pdf->line();  
-$pdf->Cell(10,50,'',0,1,'C'); 
-//$pdf->Cell(172,5,'_________________________________________',0,1,'C');
-$pdf->Cell(10,3,'',0,1,'C');
+$pdf->Cell(10,30,'',0,1,'C'); 
+//$pdf->Cell(172,5,'',0,1,'C');
+//$pdf->Cell(10,3,'',0,1,'C');
 $pdf->WriteTag(0,7,$NombreFirmas,0,"C",0,0);
 $pdf->Cell(10,0,'',0,1,'C');
 $pdf->Cell(172,5,utf8_encode($puestoFirma),0,1,'C');
