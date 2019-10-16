@@ -116,13 +116,13 @@ while($ejecutar=mssql_fetch_array($query)){
    <tr> 
 <td>    
      Decimo Tercer mes 
-       <input type="radio" name="bono" value="13avo"> 
+       <input type="radio" name="bonox" value="trece"> 
        </td> 
      </tr> 
      <tr> 
 <td>    
       Decimo Cuarto mes    
-       <input type="radio" name="bono" value="14avo">
+       <input type="radio" name="bonox" value="catorce">
        </td> 
      </tr>
 </table> 
@@ -180,8 +180,8 @@ echo "<script type='text/javascript'>alert('$message');</script>";
  }else{
 
 $mesbono=0;
-  $valor = $_POST['bono']; 
-if($valor=="13avo")
+  $valor = $_POST['bonox']; 
+if($valor=="trece")
 {
   $bono = "13AVO"; 
 $mesbono=12;
@@ -190,7 +190,7 @@ $mesbono=12;
  $fechabono=gmdate("Y-m-d", strtotime('01'.'-12-'.$aniox));
    //echo  $fechabono; 
 }
-if($valor=="14avo")
+if($valor=="catorce")
 {
    $bono = "14AVO"; 
 $mesbono=06;
@@ -237,9 +237,9 @@ $message =  "Debe seleccionar el tipo de bono.";
                                     $intervalMeses=$interval->format("%m");
                                       # obtenemos la diferencia en años y la multiplicamos por 12 para tener los meses
                                       $intervalAnos = $interval->format("%y")*12;
-                                       $valor =$intervalMeses;
-                                       if ($valor > $meses) {
-                                          $message =  "Meses que faltan"." ".$valor."    "."Meses de Cooperativa"." ".$meses." "."Aun no puede solicitar este bono para este periodo, ";
+                                       $valorx =$intervalMeses;
+                                       if ($valorx > $meses) {
+                                          $message =  "Meses que faltan"." ".$valorx."    "."Meses de Cooperativa"." ".$meses." "."Aun no puede solicitar este bono para este periodo, ";
                                           $variable_validador= 1;
                                          }
 
@@ -264,6 +264,29 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 
 $fechaAactual=  date("Y-m-d");
  $fechaAcuerdo_anioactual= $dia."-".$mes."-".$anio1;
+
+
+if($valor=="trece")
+{
+  $bono = "13AVO"; 
+    $bono1 = "TRE"; 
+  $aniox = gmdate("Y");                       
+ $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
+  $fechaAcuerdo_anioactual21 =$bono1.$aniox.$identidad;
+}
+
+
+
+
+if($valor=="catorce")
+{
+   $bono = "14AVO"; 
+    $bono1 = "CAT"; 
+$mesbono=06;
+
+  $aniox = gmdate("Y"); 
+                           
+
    
    //$DateNum= Optenerfecha($mes,$anio);
 $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
@@ -279,6 +302,7 @@ if ($comprara < $fechaAactual) {
                            $mesenviar = date("m", strtotime($concatenacion));
                           $anioenviar = date("Y", strtotime($fechaAcuerdo_anioactual2));
                          $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
+                          $fechaAcuerdo_anioactual21 =$bono1.$aniomasuno.$identidad;
 
                       
 }else{
@@ -291,14 +315,26 @@ if ($comprara < $fechaAactual) {
                            $mesenviar = date("m", strtotime($concatenacion));
                           $aniomasuno = date("Y", strtotime($fechaAcuerdo_anioactual2));  
                          $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
+                          $fechaAcuerdo_anioactual21 =$bono1.$aniomasuno.$identidad;
          
                    
   }
 
 
+
+}
+
+
+
+
+
+
+
+
+
                         include('../cerraConexionVam.php');
                       include('../crearConexionRRHH.php');
-                      $mostrarDatos22=mssql_query("SELECT * FROM PR_ConstanciasBonos WHERE cPeriodo='$fechaAcuerdo_anioactual2'");
+                      $mostrarDatos22=mssql_query("SELECT * FROM PR_ConstanciasBonos WHERE cPeriodo='$fechaAcuerdo_anioactual21'");
                         if ($row22=mssql_fetch_array($mostrarDatos22)) {
                           $message = $fechaAcuerdo_anioactual2." "."Ya solicitó esta constancia para este Periodo, En el Sistema de RRHH";
                              $variable_validador= 1;
@@ -327,8 +363,8 @@ if ($comprara < $fechaAactual) {
    $mes = date("m", strtotime($row['dcntrct']));
    $anio = date("Y", strtotime($row['dcntrct']));  
 
-
-   header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
+ $anioenviar = date("Y");
+   header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$anioenviar.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
 
            }
 
