@@ -30,7 +30,7 @@ include('../Permisos.php');
 	<title>Inicio</title>
 
 
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 	<!-- SideBar -->
 <section id="loadgif">
-<?php include '../Menu.php'; ?>
+<?php include('../Menu1.php'); ?>
 
 
 </section>
@@ -224,7 +224,7 @@ $(document).ready(function(){
  });  
  </script>  
 	
-	<!--====== Scripts -->
+	<!--Scripts -->
 	<script src="../js/jquery-3.3.1.min.js"></script>
 	<script src="../js/sweetalert2.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>

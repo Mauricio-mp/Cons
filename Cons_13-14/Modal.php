@@ -264,6 +264,26 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 
 $fechaAactual=  date("Y-m-d");
  $fechaAcuerdo_anioactual= $dia."-".$mes."-".$anio1;
+
+
+if($valor=="13avo")
+{
+  $bono = "13AVO"; 
+  $aniox = gmdate("Y");                       
+ $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
+}
+
+
+
+
+if($valor=="14avo")
+{
+   $bono = "14AVO"; 
+$mesbono=06;
+
+  $aniox = gmdate("Y"); 
+                           
+
    
    //$DateNum= Optenerfecha($mes,$anio);
 $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
@@ -294,6 +314,17 @@ if ($comprara < $fechaAactual) {
          
                    
   }
+
+
+
+}
+
+
+
+
+
+
+
 
 
                         include('../cerraConexionVam.php');
@@ -327,8 +358,8 @@ if ($comprara < $fechaAactual) {
    $mes = date("m", strtotime($row['dcntrct']));
    $anio = date("Y", strtotime($row['dcntrct']));  
 
-
-   header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$aniomasuno.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
+ $anioenviar = date("Y");
+   header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$anioenviar.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
 
            }
 
