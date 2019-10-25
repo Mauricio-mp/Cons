@@ -175,7 +175,7 @@ break;
 } 
 case 7: 
 { 
-$numd = "Junio"; 
+$numd = "Julio"; 
 break; 
 } 
 case 8: 

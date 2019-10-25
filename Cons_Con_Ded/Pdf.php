@@ -44,14 +44,14 @@ $formato=number_format($opnetersueldo,2);
 
 $mostrarDesc=mssql_query("SELECT * FROM hrjobs WHERE cJobTitlNO='$codigoPuesto'");
 if ($ejecutar=mssql_fetch_array($mostrarDesc)) {
-    $desempenio=titleCase($ejecutar['cDesc']);
+    $desempenio=titleCase(utf8_encode($ejecutar['cDesc']));
 
     // $ConvertirDesen=strtolower($desempenio);
     // $desempenio=ucwords($ConvertirDesen);
 }
 $mostrarDesc=mssql_query("SELECT * FROM prdept WHERE cdeptno='$codigoAsignado'");
 if ($asignado=mssql_fetch_array($mostrarDesc)) {
-    $asignacion=titleCase($asignado['cdeptname']);
+    $asignacion=titleCase(utf8_encode($asignado['cdeptname']));
     // $ConvertiAsignacion=strtolower($asignacion);
     // $asignacion=ucwords($ConvertiAsignacion);
 }
@@ -156,7 +156,7 @@ $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 $nombresFirma="<vb>".utf8_encode($nombreFirma)."</vb>";
 
-$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt." ha laborado en esta institución desde el ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode(trim($asignacion)).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). con el siguiente detalle:";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt." ha laborado en esta institución desde el ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). con el siguiente detalle:";
 
 $pdf->Ln(3);
 $pdf->SetFont('Arial','B',14);

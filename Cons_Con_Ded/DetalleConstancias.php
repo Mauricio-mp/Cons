@@ -164,7 +164,7 @@ include('../cerrarConexionVam.php');
       <img src="../img/9.png" alt="user-picture" class="logo">
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
-      <p class="parrafo" >El(a) suscrito subjefe del departamento de personal del Ministerio Publico hace constar que <?php echo utf8_encode($nombreCompleto)."\t";  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".number_format($opnetersueldo,2).")";?> Teniendo:</p>
+      <p class="parrafo" >El(a) suscrito subjefe del departamento de personal del Ministerio Publico hace constar que <?php echo utf8_encode($nombreCompleto)."\t";  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo $ejecutar['cDesc']; ?> asignado a: <?php echo utf8_encode($Asignadoa).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".number_format($opnetersueldo,2).")";?> Teniendo:</p>
 
 </br>
 <h3>Ingresos</h3>

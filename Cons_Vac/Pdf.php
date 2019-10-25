@@ -184,7 +184,7 @@ $pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
 $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
-$pdf->SetStyle("vb","arial","B",0,"0,0,0");
+$pdf->SetStyle("vb","arial","B",14,"0,0,0");
 $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 

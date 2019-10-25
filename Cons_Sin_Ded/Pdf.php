@@ -164,7 +164,7 @@ $NombreFirmas="<vb>".$nombreFirma."</vb>";
 
 
 
-$texto = "<p>El (la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".$asignacion.", devengando un sueldo mensual de: ".ucfirst($var).""." (L. ".$formato.").</p>";
+$texto = "<p>El (la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: ".ucfirst($var).""." (L. ".$formato.").</p>";
 //$texto = "El(La) suscrito(a) ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ha laborado por contrato en esta institución a partir del ".$fechaContrato." y por acuerdo el ".$fechaAcuerdo.", actualmente se desempeña como \t".trim($desempenio)."\t"." asignado a ".utf8_encode($asignacion).", devengando un sueldo mensual de: \t".$var."\t"." (L. ".$formato.").";
 
 //$texto = "El (a) Suscrito ".utf8_encode($puestoFirma)." DEL MINISTERIO PUBLICO HACE CONSTAR QUE ".$txt." HA LABORADO POR CONTRATO EN ESTA INSTITUCION A PARTIR DEL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.", ACTUALMENTE SE DESEMPEÑA COMO: \t".trim($desempenio)."\t"." ASIGNADO A: ".utf8_encode($asignacion).", DEVENGANDO UN SUELDO MENSUAL DE: \t".$var."\t"." (".$formato.").";
