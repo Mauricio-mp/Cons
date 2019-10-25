@@ -266,6 +266,10 @@ $fechaAactual=  date("Y-m-d");
  $fechaAcuerdo_anioactual= $dia."-".$mes."-".$anio1;
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 63752a976e170380bc68b848c091e965d6ce5a11
 if($valor=="trece")
 {
   $bono = "13AVO"; 
@@ -273,15 +277,37 @@ if($valor=="trece")
   $aniox = gmdate("Y");                       
  $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
   $fechaAcuerdo_anioactual21 =$bono1.$aniox.$identidad;
+<<<<<<< HEAD
+=======
+=======
+if($valor=="13avo")
+{
+  $bono = "13AVO"; 
+  $aniox = gmdate("Y");                       
+ $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
+>>>>>>> 8f95afbec4667433e924e5eb590504551e2e3b68
+>>>>>>> 63752a976e170380bc68b848c091e965d6ce5a11
 }
 
 
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 63752a976e170380bc68b848c091e965d6ce5a11
 if($valor=="catorce")
 {
    $bono = "14AVO"; 
     $bono1 = "CAT"; 
+<<<<<<< HEAD
+=======
+=======
+if($valor=="14avo")
+{
+   $bono = "14AVO"; 
+>>>>>>> 8f95afbec4667433e924e5eb590504551e2e3b68
+>>>>>>> 63752a976e170380bc68b848c091e965d6ce5a11
 $mesbono=06;
 
   $aniox = gmdate("Y"); 
