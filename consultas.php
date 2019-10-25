@@ -6,6 +6,7 @@
 <body>
 <?php 
 include('crearConexionGECOMP.php');
+
 session_start();
 ob_start();
 

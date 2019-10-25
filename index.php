@@ -43,7 +43,7 @@
 
   </head>
  <body >  
-  <img src="img/ministerio-público.jpg" class="zoom"/>
+  <img src="img/ministerio-pгblico.jpg" class="zoom"/>
   <?php 
 include('validarnavegador.php');
 $opbeterNavegador= getBrowser($user_agent);

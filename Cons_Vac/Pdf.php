@@ -67,7 +67,7 @@ $mostrarDatos1=mssql_query("select ctrsno FROM prtrst where cempno='$numeroEmple
 if ($row1=mssql_fetch_array($mostrarDatos1)) {
                    $dato = $row1['ctrsno'];
 
-             $mostrarDatos2=mssql_query("SELECT sum(ndedamt) as embargo FROM prmisd where cempno='$numeroEmpleado' and ctrsno='$dato' and cdedcode=970");
+             $mostrarDatos2=mssql_query("SELECT sum(ndedamt) as embargo FROM prmisd where cempno='$numeroEmpleado' and ctrsno='$dato' and cdedcode=1025");
                 if ($row2=mssql_fetch_array($mostrarDatos2)) {
                         //se encontro deduccion con el codigo de embargo
                           $dato1 = $row2['embargo'];

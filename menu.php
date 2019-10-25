@@ -2,6 +2,7 @@
 session_start();
 ob_start();
 
+
 //include('crearConexionGECOMP.php');
 
 $varsession= $_SESSION['username'];
