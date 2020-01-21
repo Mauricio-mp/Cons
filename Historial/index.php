@@ -109,8 +109,6 @@ $(document).ready(function(){
         <tr role="row">
             <th style="text-align: center">Tipo de Constancia</th>
             <th style="text-align: center">Codigo de Empleado</th>
-            <th style="text-align: center">Nombre</th>
-            <th style="text-align: center">Apellido</th>
             <th style="text-align: center">Estado de Entrega</th>
             <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
@@ -259,8 +257,6 @@ $(document).ready(function(){
            <tr>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Nombre']);?></td>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Apellido']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado_Entrega'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>

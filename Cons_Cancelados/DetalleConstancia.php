@@ -44,6 +44,7 @@ include('../crearConexionVam.php');
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="../css/Estilos.css">
+   <link rel="stylesheet" href="../css/canecode_switch.css">
 
 	<style>
 .dropdown-submenu {
@@ -279,6 +280,14 @@ $texto2="Constancia que se extiende a petición de parte interesada, en la ciuda
  <div align="center">
  	<h4>_______________________________</h4>
 <form method="POST">
+
+  
+ <script>
+                var $ = jQuery;
+                $(function(){
+                    canecode_switch("#example","col", ".col");
+                });
+            </script>
    <div class="alinearCombobox">
   <label class="control-label">Seleccione firma</label>
  
@@ -300,7 +309,15 @@ include('../cerrarConexionGECOMP.php');
 
  </div>
 
+ <div class="ajustar">
+    <input id="example" type="checkbox" name="switch" >
+<div class="col">
+  <label class="control-label">Nombre de Empleado</label>
+    <input type="text"  class=" form-control " placeholder="Ingrese Nombre del Empleado" name="Nombre">
+    </div>
 
+            
+  </div>
 
 
 <br></br>
@@ -344,6 +361,7 @@ include('../cerrarConexionGECOMP.php');
      <?php 
 if (isset($_POST['Imprimir'])) {
   $firma=$_POST['id_firma'];
+  $name=$_POST['Nombre'];
  include('../crearConexionGECOMP.php');
 
   $fechaActual= date('Y-m-d');
@@ -385,8 +403,12 @@ $codigoGnerado="CAN".$contador."-".$fechaAInsertar;
 
 
 
-
+if ($name=='') {
  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Apellido,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion,Estado_Entrega,NUMERO_CORRELATIVO) VALUES(11,'$codigoGnerado','$nombre','$cargo','$Asignados','$opnetersueldo',1,'$apellido','$codigo',GETDATE(),'$usuarioCreacion',1,'$contador')");
+}else{
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Codigo_Empleado,Fecha_Creacion,Usuario_Creacion,Estado_Entrega,NUMERO_CORRELATIVO) VALUES(11,'$codigoGnerado','$name','$cargo','$Asignados','$opnetersueldo',1,'$codigo',GETDATE(),'$usuarioCreacion',1,'$contador')");
+}
+ 
 
  // $CompararFecha=mssql_query("SELECT fecha FROM FechaCorrelativa WHERE id= (SELECT MAX(id) FROM FechaCorrelativa)");
  // if ($ver=mssql_fetch_array($CompararFecha)) {
@@ -417,7 +439,7 @@ $codigoGnerado="CAN".$contador."-".$fechaAInsertar;
 
 
  if ($insertar==true) {
- 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$codigoGnerado"); 
+ 	 header("Location: Pdf.php?CodigoEmpleado=$codigo&firma=$firma&ido=$codigoGnerado&nombre=$name"); 
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }
@@ -449,6 +471,7 @@ $codigoGnerado="CAN".$contador."-".$fechaAInsertar;
 	<script src="../js/ripples.min.js"></script>
 	<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="../js/main.js"></script>
+  <script src="../js/canecode_switch.js"></script>
 	<script>
 		$.material.init();
 	</script>

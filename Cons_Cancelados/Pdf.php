@@ -7,7 +7,7 @@ $validar=0;
  $FechaFinalAcuerdo=$_GET['f_F_A'];
  $FechaIncioContrato=$_GET['f_I_C'];
  $FechaFinalContrato=$_GET['f_F_C'];
-
+$name=$_GET['nombre'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
@@ -107,7 +107,12 @@ if ($row=mssql_fetch_array($ConsultaNombre)) {
 
 
     $NombreCompleto=utf8_encode($nombre)." ".utf8_encode($apellido);
-    $NombresCompletos=$NombreCompleto;
+    if ($name=='') {
+      $NombresCompletos=$NombreCompleto;
+    }else{
+      $NombresCompletos=$name;
+    }
+    
     
     
 

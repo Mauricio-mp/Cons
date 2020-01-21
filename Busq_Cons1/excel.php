@@ -1,7 +1,7 @@
 <?php 
 
 header('Content-type:application/xls');
-	header('Content-Disposition: attachment; filename=Reporte1.xls');
+header('Content-Disposition: attachment; filename=Reporte1.xls');
 
 	include('../crearConexionGECOMP.php');
 	//$query=mssql_query("SELECT * FROM CONSTANCIA_GENERADA");
@@ -21,6 +21,8 @@ $fechamaxima=$_GET['fecha2'];
         <tr role="row">
             <th style="text-align: center">Tipo de Constancia</th>
             <th style="text-align: center">Codigo de Empleado</th>
+            <th style="text-align: center">Nombre</th>
+            <th style="text-align: center">Apellido</th>
             <th style="text-align: center">Estado de Entrega</th>
             <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
@@ -47,7 +49,12 @@ $fechamaxima=$_GET['fecha2'];
 
 
           
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+          if ($opcion==12) {
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between '$fechaminima' and '$fechamaxima'");
+             }else{
+              $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+
+             }
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {
@@ -63,7 +70,7 @@ $fechamaxima=$_GET['fecha2'];
               $fila['Tipo_Constancia']="Constancia de Trabajo con Deducciones sin Plus";
             }
             if ($fila['Tipo_Constancia']=="5") {
-              $fila['Tipo_Constancia']="Constancia para Bono de 13AVO";
+              $fila['Tipo_Constancia']="Constancia para Bono de 13AVO-14VO";
             }
             if ($fila['Tipo_Constancia']=="6") {
               $fila['Tipo_Constancia']="Constancia para Bono de 14AVO";
@@ -144,6 +151,8 @@ $fechamaxima=$_GET['fecha2'];
            <tr>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Nombre']);?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Apellido']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado_Entrega'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>

@@ -1,25 +1,27 @@
 <?php 
 
 header('Content-type:application/xls');
-	header('Content-Disposition: attachment; filename=Reporte2.xls');
+header('Content-Disposition: attachment; filename=Reporte1.xls');
 
 	include('../crearConexionGECOMP.php');
 	//$query=mssql_query("SELECT * FROM CONSTANCIA_GENERADA");
 
 
-$nombre=$_GET['x'];
+
 $fechaminima=$_GET['fecha1'];
 $fechamaxima=$_GET['fecha2'];
-
+$mensaje=$_GET['mensaje'];
+$cons=$_GET['cons'];
 
 
 
  ?>
+ <h1 style="text-align: center"><?php echo $mensaje; ?></h1>
 
- <table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
+  <table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
       <thead class="bg-gray">
         <tr role="row">
-            <th style="text-align: center">Tipo de Constancia</th>
+
             <th style="text-align: center">Codigo de Empleado</th>
             <th style="text-align: center">Nombre</th>
             <th style="text-align: center">Apellido</th>
@@ -27,6 +29,7 @@ $fechamaxima=$_GET['fecha2'];
             <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
             <th style="text-align: center">Estado</th>
+            <th style="text-align: center">Dirigida a:</th>
             <th style="text-align: center">Observacion</th>
             <th style="text-align: center">Fecha de Creacion</th>
             <th style="text-align: center">Usuario de Creacion</th>
@@ -35,7 +38,9 @@ $fechamaxima=$_GET['fecha2'];
             <th style="text-align: center">Usuario de Entrega</th>
             <th style="text-align: center">Fecha de Entrega</th>
             <th style="text-align: center">Comentario de entrega</th>
+            
 
+            
          </tr>
       </thead>
       
@@ -46,7 +51,12 @@ $fechamaxima=$_GET['fecha2'];
 
 
           
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Nombre like '%$nombre%'");
+          if ($opcion==12) {
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between '$fechaminima' and '$fechamaxima'");
+             }else{
+              $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND cPeriodo like '$cons%' ");
+
+             }
           while ($fila=mssql_fetch_array($consultar)) {
             $fila['Tipo_Constancia'];
             if ($fila['Tipo_Constancia']=="1") {
@@ -106,6 +116,9 @@ $fechamaxima=$_GET['fecha2'];
               $Color="rgba(243, 105, 61,0.8)";
               
             }
+
+            $fecha=date("Y/m/d", strtotime($fila['Fecha_Creacion']));
+
             if ($fila['Estado_Entrega']==1) {
               $fila['Estado_Entrega']="Pendiente";
             }else{
@@ -121,16 +134,24 @@ $fechamaxima=$_GET['fecha2'];
             if ( $fila['Usuario_Entrega']=='') {
               $fila['Usuario_Entrega']="No hay Usuario de entrega";
             }
-
             if ( $fila['Comentario_Entrega']=='') {
               $fila['Comentario_Entrega']="Sin comentario de entrega";
             }
 
-            $fecha=date("Y/m/d", strtotime($fila['Fecha_Creacion']));
+             $bono=$fila['Id_Constancia_Dirigida'];
+
+            $optenerNombre=mssql_query("SELECT NOMBRE_COOPERATIVA FROM COOPERATIVAS WHERE Id_Cooperativa='$bono'");
+            if ($Datos=mssql_fetch_array($optenerNombre)) {
+              $fila['Id_Constancia_Dirigida']=$Datos['NOMBRE_COOPERATIVA'];
+            }
+            if ($fila['Id_Constancia_Dirigida']=='') {
+               $fila['Id_Constancia_Dirigida']="Constancia sin dirigir ";
+            }
+            
   
            ?>
            <tr>
-             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
+
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Nombre']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Apellido']);?></td>
@@ -138,6 +159,7 @@ $fechamaxima=$_GET['fecha2'];
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Id_Constancia_Dirigida'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Observacion']);?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fecha;?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Creacion'];?></td>
@@ -146,6 +168,8 @@ $fechamaxima=$_GET['fecha2'];
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Usuario_Entrega'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Fecha_Entrega'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Comentario_Entrega'];?></td>
+
+             
 
            </tr>
 

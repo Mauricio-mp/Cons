@@ -2,6 +2,7 @@
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
 $conca=$_GET['ido'];
+$name=$_GET['nombre'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 require('ConversionSueldo.php');
@@ -19,8 +20,12 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
 
     $nombreCompleto=$Nombre." ".$Apellido;
   $cambiarLetra=strtolower($nombreCompleto);
-
+if ($name=='') {
   $nombreCompleto=ucwords($cambiarLetra);
+}else{
+  $nombreCompleto=strtolower(ucwords($name));
+}
+  
     //echo "<script>alert('".$DESC."');</script>";
 
     $dia1 = date("d", strtotime($row['dhire']));

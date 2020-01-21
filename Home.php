@@ -4,15 +4,7 @@ ob_start();
 
 //include('crearConexionGECOMP.php');
 
-$varsession= $_SESSION['username'];
- if($varsession== null || $varsession= ''){
-   echo "<script>";
-    echo "alert('inicie session');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
 
-  die();
- }
  ?>
 <!DOCTYPE html>
 <html lang="es">

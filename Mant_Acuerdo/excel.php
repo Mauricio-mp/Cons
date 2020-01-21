@@ -36,15 +36,15 @@ $(document).ready(function(){
 });
 </script>
 <section id="loadgif">
- <?php include '../Menu.php'; ?>
+ <?php include '../Menu1.php'; ?>
 
 
 </section>
 </head>
 <body>
- <div class="container center" >
+ <div class=" center" >
 
-<form name="importa" method="post" action=""  enctype="multipart/form-data" class="container">
+ <form name="importa" method="post" action=""  enctype="multipart/form-data" class="container">
    <h2 style="text-align:center">Seleciones el Archivo a Importar</h2>
   
 
@@ -82,8 +82,8 @@ $opcion=1;
 
      <div style="text-align: center">
     <input class="btn btn-raised btn-alert" disabled="true" type="submit" id="enviar" name='enviar'  value="Importar" style="margin-left:5%">
-    <input class="btn btn-raised btn-alert"  type="submit" id="Guardar" name='Guardar'  value="Guardar" style="margin-left:5%">
-    <button type="button" id="subir" name="subir"  disabled="true" class="btn btn-raised btn-alert" data-dismiss="modal" style="margin-left:5%" ><i class="zmdi zmdi-upload"></i>  subir</button> 
+    <input class="btn btn-raised btn-alert" disabled="true" type="button" id="Guardar" name='Guardar'  value="Guardar" style="margin-left:5%;" >
+    
   </div>
  
    
@@ -115,6 +115,8 @@ $(window).load(function() {
 
  
  </form>
+ </div>
+
 
 
 
@@ -124,8 +126,8 @@ $(window).load(function() {
      
         //cargamos el archivo al servidor con el mismo nombre
         //solo le agregue el sufijo bak_ 
-        echo '<table border="1" class="table">';
- 
+      //  echo '<table border="1" class="table">';
+
        $archivo = $_FILES['excel']['name'];
             $tipo = $_FILES['excel']['type'];
             $destino = "cop_".$archivo;//Le agregamos un prefijo para identificarlo el archivo cargado
@@ -135,7 +137,7 @@ $(window).load(function() {
             if (file_exists ("cop_".$archivo)){ 
             /** Llamamos las clases necesarias PHPEcel */
             require_once('../Classes/PHPExcel.php');
-            require_once('../Classes/PHPExcel/Reader/Excel2007.php'); 
+            //require_once('../Classes/PHPExcel/Reader/Excel2007.php'); 
             // Cargando la hoja de excel
             $objReader = new PHPExcel_Reader_Excel2007();
             $objPHPExcel = $objReader->load("cop_".$archivo);
@@ -144,6 +146,19 @@ $(window).load(function() {
             $objPHPExcel->setActiveSheetIndex(0);
 
             $filas=$objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+
+            
+$sheet = $objPHPExcel->getSheet(0); 
+$highestRow = $sheet->getHighestRow(); 
+$highestColumn = $sheet->getHighestColumn();
+
+
+//echo  $highestRow;
+
+            
+
+            //require_once 'PHPExcel/Classes/PHPExcel.php';
+
 
             //conectamos con la base de datos 
             // Llenamos el arreglo con los datos  del archivo xlsx
@@ -184,28 +199,37 @@ $(window).load(function() {
                     
    
     ?>  
-      <div id="example_wrapper" class="dataTables_wrapper">
-  
-   <table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
-      <thead class="bg-gray">
-        <tr role="row">
-           <th>Codigo de Empleado</th>
-            <th>Codigo de Empleado</th>
-            <th>Sueldo</th>
-            <th>Caja Chica</th>
-            <th>Sueldo plus</th>
-            <th>Zonaje plus</th>
-            <th>Zonaje </th>
-            <th>Fondo Reintegrable</th>
-            <th>Fondo de combustible</th>
-
-
-
- 
-         </tr>
-      </thead>
-      
-      <tbody>
+<style> 
+ .table_wrapper{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+</style>
+<div style="background-color:white; margin-top:20px ">
+<div class="table_wrapper">
+<table id="myexample" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
+  <thead>
+  <tr>
+          <th style="text-align: center">#</th>
+          <th style="text-align: center">Codigo de Empleado</th>
+           <th style="text-align: center" >Proveniente</th>
+           <th style="text-align: center">Lugar</th>
+           <th style="text-align: center">Nombre</th>
+           <th style="text-align: center">Identidad</th>
+           <th style="text-align: center">Puesto</th>
+           <th style="text-align: center">departamento</th>
+           <th style="text-align: center">Sueldo</th>
+           <th style="text-align: center">caja Chica</th>
+           <th style="text-align: center">Pago plus</th>
+           <th style="text-align: center">Zonaje Plus</th>
+           <th style="text-align: center">Zonaje</th>
+           <th style="text-align: center">Rotatorio</th>
+           <th style="text-align: center">Combustible</th>
+           
+  </tr>
+  </thead>
+  <tbody>
       	<?php  
                           $proveedor='';
                           $Color="";
@@ -223,114 +247,202 @@ $(window).load(function() {
                              if (isset($_POST['enviar'])) {
                              
 
+                          
 
-
-                              //$EliminarTabla=mssql_query("DELETE FROM DeduccionesEnero1");
+       
    	                          	
 
-                                for ($i = 1; $i <=$filas; $i++) {
+                              for ($row = 1; $row <= $highestRow; $row++){ 
                                   $Contador=$Contador+1;
                                    $Color="";
                             
-                            $_DATOS_EXCEL[$i]['Empleado'] = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
-                            $empleado=$_DATOS_EXCEL[$i]['Empleado'];
+                         
+                            $_DATOS_EXCEL[$i]['Nombre'] =  $sheet->getCell("A".$row)->getValue();
+                            $CodigoEmpleados=$_DATOS_EXCEL[$i]['Nombre'];
+                            $arrCod[]=$CodigoEmpleados;
+
+                           
+
+                            $_DATOS_EXCEL[$i]['Proveniente'] = $sheet->getCell("B".$row)->getValue();
+                            $Proveniente=$_DATOS_EXCEL[$i]['Proveniente'];
+                            $arrProv[]=$Proveniente;
+
+                            $_DATOS_EXCEL[$i]['Lugar'] = $sheet->getCell("C".$row)->getValue();
+                            $Lugar=$_DATOS_EXCEL[$i]['Lugar'];
+                            $arrLugar[]=$Lugar;
+
+                            $_DATOS_EXCEL[$i]['Nombre'] = $sheet->getCell("D".$row)->getValue();
+                            $Nombre=$_DATOS_EXCEL[$i]['Nombre'];
+                            $arrNombre=$Nombre;
+
+                            $_DATOS_EXCEL[$i]['Identidad'] = $sheet->getCell("E".$row)->getValue();
+                            $Identidad=$_DATOS_EXCEL[$i]['Identidad'];
+                            $arrIdenti[]=$Identidad;
+
+                            $_DATOS_EXCEL[$i]['Puesto'] = $sheet->getCell("G".$row)->getValue();
+                            $Puesto=$_DATOS_EXCEL[$i]['Puesto'];
+                            $arrPuesto[]=$Puesto;
+
+                            $_DATOS_EXCEL[$i]['Departamento'] = $sheet->getCell("H".$row)->getValue();
+                            $Departamento=$_DATOS_EXCEL[$i]['Departamento'];
+                            $arrDepto[]=$Departamento;
+
+                            $_DATOS_EXCEL[$i]['Sueldo'] = $sheet->getCell("I".$row)->getValue();
+                            $Sueldo=$_DATOS_EXCEL[$i]['Sueldo'];
+
+                            $arrSueldo[]=$Sueldo;
+
+                            $_DATOS_EXCEL[$i]['CajaChica'] = $sheet->getCell("J".$row)->getValue();
+                            $CajaChica=$_DATOS_EXCEL[$i]['CajaChica'];
+
+                            $arrCajaChica[]=$CajaChica;
+
+                            $_DATOS_EXCEL[$i]['PagoPlus'] = $sheet->getCell("K".$row)->getValue();
+                            $PagoPlus=$_DATOS_EXCEL[$i]['PagoPlus'];
+                            $arrPago[]=$PagoPlus;
+
+                            $_DATOS_EXCEL[$i]['ZonajePlus'] = $sheet->getCell("L".$row)->getValue();
+                            $ZonajePlus=$_DATOS_EXCEL[$i]['ZonajePlus'];
+                            $arrZonajePlus[]=$ZonajePlus;
+
+                            $_DATOS_EXCEL[$i]['Zonaje'] = $sheet->getCell("M".$row)->getValue();
+                            $Zonaje=$_DATOS_EXCEL[$i]['Zonaje'];
+                            $arrZonaje[]=$Zonaje;
+
+                            $_DATOS_EXCEL[$i]['Rotatorio'] = $sheet->getCell("N".$row)->getValue();
+                            $Rotatorio=$_DATOS_EXCEL[$i]['Rotatorio'];
+                            $arrRotatorio[]=$Rotatorio;
 
 
-                             $_DATOS_EXCEL[$i]['NOmbre'] = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
-                             $Salario= $_DATOS_EXCEL[$i]['NOmbre'];
+                            $_DATOS_EXCEL[$i]['Combustible'] = $sheet->getCell("O".$row)->getValue();
+                            $Combustible=$_DATOS_EXCEL[$i]['Combustible'];
+                            $arrCombus[]=$Combustible;
+
+
+                          
+
+                           
+
+                           
                             
-                             $_DATOS_EXCEL[$i]['Identidad'] = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
-                             $Caja_Chica= $_DATOS_EXCEL[$i]['Identidad'];
+                        
 
-                             $_DATOS_EXCEL[$i]['DeduccionCodigo'] = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
-                             $Plus= $_DATOS_EXCEL[$i]['DeduccionCodigo'];
 
-                             $_DATOS_EXCEL[$i]['Puesto'] = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
-                             $Zonaje_Plus= $_DATOS_EXCEL[$i]['Puesto'];
-
-                              $_DATOS_EXCEL[$i]['Departamento'] = $objPHPExcel->getActiveSheet()->getCell('F' . $i)->getCalculatedValue();
-                              $Zonaje= $_DATOS_EXCEL[$i]['Departamento'];
-
-                              $_DATOS_EXCEL[$i]['Salario'] = $objPHPExcel->getActiveSheet()->getCell('G' . $i)->getCalculatedValue();
-                              $Fondo_Reint= $_DATOS_EXCEL[$i]['Salario'];
-
-                             $_DATOS_EXCEL[$i]['CajaChica'] = $objPHPExcel->getActiveSheet()->getCell('H' . $i)->getCalculatedValue();
-                             $Fondo_Combus= $_DATOS_EXCEL[$i]['CajaChica'];
-
-                             if (trim($empleado)=='') {
+                             if (trim($CodigoEmpleados)=='') {
                               $Errores=$Errores+1;
                               $Color=$Rojo;
                               $val=1;
                                
                              }
-                              if (is_numeric($empleado)==false) {
+                             if (trim($Proveniente)=='') {
+                              $Errores=$Errores+1;
                               $Color=$Rojo;
                               $val=1;
+                               
+                             }
+                             if (trim($Lugar)=='') {
                               $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Nombre)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Identidad)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Puesto)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Departamento)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                              if (trim($Sueldo)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($CajaChica)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($PagoPlus)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($ZonajePlus)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Zonaje)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
+                               
+                             }
+                             if (trim($Rotatorio)=='') {
+                              $Errores=$Errores+1;
+                              $Color=$Rojo;
+                              $val=1;
                                
                              }
 
-                               if (is_numeric($Salario)==false) {
+                             if (trim($Combustible)=='') {
+                              $Errores=$Errores+1;
                               $Color=$Rojo;
                               $val=1;
-                              $Errores=$Errores+1;
                                
                              }
 
-                              if (is_numeric($Salario)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Caja_Chica)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Plus)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Zonaje_Plus)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Zonaje)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Fondo_Reint)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
-                              if (is_numeric($Fondo_Combus)==false) {
-                                $Color=$Rojo;
-                              $val=1;
-                              $Errores=$Errores+1;
-                               
-                             }
+
+
+
+
+
+                             
 
                               echo '
                               <tr>
+                              
                               <td style="background-color:'.$Color.'">'.$Contador.'</td>
-                              <td style="background-color:'.$Color.'">'.$empleado.'</td>
-                              <td style="background-color:'.$Color.'">'.$Salario.'</td>
-                              <td style="background-color:'.$Color.'">'.$Caja_Chica.'</td>
-                              <td style="background-color:'.$Color.'">'.$Plus.'</td>
-                              <td style="background-color:'.$Color.'">'.$Zonaje_Plus.'</td>
-                              <td style="background-color:'.$Color.'">'.$Zonaje.'</td>
-                              <td style="background-color:'.$Color.'">'.$Fondo_Reint.'</td>
-                              <td style="background-color:'.$Color.'">'.$Fondo_Combus.'</td>
+                              <td style="background-color:'.$Color.'">'.$CodigoEmpleados.'</td>
+                              <td style="background-color:'.$Color.'">'.$Proveniente.'</td>
+                              <td style="background-color:'.$Color.'">'.$Lugar.'</td>
+                              <td style="background-color:'.$Color.'">'.$Nombre.'</td>
+                              <td style="background-color:'.$Color.'">'.$Identidad.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Puesto.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Departamento.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Sueldo.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$CajaChica.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$PagoPlus.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$ZonajePlus.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Zonaje.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Rotatorio.'</td>
+                              <td style="background-color:'.$Color.'">&nbsp;'.$Combustible.'</td>
+
+              
+
+                            
 
                               </tr>
                               ';
@@ -341,28 +453,7 @@ $(window).load(function() {
                              
                                 }
 
-                                if ($val==0) {
-                                  include('../crearConexionGECOMP.php');
-                                  $actualizar=mssql_query("UPDATE Base_Constancia SET Estado=0 WHERE Estado=1");
-                                  foreach ($_DATOS_EXCEL as $valor) {
-                                    $empleado= $valor['Empleado'];
-                                    $Salario= $valor['NOmbre'];
-                                    $Caja_Chica= $valor['Identidad'];
-                                    $Plus= $valor['DeduccionCodigo'];
-                                    $Zonaje_Plus= $valor['Puesto'];
-                                    $Zonaje= $valor['Departamento'];
-                                    $Fondo_Reint= $valor['Salario'];
-                                    $Fondo_Combus= $valor['CajaChica'];
-
-                                    $insertar=mssql_query("INSERT INTO Base_Constancia(Base_Empledo,Salario,Caja_Chica,Plus,Zonaje_Plus,Zonaje,Fondo_Reint,Fondo_Combus,Estado)VALUES('$empleado','$Salario','$Caja_Chica','$Plus','$Zonaje_Plus','$Zonaje','$Fondo_Reint','$Fondo_Combus',1)");
-                                    
-
-                                  }
-                                  if ($insertar==true) {
-                                    echo "<script>alert('Datos insertados con exito');</script>";
-                                  }
-                                 
-                                }
+                              
                             
 
 
@@ -373,7 +464,20 @@ $(window).load(function() {
                           ?> 
  
       </tbody>
-   </table>
+ 
+  
+</table>
+</div>
+</div>
+
+
+<div class="form-control" >
+
+
+
+ <div  > 
+ 
+    
 
 
    
@@ -396,6 +500,39 @@ $(window).load(function() {
     });
     
 });
+
+
+
+$( "#Guardar" ).click(function() {
+
+
+
+
+var arrayCodigo=<?php echo json_encode($arrCod);?>;
+var arrProv=<?php echo json_encode($arrProv);?>;
+var arrLugar=<?php echo json_encode($arrLugar);?>;
+var arrNombre=<?php echo json_encode($arrNombre);?>;
+var arrIdenti=<?php echo json_encode($arrIdenti);?>;
+var arrPuesto=<?php echo json_encode($arrPuesto);?>;
+var arrDepto=<?php echo json_encode($arrDepto);?>;
+var arrSueldo=<?php echo json_encode($arrSueldo);?>;
+var arrCajaChica=<?php echo json_encode($arrCajaChica);?>;
+var arrPago=<?php echo json_encode($arrPago);?>;
+var arrZonajePlus=<?php echo json_encode($arrZonajePlus);?>;
+var arrZonaje=<?php echo json_encode($arrZonaje);?>;
+var arrRotatorio=<?php echo json_encode($arrRotatorio);?>;
+var arrCombus=<?php echo json_encode($arrCombus);?>;
+
+
+
+console.log(arrZonajePlus.length); 
+$.post( "functions.php", { Codigo: arrayCodigo,Proveniente:arrProv,Lufar:arrLugar,Nombre:arrNombre,Identidad:arrIdenti,puesto:arrPuesto,Departamento:arrDepto,sueldo:arrSueldo,cajachica:arrCajaChica,Pagoplus:arrPago,ZonajePlus:arrZonajePlus,Zonaje:arrZonaje,Rotatirio:arrRotatorio,Combustible:arrCombus })
+  .done(function( data ) {
+  
+    console.log(data); 
+  });
+
+});
    </script>
 <!--<tr class="add-here">-->
 
@@ -410,6 +547,12 @@ $(window).load(function() {
 <!--</tr>-->
 </div>
 
+
+
+
+</div>
+    
+</div>
 <?php
 
 
@@ -427,10 +570,18 @@ if ($val==1) {
 
  echo "
 <script>
-     document.getElementById('subir').disabled=true;
+     document.getElementById('Guardar').disabled=true;
+</script>
+  ";
+}elseif($val==0){
+  echo "
+<script>
+     document.getElementById('Guardar').disabled=false;
 </script>
   ";
 }
+
+
 
 
 

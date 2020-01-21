@@ -4,15 +4,7 @@ ob_start();
 
 //include('crearConexionGECOMP.php');
 
-$varsession= $_SESSION['username'];
- if($varsession== null || $varsession= ''){
-   echo "<script>";
-    echo "alert('inicie session');";
-    echo "window.location = 'index.php';";
-    echo "</script>";
 
-  die();
- }
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -74,6 +66,15 @@ $varsession= $_SESSION['username'];
             <li><a href="../Busq_Cons4">constancias Emitidas (T.S.C, Cancelados)</a></li>
             <li><a href="../Busq_Cons2">Buscar Empleado</a></li>
             <li><a href="../Busq_Cons3">Detalle de Constancias</a></li>
+            <li class="dropdown-submenu">
+                 <a class="test" tabindex="-1" href="#">Bonos Especiales<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="../BonosEspeciales/13vo.php">13vo</a></li>
+                 <li><a tabindex="-1" href="../BonosEspeciales/14vo.php">14vo</a></li>
+                 <li><a tabindex="-1" href="../BonosEspeciales/Vacaciones.php">vacaciones</a></li>
+                  </ul>
+                 </li>
+
           </ul>
         </li>
 

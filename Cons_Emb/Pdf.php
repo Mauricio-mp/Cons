@@ -3,7 +3,7 @@ $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
 $idembajada=$_GET['y'];
 $conca=$_GET['ido'];
-
+$name=$_GET['nombre'];
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
 
@@ -20,12 +20,17 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
     $opnetersueldo=$row['nmonthpay'];
     $identidad=$row['cfedid'];
     $nombre=trim($row['cfname']);
-    $apellido=trim($row['clname']);
+    $apellido=trim(utf8_encode($row['clname']));
 
     $nombreCompleto=$nombre." ".$apellido;
 
     $minusculas=strtolower($nombreCompleto);
-    $nombreCompleto=ucwords($minusculas);
+    if ($name=='') {
+      $nombreCompleto=ucwords($minusculas);
+    }else{
+      $nombreCompleto=strtolower(ucwords($name));
+    }
+    
     //echo "<script>alert('".$DESC."');</script>";
 
    $dia1 = date("d", strtotime($row['dhire']));

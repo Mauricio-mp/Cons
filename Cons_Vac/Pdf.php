@@ -4,7 +4,7 @@ $numeroEmpleado=$_GET['proce'];
    $aniomostrar=$_GET['y'];
     $mesmostrar=$_GET['z'];
 $conca=$_GET['ido'];
-
+$name=$_GET['nombre'];
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -184,7 +184,7 @@ $pdf->SetStyle("h1","arial","N",12,"0,0,0",0);
 $pdf->SetStyle("a","arial","BU",12,"0,0,0");
 $pdf->SetStyle("pers","arial","I",0,"0,0,0");
 $pdf->SetStyle("place","arial","U",0,"0,0,0");
-$pdf->SetStyle("vb","arial","B",14,"0,0,0");
+$pdf->SetStyle("vb","arial","B",13,"0,0,0");
 $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 
 
@@ -194,7 +194,13 @@ $pdf->Ln(3);
 $pdf->SetFont('Arial','B',14);
 $pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
 $pdf->Cell(10,10,'',0,1,'C'); 
-$txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
+
+if ($name=='') {
+  $txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
+}else{
+  $txt="<vb>".strtoupper(utf8_encode($name))."</vb>";
+}
+
 
 
 $texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";

@@ -4,6 +4,7 @@ $numeroEmpleado=$_GET['numero'];
 $opcion=$_GET['opcion'];
 $contador=0;
 $conca=$_GET['ido'];
+$name=$_GET['name'];
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -32,12 +33,14 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $fechaContrato=fecha($dia1,$mes1,$anio1); 
    $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
 
-  if ($row['dhire']==$row['dcntrct']) {
-    $msg="HA LABORADO POR ACURDO EN ESTA INSTITUCION DESDE EL ".$fechaContrato.", ";
+   if (strtotime($row['dhire'])==strtotime($row['dcntrct'])) {
+    $msg="ha laborado en esta institución por Acuerdo desde el ".$fechaContrato.", ";
   }
-  if ($row['dhire']>$row['dcntrct']) {
-    $msg="HA LABORADO POR CONTRATO EN ESTA INSTITUCION DESDE EL ".$fechaContrato." Y POR ACUERDO DESDE EL ".$fechaAcuerdo.",";
+  if (strtotime($row['dhire'])<strtotime($row['dcntrct'])) {
+    $msg="ha laborado en esta institución por contrato desde el ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.",";
   }
+
+
 $var=convertir($opnetersueldo); //$opnetersueldo
 $formato=number_format($opnetersueldo,2);
 
@@ -151,12 +154,17 @@ $pdf->SetStyle("negrta","arial","B",13,"0,0,0");
 // Text   ñ  í   ó   ú
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $ConvertirNombre=strtoupper($txt);
-$txt="<vb>".ucwords($ConvertirNombre)."</vb>";
+if ($name=='') {
+  $txt="<vb>".ucwords($ConvertirNombre)."</vb>";
+}else{
+  $txt="<vb>".ucwords($name)."</vb>";
+}
+
 $Descripcion="<vb>".utf8_encode('Descripción')."</vb>";
 $monto="<vb>".utf8_encode('Monto')."</vb>";
 $nombresFirma="<vb>".utf8_encode($nombreFirma)."</vb>";
 
-$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt." ha laborado en esta institución desde el ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). con el siguiente detalle:";
+$texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que el (la) Señor (a): ".$txt." ".$msg." actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: \t".ucfirst($var)."\t"." (L. ".$formato."). con el siguiente detalle:";
 
 $pdf->Ln(3);
 $pdf->SetFont('Arial','B',14);

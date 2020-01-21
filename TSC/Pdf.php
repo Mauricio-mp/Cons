@@ -2,6 +2,7 @@
 $idFirma=$_GET['x'];
 $numeroEmpleado=$_GET['proce'];
 $conca=$_GET['ido'];
+$name=$_GET['nombre'];
 
 //require('../fpdf/fpdf.php');
 require('../fpdf/WriteTag.php');
@@ -202,7 +203,13 @@ $pdf->Cell(10,20,'',0,1,'C');
 
 $txt=utf8_encode($nombre)." ".utf8_encode($apellido);
 $nombreEmp=strtolower($txt);
-$txt="<vb>".ucwords($nombreEmp)."</vb>";
+
+if ($name=='') {
+  $txt="<vb>".ucwords($nombreEmp)."</vb>";
+}else{
+  $txt="<vb>".ucwords($name)."</vb>";
+}
+
 $NombreFirmas="<vb>".utf8_encode($nombreFirma)."</vb>";
 
 $texto = "El (la) suscrito ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", con número de identidad ".$Identidad.", labora por contrato en esta institución desde el ".$fechaContrato.", y por acuerdo desde el ".$fechaAcuerdo.", actualmente se desempeña como: \t".trim($desempenio)."\t"." asignado a: ".utf8_encode($asignacion).", según acuerdo ".$consultaAcuerdo['Nombre_Acuerdo']." que a partir del ".$nuevafrecha." se otorge un aumento salarial por costo de vida, siendo efectivo a partir del ".$Fecha_Efectivo.", con un sueldo mensual de: \t".ucfirst($var)."\t"." (L.  ".$formato.").";

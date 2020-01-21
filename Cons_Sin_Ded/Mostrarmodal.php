@@ -26,11 +26,13 @@ $Fechaactual=date("m-Y");
            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+
            
             
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="../css/Estilos.css">
+  <link rel="stylesheet" href="../css/canecode_switch.css">
 
   <style>
 .dropdown-submenu {
@@ -52,6 +54,7 @@ $(document).ready(function(){
   });
 });
 </script>
+
 </head>
 
 	<!-- SideBar -->
@@ -143,11 +146,29 @@ include('../cerrarConexionVam.php');
 
       <h4 class="centrartitulo">CONSTANCIAS</h4>
 </div>
-<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo utf8_encode($nombreCompleto);  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo utf8_encode($ejecutar['cDesc']); ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
+<p class="parrafo" >El(a) suscrito subjefe del departamento de personal del ministerio publico hace constar que <?php echo "<strong>".utf8_encode(strtoupper($nombreCompleto))."</strong>";  ?> <?php echo $msg;?> actualmente se desempeña como <?php echo utf8_encode($ejecutar['cDesc']); ?> asignado a: <?php echo utf8_encode($asignado['cdeptname']).","; ?> devengando un salario mensual de:<?php echo $var; echo "\t(".$opnetersueldo.")";?></p>
 
 <p class="parrafo">para los fines que al interesado le convenga, se le extiende la presente en la ciudad de Tegucigalpa, municipio del ditrito central a <?php echo $fechaActual ?>
 </p>
 <form method="POST">
+  <div class="ajustar">
+    <input id="example" type="checkbox" name="switch" >
+<div class="col">
+  <label class="control-label">Nombre de Empleado</label>
+    <input type="text"  class=" form-control " placeholder="Ingrese Nombre del Empleado" name="Nombre">
+    </div>
+
+            
+  </div>
+  
+ <script>
+                var $ = jQuery;
+                $(function(){
+                    canecode_switch("#example","col", ".col");
+                });
+            </script>
+
+
 	 <div class="alinearCombobox">
  	<label class="control-label">Seleccione firma</label>
  
@@ -210,6 +231,7 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   $id=$_POST['id_firma'];
+  $Name=$_POST['Nombre'];
 
   
   $fechaActual= date('Y-m-d');
@@ -251,8 +273,12 @@ $codigoGnerado="CSD".$contador."-".$fechaAInsertar;
  
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-
+if ($Name=='') {
    $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,Estado_Entrega,NUMERO_CORRELATIVO) VALUES (1,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$numero',1,'$contador')");
+}else{
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,Estado_Entrega,NUMERO_CORRELATIVO) VALUES (1,'$codigoGnerado','$Name','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','','$numero',1,'$contador')");
+}
+  
 
   // $id=$_POST['id_firma'];
 
@@ -273,7 +299,7 @@ $codigoGnerado="CSD".$contador."-".$fechaAInsertar;
 
 
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$codigoGnerado.'"</script>';
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&ido='.$codigoGnerado.'&nombre='.$Name.' "</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }
@@ -295,13 +321,14 @@ $codigoGnerado="CSD".$contador."-".$fechaAInsertar;
   
 	
 	<!--====== Scripts -->
-	 <script src="../js/jquery-3.3.1.min.js"></script>
+	 <script src="../js/jquery-3.1.1.min.js"></script>
   <script src="../js/sweetalert2.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/material.min.js"></script>
   <script src="../js/ripples.min.js"></script>
   <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/canecode_switch.js"></script>
   <script>
     $.material.init();
   </script>

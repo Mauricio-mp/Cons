@@ -45,6 +45,7 @@ include('ConversionFecha.php');
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="../css/Estilos.css">
+  <link rel="stylesheet" href="../css/canecode_switch.css">
 
 
 </head>
@@ -242,6 +243,22 @@ if ($fondos=mssql_fetch_array($consultarfondos)) {
 <p class="parrafo">para los fines que al interesado le convenga, se le extiende la presente en la ciudad de Tegucigalpa, municipio del ditrito central a <?php echo $fechaActual ?>
 </p>
 <form method="POST">
+  <div class="ajustar">
+    <input id="example" type="checkbox" name="switch" >
+<div class="col">
+  <label class="control-label">Nombre de Empleado</label>
+    <input type="text"  class=" form-control " placeholder="Ingrese Nombre del Empleado" name="Nombre">
+    </div>
+
+            
+  </div>
+  
+ <script>
+                var $ = jQuery;
+                $(function(){
+                    canecode_switch("#example","col", ".col");
+                });
+            </script>
 	 <div class="alinearCombobox">
  	<label class="control-label">Seleccione firma</label>
  
@@ -304,6 +321,7 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   $id=$_POST['id_firma'];
+  $Name=$_POST['Nombre'];
 
   include('../crearConexionGECOMP.php');
     $fechaActual= date('Y-m-d');
@@ -345,7 +363,12 @@ $codigoGnerado="TSC".$contador."-".$fechaAInsertar;
 
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (10,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$CodigoEmpleado','$contador' )");
+if ($Name=='') {
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Apellido,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (10,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$Apellido','$CodigoEmpleado','$contador' )");
+}else{
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,NUMERO_CORRELATIVO) VALUES (10,'$codigoGnerado','$Name','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$CodigoEmpleado','$contador' )");
+}
+   
 
   $id=$_POST['id_firma'];
 
@@ -361,7 +384,7 @@ $codigoGnerado="TSC".$contador."-".$fechaAInsertar;
               $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
 
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'&ido='.$codigoGnerado.'"</script>';
+  echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$CodigoEmpleado.'&ido='.$codigoGnerado.'&nombre='.$Name.'   "</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }
@@ -390,6 +413,7 @@ $codigoGnerado="TSC".$contador."-".$fechaAInsertar;
 	<script src="../js/ripples.min.js"></script>
 	<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="../js/main.js"></script>
+  <script src="../js/canecode_switch.js"></script>>
 	<script>
 		$.material.init();
 	</script>

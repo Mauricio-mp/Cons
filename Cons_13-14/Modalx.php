@@ -116,13 +116,13 @@ while($ejecutar=mssql_fetch_array($query)){
    <tr> 
 <td>    
      Decimo Tercer mes 
-       <input type="radio" name="bonox" value="trece"> 
+       <input type="radio" name="bono" value="13avo"> 
        </td> 
      </tr> 
      <tr> 
 <td>    
       Decimo Cuarto mes    
-       <input type="radio" name="bonox" value="catorce">
+       <input type="radio" name="bono" value="14avo">
        </td> 
      </tr>
 </table> 
@@ -180,27 +180,24 @@ echo "<script type='text/javascript'>alert('$message');</script>";
  }else{
 
 $mesbono=0;
-  $valor = $_POST['bonox']; 
-if($valor=="trece")
+  $valor = $_POST['bono']; 
+if($valor=="13avo")
 {
   $bono = "13AVO"; 
 $mesbono=12;
-$diabono=01;
-  $aniox = date("Y");
-$fechabono=$diabono."-".$mesbono."-".$aniox;
+  $aniox = gmdate("Y"); 
+                            
+ $fechabono=gmdate("Y-m-d", strtotime('01'.'-12-'.$aniox));
    //echo  $fechabono; 
 }
-if($valor=="catorce")
+if($valor=="14avo")
 {
    $bono = "14AVO"; 
 $mesbono=06;
-$diabono=01;
-  $aniox = date("Y");
-$fechabono=$diabono."-".$mesbono."-".$aniox;
- 
-                           
-//$fechabono=date("Y-m-d", strtotime('01'.'-06-'.$aniox));
 
+  $aniox = gmdate("Y"); 
+                           
+$fechabono=gmdate("Y-m-d", strtotime('01'.'-06-'.$aniox));
   //echo  $fechabono; 
 }
 if($valor=="")
@@ -219,17 +216,16 @@ $message =  "Debe seleccionar el tipo de bono.";
                            
                              
                             
-                           $fechahoy = date("Y-m-d");  // Fecha de hoy, es lo mismo que:  date("d/m/Y")
+                           $fechahoy =  (gmdate("Y-m-d"));  // Fecha de hoy, es lo mismo que:  date("d/m/Y")
                         
 
-                              if (strtotime($fechahoy) > strtotime($fechabono))
+                              if (($fechahoy) > ($fechabono))
                               {
                                   //El dia ya ha pasado
-                              $fechabono = date("Y-m-d",strtotime($fechabono."+ 1 year"));
-
+                              $fechabono = gmdate("Y-m-d",($fechabono."+ 1 year"));
                           
                             } else {
-                                  //Aun no ha llegado el dia o bien estamos en él
+                                  //Aun no ha llegado el dia o bien estamos en Ã©l
                              }  
 
 
@@ -239,13 +235,12 @@ $message =  "Debe seleccionar el tipo de bono.";
                                      $interval=$datetime2->diff($datetime1);
                                       # obtenemos la diferencia en meses
                                     $intervalMeses=$interval->format("%m");
-                                      # obtenemos la diferencia en años y la multiplicamos por 12 para tener los meses
+                                      # obtenemos la diferencia en aÃ±os y la multiplicamos por 12 para tener los meses
                                       $intervalAnos = $interval->format("%y")*12;
-                                       $valorx =$intervalMeses;
-                                       if ($valorx > $meses) {
-                                         $message =  "Meses que faltan"." ".$valorx."    "."Meses de Cooperativa"." ".$meses." "."Aun no puede solicitar este bono para este periodo, ";
-       	                               
-                                        $variable_validador= 1;
+                                       $valor =$intervalMeses;
+                                       if ($valor > $meses) {
+                                          $message =  "Meses que faltan"." ".$valor."    "."Meses de Cooperativa"." ".$meses." "."Aun no puede solicitar este bono para este periodo, ";
+                                          $variable_validador= 1;
                                          }
 
 
@@ -271,61 +266,54 @@ $fechaAactual=  date("Y-m-d");
  $fechaAcuerdo_anioactual= $dia."-".$mes."-".$anio1;
 
 
-if($valor=="trece")
+if($valor=="13avo")
 {
   $bono = "13AVO"; 
-    $bono1 = "TRE"; 
   $aniox = gmdate("Y");                       
  $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
-  $fechaAcuerdo_anioactual21 =$bono1.$aniox.$identidad;
 }
 
 
 
 
-if($valor=="catorce")
+if($valor=="14avo")
 {
    $bono = "14AVO"; 
-    $bono1 = "CAT"; 
 $mesbono=06;
 
-  $aniox = gmdate("Y")+1; 
+  $aniox = gmdate("Y"); 
                            
- $fechaAcuerdo_anioactual2 =$bono.$aniox.$identidad;
-  $fechaAcuerdo_anioactual21 =$bono1.$aniox.$identidad;
+
    
-   //aqui revisar
-   
+   //$DateNum= Optenerfecha($mes,$anio);
 $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
 //inicio de validaciones importantes
-// if ($comprara < $fechaAactual) {
-//                         // $message = $fechaAactual." ".$comprara." "."la fecha actual es vmayor";
-//                       //Evaluar si ya saco ese bono de vacaciones em ambas base de datos, con fecha de acuerdo y anio actual mas 1
+if ($comprara < $fechaAactual) {
+                        // $message = $fechaAactual." ".$comprara." "."la fecha actual es vmayor";
+                      //Evaluar si ya saco ese bono de vacaciones em ambas base de datos, con fecha de acuerdo y anio actual mas 1
                   
                                 
-//                       $fechaAcuerdo_anioactual2 = date("Y-m-d",strtotime($comprara."+ 1 year"));
-//                       $concatenacion = date("Y-m-d",strtotime($fechaAcuerdo_anioactual2."- 1 month"));;
-//                           $aniomasuno = date("Y", strtotime($concatenacion)); 
-//                            $mesenviar = date("m", strtotime($concatenacion));
-//                           $anioenviar = date("Y", strtotime($fechaAcuerdo_anioactual2));
-//                          $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
-//                           $fechaAcuerdo_anioactual21 =$bono1.$aniomasuno.$identidad;
+                      $fechaAcuerdo_anioactual2 = date("Y-m-d",strtotime($comprara."+ 1 year"));
+                      $concatenacion = date("Y-m-d",strtotime($fechaAcuerdo_anioactual2."- 1 month"));;
+                          $aniomasuno = date("Y", strtotime($concatenacion)); 
+                           $mesenviar = date("m", strtotime($concatenacion));
+                          $anioenviar = date("Y", strtotime($fechaAcuerdo_anioactual2));
+                         $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
 
                       
-// }else{
-//                       //$message = $fechaAactual." ".$comprara." "."la fecha actual es menor";
-//  //Evaluar si ya saco ese bono de vacaciones em ambas base de datos, con fecha de acuerdo y anio actual mas 1
+}else{
+                      //$message = $fechaAactual." ".$comprara." "."la fecha actual es menor";
+ //Evaluar si ya saco ese bono de vacaciones em ambas base de datos, con fecha de acuerdo y anio actual mas 1
                     
-//                       $fechaAcuerdo_anioactual2 = date("Y-m-d",strtotime($comprara."+ 0 year"));
-//                       $concatenacion = date("Y-m-d",strtotime($fechaAcuerdo_anioactual2."- 1 month"));;
-//                           $aniomasuno = date("Y", strtotime($concatenacion)); 
-//                            $mesenviar = date("m", strtotime($concatenacion));
-//                           $aniomasuno = date("Y", strtotime($fechaAcuerdo_anioactual2));  
-//                          $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
-//                           $fechaAcuerdo_anioactual21 =$bono1.$aniomasuno.$identidad;
+                      $fechaAcuerdo_anioactual2 = date("Y-m-d",strtotime($comprara."+ 0 year"));
+                      $concatenacion = date("Y-m-d",strtotime($fechaAcuerdo_anioactual2."- 1 month"));;
+                          $aniomasuno = date("Y", strtotime($concatenacion)); 
+                           $mesenviar = date("m", strtotime($concatenacion));
+                          $aniomasuno = date("Y", strtotime($fechaAcuerdo_anioactual2));  
+                         $fechaAcuerdo_anioactual2 =$bono.$aniomasuno.$identidad;
          
                    
-//   }
+  }
 
 
 
@@ -341,9 +329,9 @@ $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
 
                         include('../cerraConexionVam.php');
                       include('../crearConexionRRHH.php');
-                      $mostrarDatos22=mssql_query("SELECT * FROM PR_ConstanciasBonos WHERE cPeriodo='$fechaAcuerdo_anioactual21'");
+                      $mostrarDatos22=mssql_query("SELECT * FROM PR_ConstanciasBonos WHERE cPeriodo='$fechaAcuerdo_anioactual2'");
                         if ($row22=mssql_fetch_array($mostrarDatos22)) {
-                          $message = $fechaAcuerdo_anioactual2." "."Ya solicitó esta constancia para este Periodo, En el Sistema de RRHH";
+                          $message = $fechaAcuerdo_anioactual2." "."Ya solicitÃ³ esta constancia para este Periodo, En el Sistema de RRHH";
                              $variable_validador= 1;
                             }
 
@@ -351,7 +339,7 @@ $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
                       include('../crearConexionGECOMP.php');
                       $mostrarDatos222=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Estado=1 AND Codigo_Bonos='$fechaAcuerdo_anioactual2'");
                         if ($row222=mssql_fetch_array($mostrarDatos222)) {
-                          $message = $fechaAcuerdo_anioactual2." "."Ya solicitó esta constancia para este Periodo, En el Sistema de GECOMP";
+                          $message = $fechaAcuerdo_anioactual2." "."Ya solicitÃ³ esta constancia para este Periodo, En el Sistema de GECOMP";
                           $variable_validador= 1;
                             }
 
@@ -370,7 +358,7 @@ $comprara=date("Y-m-d", strtotime($dia.'-'.$mes.'-'.$anio1));
    $mes = date("m", strtotime($row['dcntrct']));
    $anio = date("Y", strtotime($row['dcntrct']));  
 
- $anioenviar = "2020";
+ $anioenviar = date("Y");
    header('Location: Mostrarmodal.php?coop='.$NOMBRE_COOPERATIVA.'&x='.$nombre.'&y='.$anioenviar.'&z='.$mesenviar.'&a='.$fechaAcuerdo_anioactual2.'&b='.$bono.'');
 
            }

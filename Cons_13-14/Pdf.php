@@ -4,6 +4,7 @@ $numeroEmpleado=$_GET['proce'];
 $aniomostrar=$_GET['y'];
 $mesmostrar=$_GET['z'];
 $conca=$_GET['ido'];
+$name=$_GET['nombre'];
 
         if ($mesmostrar == "JUNIO") {
             $leyenda="decimo cuarto mes".strtolower($fechaAcuerdo)."";
@@ -208,7 +209,12 @@ $pdf->SetFont('Arial','B',14);
 $pdf->Cell(172,0,'CONSTANCIA',0,0,'C');
 $pdf->Cell(10,10,'',0,1,'C'); 
 // Text
-$txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
+if ($name=='') {
+ $txt="<vb>".strtoupper(utf8_encode($nombre))." ".strtoupper(utf8_encode($apellido))."</vb>";
+}else{
+  $txt="<vb>".strtoupper(utf8_encode($name))."</vb>";
+}
+
 
 
 $texto = "<p>El(la) suscrito(a), ".utf8_encode($puestoFirma)." del Ministerio Público hace constar que ".$txt.", ".$msg.", actualmente se desempeña como: ".trim($desempenio).""." asignado a: ".trim($asignacion).", devengando un sueldo mensual de: ".ucfirst(strtolower($var)).""." (L. ".$formato.").</p>";

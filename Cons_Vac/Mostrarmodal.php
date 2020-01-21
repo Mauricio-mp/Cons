@@ -21,6 +21,7 @@ include('ConversionFecha3.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="../css/Estilos.css">
+  <link rel="stylesheet" href="../css/canecode_switch.css">
 
 
 </head>
@@ -183,6 +184,21 @@ include('../cerraConexionVam.php');
 </p>
 
 <form method="POST">
+   <div class="ajustar">
+    <input id="example" type="checkbox" name="switch" >
+<div class="col">
+  <label class="control-label">Nombre de Empleado</label>
+    <input type="text"  class=" form-control " placeholder="Ingrese Nombre del Empleado" name="Nombre">
+    </div>
+     <script>
+                var $ = jQuery;
+                $(function(){
+                    canecode_switch("#example","col", ".col");
+                });
+            </script>
+
+            
+  </div>
 	 <div class="alinearCombobox">
  	<label class="control-label">Seleccione firma</label>
  
@@ -207,6 +223,7 @@ include('../cerraConexionVam.php');
 if (isset($_POST['Imprimir'])) {
  include('../crearConexionGECOMP.php'); 
   $us= $_SESSION['CodEmpleado'];
+  $Name=$_POST['Nombre'];
 
 $fechaActual= date('Y-m-d');
   $optenerAnioFechaActual=date('Y',strtotime($fechaActual));
@@ -246,13 +263,17 @@ if ($totalFilas==0 || $optenerAnioFechaActual > $optenerAnioFecha1) {
 $codigoGnerado="VAC".$contador."-".$fechaAInsertar;
 
 
+if ($Name=='') {
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos,Estado_Entrega) VALUES (7,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us' ,getdate(),'$idCoop','$contador','$concatenada',1)");
+}else{
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos,Estado_Entrega) VALUES (7,'$codigoGnerado','$Name','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us' ,getdate(),'$idCoop','$contador','$concatenada',1)");
+}
 
-$insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Apellido,Codigo_Empleado,Cargo,Asignado,sueldo,Estado,Usuario_Creacion,Fecha_Creacion,Id_Constancia_Dirigida,NUMERO_CORRELATIVO,Codigo_Bonos,Estado_Entrega) VALUES (7,'$codigoGnerado','$nom','$ape','$Codigo_Emplea','$cargo','$asig','$opnetersueldo',1,'$us' ,getdate(),'$idCoop','$contador','$concatenada',1)");
                                     
                                     if ($insertar) {
                                    
                                               $id=$_POST['id_firma'];
-                                            echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&y='.$aniomostrar.'&z='.$mesmostrar.'&ido='.$codigoGnerado.'"</script>';
+echo '<script>location.href="Pdf.php?x='.$id.'&proce='.$numero.'&y='.$aniomostrar.'&z='.$mesmostrar.'&ido='.$codigoGnerado.'&nombre='.$Name.' "</script>';
                                     }  else{
                                        echo "<script>alert('error')</script>";
                                       }
@@ -300,6 +321,7 @@ include('../cerraConexionVam.php');
 	<script src="../js/ripples.min.js"></script>
 	<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="../js/main.js"></script>
+  <script src="../js/canecode_switch.js"></script>
 	<script>
 		$.material.init();
 	</script>

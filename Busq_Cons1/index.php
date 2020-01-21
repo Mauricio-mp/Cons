@@ -73,6 +73,160 @@ $(document).ready(function(){
 
 
 <body class="Fondo">
+  <div class="modal fade" id="xls" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+  
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1> <?php  
+        session_start();
+        ob_start();
+
+          $fechaminima=$_POST['fechaMinima'];
+          $fechamaxima=$_POST['fechaMaxima'];
+          $opcion=$_POST['opcion'];
+
+       
+         ?></h1>
+
+      <div>
+        <form method="POST" id="add_name">
+          <div id="insert_data"></div>
+          <div class="form-group">
+
+            <table>
+              <tbody>
+                <tr>
+                  <td style="padding-right:130px"><input type="checkbox" name="Datos[]" value="Nombre">
+    <label class="form-check-label" for="exampleCheck1">Nombre</label></td>
+                   <td style="padding-right:130px"><input type="checkbox"    name="Datos[]" value="sueldo">
+    <label class="form-check-label" for="exampleCheck1">Sueldo</label></td>
+                </tr>
+                 <tr>
+                  <td style="padding-right:130px"><input type="checkbox"    name="Datos[]" value="Apellido">
+    <label class="form-check-label" for="exampleCheck1">Apellido</label></td>
+                   <td style="padding-right:130px"><input type="checkbox"   name="Datos[]" value="Fecha_Modificacion">
+    <label class="form-check-label" for="exampleCheck1">Fecha Modificacion</label></td>
+                </tr>
+                 <tr>
+                  <td style="padding-right:130px"><input type="checkbox"   name="Datos[]" value="Codigo_Empleado">
+    <label class="form-check-label" for="exampleCheck1">Codigo de Empleado</label></td>
+                   <td style="padding-right:130px"><input type="checkbox"   name="Datos[]" value="Fecha_Creacion">
+    <label class="form-check-label" for="exampleCheck1">Fecha de Emision</label></td>
+                </tr>
+                 <tr>
+                   <td style="padding-right:120px"><input type="checkbox"   name="Datos[]" value="Usuario_Modifcacion">
+    <label class="form-check-label" for="exampleCheck1">Usuario Modificacion</label></td>
+                   <td><input type="checkbox"    name="Datos[]" value="Estado_Entrega">
+    <label class="form-check-label" for="exampleCheck1">Estado de Entrega</label></td>
+                </tr>
+                 <tr>
+                 <td style="padding-right:120px"><input type="checkbox"   name="Datos[]" value="Comentario_Entrega">
+    <label class="form-check-label" for="exampleCheck1">Comentario de entrega</label></td>
+                  <td style="padding-right:120px"><input type="checkbox"   name="Datos[]" value="Observacion">
+    <label class="form-check-label" for="exampleCheck1">Observacion Anul.</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-right:120px"><input type="checkbox"   name="Datos[]" value="Tipo_Constancia">
+    <label class="form-check-label" for="exampleCheck1">Tipo de Constancia</label></td>
+    <td style="padding-right:120px"><input type="checkbox"   name="Datos[]" value="Estado">
+    <label class="form-check-label" for="exampleCheck1">Estado (A/I)</label></td>
+                </tr>
+               
+              </tbody>
+            </table>
+             <div class="form-check">
+     
+            </div>
+
+
+   <div >Elementos seleccionados <span ><strong id="str"></strong></span></div>
+  </div>     
+      </div>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" onclick="myFunction()" class="btn btn-primary">si</button>
+        <?php 
+        if (isset($_POST['si'])) {
+          
+          $uuu=$_POST['Datos'];
+     
+       header('location:excelEspecifico.php?x='.json_encode($uuu).'&y='.$Opcion.'  ');
+        }
+        
+         ?>
+
+      </div>
+      <script>
+function myFunction() {
+
+
+  
+  var fechaminima='<?php echo $fechaminima; ?>'
+  var fechamaxima='<?php echo $fechamaxima; ?>'
+  var opcion='<?php echo $opcion; ?>'
+
+
+      
+    var arr = $('[name="Datos[]"]:checked').map(function(){
+      return this.value;
+    }).get();
+
+    if(arr==''){
+    alert('DEBE SELECCINAR FILAS');
+   }else{
+    var str = arr.join(',');
+    
+    var array=JSON.stringify(arr);
+  
+   $('#str').text(str);
+
+
+  
+
+
+
+
+window.location = 'excelEspecifico.php?final='+fechamaxima+'&inicio='+fechaminima+'&opcion='+opcion+'&x='+array;
+   }
+    
+    
+}
+$('[name="Datos[]"]').click(function() {
+      
+    var arr = $('[name="Datos[]"]:checked').map(function(){
+      return this.value;
+    }).get();
+    
+    var str = arr.join(',');
+    
+    $('#arr').text(JSON.stringify(arr));
+    
+    $('#str').text(str);
+    var contar =arr.length;
+
+    if (contar>6) {
+      alert('solo pude seleccionar 6 filas');
+
+    }
+
+
+  
+  });
+</script>
+
+
+         </form>
+    </div>
+  </div>
+</div> 
 <div class="" style="margin-left:10em; margin-right:10em">
 <section style="background-color: #F9FAFA;">
   <div class="center container">
@@ -112,6 +266,8 @@ $(document).ready(function(){
         <button type="text" name="BtnAceptar" class="btn btn-primary" style="padding-left:80px;padding-right:80px  ">Aceptar</button>
       </div>
     </form>
+      
+
   </div>
 
 
@@ -127,6 +283,8 @@ $(document).ready(function(){
         <tr role="row">
             <th style="text-align: center">Tipo de Constancia</th>
             <th style="text-align: center">Codigo de Empleado</th>
+            <th style="text-align: center">Nombre</th>
+            <th style="text-align: center">Apellido</th>
             <th style="text-align: center">Estado de Entrega</th>
             <th style="text-align: center">Codigo Generado</th>
             <th style="text-align: center">Sueldo</th>
@@ -149,28 +307,39 @@ $(document).ready(function(){
  
           <?php 
    if (isset($_POST['BtnAceptar'])) {
+         $fechaMinima=$_POST['fechaMinima'];
+          $fechaMaxima=$_POST['fechaMaxima'];
+          $Opcion=$_POST['opcion'];
+
+        
      include('../crearConexionGECOMP.php');
-          $fechaminima=$_POST['fechaMinima'];
-          $fechamaxima=$_POST['fechaMaxima'];
-          $opcion=$_POST['opcion'];
+        
 
 
           echo '<div class="row">
         <div class="col text-center">
-          <a href="excel.php?x='.$opcion.'&fecha1='.$fechaminima.'&fecha2='.$fechamaxima.'">
-            Generar XLS
+          <a href="#"  data-toggle="modal" data-target="#xls">
+            Generar XLS Especifico
+          </a>
+
+        </div>
+      </div>';  
+        echo '<div class="row">
+        <div class="col text-center">
+          <a href="excel.php?x='.$Opcion.'&fecha1='.$fechaMinima.'&fecha2='.$fechaMaxima.'">
+            Generar XLS General
           </a>
         </div>
       </div>';          
 
-          if ($opcion=="Seleccione su opcion....." || $opcion =="") {
+          if ($Opcion=="Seleccione su opcion....." || $Opcion =="") {
              echo "<script>";
     echo "alert('Seleccione una Opcion');";
     echo "window.location = 'index.php';";
     echo "</script>";
           }
 
-          if (strtotime($fechamaxima) < strtotime($fechaminima)) {
+          if (strtotime($fechaMaxima) < strtotime($fechaMinima)) {
              echo "<script>";
     echo "alert('ASEGURESE QUE LAS FECHAS 
 
@@ -182,10 +351,10 @@ $(document).ready(function(){
 
 
 
-          if ($opcion==12) {
-          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima'");
+          if ($Opcion==12) {
+          $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between '$fechaMinima' and '$fechaMaxima'");
              }else{
-              $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaminima' and '$fechamaxima' AND Tipo_Constancia='$opcion'");
+              $consultar=mssql_query("SELECT * FROM CONSTANCIA_GENERADA WHERE Fecha_Creacion between ' $fechaMinima' and '$fechaMaxima' AND Tipo_Constancia='$Opcion'");
 
              }
           while ($fila=mssql_fetch_array($consultar)) {
@@ -203,11 +372,9 @@ $(document).ready(function(){
               $fila['Tipo_Constancia']="Constancia de Trabajo con Deducciones sin Plus";
             }
             if ($fila['Tipo_Constancia']=="5") {
-              $fila['Tipo_Constancia']="Constancia para BonofechaMinima de 13AVO";
+              $fila['Tipo_Constancia']="Constancia para Bono de 13AVO-14VO";
             }
-            if ($fila['Tipo_Constancia']=="6") {
-              $fila['Tipo_Constancia']="Constancia para Bono de 14AVO";
-            }
+           
             if ($fila['Tipo_Constancia']=="7") {
               $fila['Tipo_Constancia']="Constancia para Bono de Vacaciones";
             }
@@ -281,6 +448,9 @@ $(document).ready(function(){
            <tr>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Tipo_Constancia'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Codigo_Empleado'];?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Nombre']);?></td>
+             <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo utf8_encode($fila['Apellido'])?></td>
+
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['Estado_Entrega'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['cPeriodo'];?></td>
              <td style="text-align: center; background-color:<?php echo $Color?>"><?php echo $fila['sueldo'];?></td>
@@ -318,7 +488,7 @@ $(document).ready(function(){
     });
     
    $(".tr-show").click(function(){
-        // $("#myexample > tbody").append('<tr><td scope="col" colspan="13" rowspan="1">Rozwinięcie / dodanie dodatkowej treśći</td></tr>');
+        // $("#myexample > tbody").append('<tr><td scope="col" colspan="13" rowspan="1">Rozwiniecie / dodanie dodatkowej tresci</td></tr>');
         
         $("#updated_contacts").append($(".addElement span").clone());        
     
@@ -327,20 +497,23 @@ $(document).ready(function(){
     
 });
    </script>
+
 <!--<tr class="add-here">-->
 
 <!--</tr>-->
 <!--<tr class="add-hiere">-->
 <!--    <td colspan="13">-->
 <!--        <ul>-->
-<!--            <li>Sprawa w której jest dana ulotka</li>-->
-<!--            <li>inna sprawa w której jest dana ulotka</li>-->
+<!--            <li>Sprawa w kt�rej jest dana ulotka</li>-->
+<!--            <li>inna sprawa w kt�rej jest dana ulotka</li>-->
 <!--        </ul>-->
 <!--    </td>-->
 <!--</tr>-->
 </div>
 
 </div>
+
+
 
 	<!-- Content page-->
 
@@ -397,7 +570,7 @@ else
 	</script>
    <footer style="background-color:#011D30;padding: 20px;text-align: center">
     
-    <p style="color: white">Copyright &copy Site Name 2019. Ministerio Público.</p>
+    <p style="color: white">Copyright &copy Site Name 2019. Ministerio P�blico.</p>
   </footer>
 </body>
 </html>

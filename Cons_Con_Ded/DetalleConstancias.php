@@ -20,6 +20,7 @@ include('ConversionFecha.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="../css/Estilos.css">
+   <link rel="stylesheet" href="../css/canecode_switch.css">
 
 <style>
 .dropdown-submenu {
@@ -61,7 +62,7 @@ $opcion=$_GET['opcion'];
 
 
    if ($optenerCantidad>=2) {
-     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ESTA CONSTANCIA ".$optenerCantidad." VECES EN ESTE MES');</script>";
+//     echo "<script>alert('A ESTE EMPLEADO SE LE HAN GENERADO ESTA CONSTANCIA ".$optenerCantidad." VECES EN ESTE MES');</script>";
    }
 
 
@@ -100,12 +101,13 @@ if ($row=mssql_fetch_array($mostrarDatos)) {
    $fechaAcuerdo=fecha($dia2,$mes2,$anio2); 
    $DateNum= Optenerfecha($mes,$anio);
 
-  if ($row['dhire']==$row['dcntrct']) {
+   if (strtotime($row['dhire'])==strtotime($row['dcntrct'])) {
     $msg="ha laborado por acuerdo en esta institucion a partir del ".$fechaContrato.", ";
   }
-  if ($row['dhire']<$row['dcntrct']) {
+  if (strtotime($row['dhire'])<strtotime($row['dcntrct'])) {
     $msg="ha laborado por contrato en esta institucion a partir de ".$fechaContrato." y por acuerdo desde el ".$fechaAcuerdo.",";
   }
+
 $var=convertir($opnetersueldo);
 
 
@@ -422,6 +424,21 @@ while($verconsulta4=mssql_fetch_array($VaerDeduccionesTemporales)){
 
 
 <form method="POST">
+   <div class="ajustar">
+    <input id="example" type="checkbox" name="switch" >
+<div class="col">
+  <label class="control-label">Nombre de Empleado</label>
+    <input type="text"  class=" form-control " placeholder="Ingrese Nombre del Empleado" name="Nombre">
+    </div>
+
+            
+  </div>
+   <script>
+                var $ = jQuery;
+                $(function(){
+                    canecode_switch("#example","col", ".col");
+                });
+            </script>
    <div class="alinearCombobox">
   <label class="control-label">Seleccione firma</label>
  
@@ -484,6 +501,7 @@ include('../cerrarConexionGECOMP.php');
 if (isset($_POST['Imprimir'])) {
   $Codigo=$_SESSION['logeo'];
   $id=$_POST['id_firma'];
+  $Name=$_POST['Nombre'];
 include('../crearConexionGECOMP.php');
 
   $fechaActual= date('Y-m-d');
@@ -526,8 +544,12 @@ $codigoGnerado="CCD".$contador."-".$fechaAInsertar;
 
 
   // $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Nombre) VALUES ('sasas') ");
-   $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,Apellido,NUMERO_CORRELATIVO,Estado_Entrega) VALUES (2,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$Apellido','$contador',1)");
-
+if ($Name=='') {
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,Apellido,NUMERO_CORRELATIVO,Estado_Entrega) VALUES (2,'$codigoGnerado','$Nombre','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$Apellido','$contador',1)");
+}else{
+  $insertar=mssql_query("INSERT INTO CONSTANCIA_GENERADA(Tipo_Constancia,cPeriodo,Nombre,Cargo,Asignado,sueldo,Estado,Fecha_Creacion,Usuario_Creacion,Codigo_Empleado,NUMERO_CORRELATIVO,Estado_Entrega) VALUES (2,'$codigoGnerado','$Name','$cargo','$Asignadoa','$opnetersueldo',1,GETDATE(),'$Codigo','$numero','$contador',1)");
+}
+   
   
 
     // $sqa=mssql_query("SELECT Id_constancia FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero' and Id_constancia= (SELECT MAX(Id_constancia) FROM CONSTANCIA_GENERADA WHERE Codigo_Empleado='$numero')");
@@ -542,7 +564,7 @@ $codigoGnerado="CCD".$contador."-".$fechaAInsertar;
     //           $actualizar=mssql_query("UPDATE CONSTANCIA_GENERADA SET cPeriodo='$Codigo_cons' WHERE Id_constancia= '$maximo'");
 
  if ($insertar==true) {
-  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'&ido='.$codigoGnerado.'"</script>';
+  echo '<script>location.href="Pdf.php?firma='.$id.'&numero='.$numero.'&opcion='.$opcion.'&ido='.$codigoGnerado.'&name='.$Name.'  "</script>';
  }else{
   echo "<script>alert('Error al Guardar Datos')</script>";
  }
@@ -571,6 +593,7 @@ $codigoGnerado="CCD".$contador."-".$fechaAInsertar;
   <script src="../js/ripples.min.js"></script>
   <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/canecode_switch.js"></script>>
   <script>
     $.material.init();
   </script>

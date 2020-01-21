@@ -24,7 +24,10 @@ $password=$_POST['UserPass'];
             $_SESSION['CodEmpleado']=$row['CodEmpleado'];
 			$_SESSION['username']=$row['Nombre'];
 			$_SESSION['apellido']=$row['Apellido'];
-			$_SESSION['logeo']=$row['CodEmpleado'];
+            $_SESSION['logeo']=$row['CodEmpleado'];
+            
+           
+
 		header("location:Home.php");
 	}
 
